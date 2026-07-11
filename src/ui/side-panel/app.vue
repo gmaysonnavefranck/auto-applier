@@ -50,7 +50,7 @@ async function autofillPage() {
   try {
     const results = await chrome.scripting.executeScript({
       target: { tabId, allFrames: true },
-      func: autofillFrame,
+      func: autofillFrame as unknown as () => void,
       args: [data],
     })
     const filled = results.reduce((sum, r) => sum + (Number(r.result) || 0), 0)
@@ -69,9 +69,11 @@ async function autofillPage() {
 <template>
   <UApp>
     <div class="flex flex-col h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-white">
-
       <header class="flex items-center justify-between px-3 py-2.5 border-b border-gray-200 dark:border-gray-800 shrink-0">
-        <RouterLink to="/side-panel" class="flex items-center gap-2">
+        <RouterLink
+          to="/side-panel"
+          class="flex items-center gap-2"
+        >
           <div class="w-7 h-7 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-xs select-none">
             AA
           </div>
@@ -80,16 +82,41 @@ async function autofillPage() {
 
         <div class="flex gap-0.5">
           <UTooltip text="Configure resume">
-            <UButton size="xs" variant="ghost" color="neutral" icon="i-lucide-file-text" @click="openResumePage" />
+            <UButton
+              size="xs"
+              variant="ghost"
+              color="neutral"
+              icon="i-lucide-file-text"
+              @click="openResumePage"
+            />
           </UTooltip>
           <UTooltip text="Preview resume">
-            <UButton size="xs" variant="ghost" color="neutral" icon="i-lucide-eye" @click="openResumePreview" />
+            <UButton
+              size="xs"
+              variant="ghost"
+              color="neutral"
+              icon="i-lucide-eye"
+              @click="openResumePreview"
+            />
           </UTooltip>
           <UTooltip text="Autofill page">
-            <UButton size="xs" variant="ghost" color="neutral" icon="i-lucide-wand-2" :loading="autofilling" @click="autofillPage" />
+            <UButton
+              size="xs"
+              variant="ghost"
+              color="neutral"
+              icon="i-lucide-wand-2"
+              :loading="autofilling"
+              @click="autofillPage"
+            />
           </UTooltip>
           <UTooltip text="Registered sites">
-            <UButton to="/side-panel/sites" size="xs" variant="ghost" color="neutral" icon="i-lucide-globe" />
+            <UButton
+              to="/side-panel/sites"
+              size="xs"
+              variant="ghost"
+              color="neutral"
+              icon="i-lucide-globe"
+            />
           </UTooltip>
           <UTooltip
             :text="`Daily job boards — ${jobBoardsStore.visitedTodayCount}/${jobBoardsStore.boards.length} checked today`"
@@ -105,14 +132,16 @@ async function autofillPage() {
         </div>
       </header>
 
-      <div v-if="autofillMsg" class="px-3 py-1.5 bg-primary-50 dark:bg-primary-950 border-b border-primary-200 dark:border-primary-800 text-xs text-primary-700 dark:text-primary-300 shrink-0">
+      <div
+        v-if="autofillMsg"
+        class="px-3 py-1.5 bg-primary-50 dark:bg-primary-950 border-b border-primary-200 dark:border-primary-800 text-xs text-primary-700 dark:text-primary-300 shrink-0"
+      >
         {{ autofillMsg }}
       </div>
 
       <main class="flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-900">
         <RouterView />
       </main>
-
     </div>
   </UApp>
 </template>

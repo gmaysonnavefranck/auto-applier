@@ -65,7 +65,7 @@ export function extractFromMeta(): Partial<ExtractedJob> {
 
   // Many job sites format the title as "Role | Company | Site" or "Role - Company"
   const knownSiteNames = /^(linkedin|indeed|glassdoor|monster|ziprecruiter|workday|lever|greenhouse|wellfound|angellist)$/i
-  const parts = rawTitle.split(/\s*[\|–\-]\s*/).map(p => p.trim()).filter(Boolean)
+  const parts = rawTitle.split(/\s*[|–-]\s*/).map(p => p.trim()).filter(Boolean)
 
   const jobTitle = parts[0] ?? rawTitle
   // Second segment is company only if it doesn't look like the site's own name

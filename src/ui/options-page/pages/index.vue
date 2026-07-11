@@ -594,8 +594,8 @@ function prefill() {
       >
         <template #content>
           <div
-            class="p-5 space-y-4"
             v-if="editingWork"
+            class="p-5 space-y-4"
           >
             <h3 class="font-semibold text-gray-900 dark:text-white">
               Work Experience
@@ -806,8 +806,8 @@ function prefill() {
       >
         <template #content>
           <div
-            class="p-5 space-y-4"
             v-if="editingEdu"
+            class="p-5 space-y-4"
           >
             <h3 class="font-semibold text-gray-900 dark:text-white">
               Education
@@ -960,8 +960,8 @@ function prefill() {
       >
         <template #content>
           <div
-            class="p-5 space-y-4"
             v-if="editingSkill"
+            class="p-5 space-y-4"
           >
             <h3 class="font-semibold">Skill Category</h3>
             <UFormField
@@ -1105,8 +1105,8 @@ function prefill() {
       >
         <template #content>
           <div
-            class="p-5 space-y-4"
             v-if="editingLang"
+            class="p-5 space-y-4"
           >
             <h3 class="font-semibold">Language</h3>
             <UFormField

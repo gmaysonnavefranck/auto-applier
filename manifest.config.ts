@@ -10,9 +10,8 @@ const [major, minor, patch, label = "0"] = version
   // split into version parts
   .split(/[.-]/)
 
-// @ts-expect-error manifest provides all required fields
-export default defineManifest((env) => ({
-  key: env["CHROME_ADDON_KEY"],
+export default defineManifest(() => ({
+  key: processEnv.CHROME_ADDON_KEY,
   author: {
     email: "gmaysonnavefranck@gmail.com",
   },

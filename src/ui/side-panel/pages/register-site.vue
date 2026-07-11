@@ -60,7 +60,7 @@ onUnmounted(async () => {
   await cancelPicker()
 })
 
-function onMessage(msg: { type: string; selector?: string; field?: FieldType }) {
+function onMessage(msg: { type: string; selector?: string; field?: FieldType }): undefined {
   if (msg.type === 'FIELD_CAPTURED' && msg.field && msg.selector) {
     mappings.value = { ...mappings.value, [msg.field]: msg.selector }
     pickingField.value = null
@@ -80,23 +80,25 @@ async function testSelector(field: FieldType) {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
   if (!tab?.id) return
 
-  chrome.tabs.sendMessage(
-    tab.id,
-    { type: 'TEST_SELECTOR', selector },
-    (response: { ok: boolean; count: number; preview?: string } | undefined) => {
-      if (chrome.runtime.lastError || !response?.ok) {
-        previews.value = { ...previews.value, [field]: undefined }
-        previewErrors.value = { ...previewErrors.value, [field]: 'Reload this tab first — content script not active yet.' }
-        return
-      }
-      if (!response.count) {
-        previews.value = { ...previews.value, [field]: undefined }
-        previewErrors.value = { ...previewErrors.value, [field]: 'No matching element found on this page.' }
-        return
-      }
-      previews.value = { ...previews.value, [field]: { count: response.count, text: response.preview ?? '' } }
-    },
-  )
+  let response: { ok: boolean; count: number; preview?: string } | undefined
+  try {
+    response = await chrome.tabs.sendMessage(tab.id, { type: 'TEST_SELECTOR', selector })
+  } catch {
+    previews.value = { ...previews.value, [field]: undefined }
+    previewErrors.value = { ...previewErrors.value, [field]: 'Reload this tab first — content script not active yet.' }
+    return
+  }
+  if (!response?.ok) {
+    previews.value = { ...previews.value, [field]: undefined }
+    previewErrors.value = { ...previewErrors.value, [field]: 'Reload this tab first — content script not active yet.' }
+    return
+  }
+  if (!response.count) {
+    previews.value = { ...previews.value, [field]: undefined }
+    previewErrors.value = { ...previewErrors.value, [field]: 'No matching element found on this page.' }
+    return
+  }
+  previews.value = { ...previews.value, [field]: { count: response.count, text: response.preview ?? '' } }
 }
 
 async function startPicker(field: FieldType) {
@@ -109,19 +111,23 @@ async function startPicker(field: FieldType) {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
   if (!tab?.id) return
 
-  chrome.tabs.sendMessage(tab.id, { type: 'START_PICKER', field }, () => {
-    if (chrome.runtime.lastError) {
-      pickingField.value = null
-      pickError.value = 'Reload this tab first — content script not active yet.'
-    }
-  })
+  try {
+    await chrome.tabs.sendMessage(tab.id, { type: 'START_PICKER', field })
+  } catch {
+    pickingField.value = null
+    pickError.value = 'Reload this tab first — content script not active yet.'
+  }
 }
 
 async function cancelPicker() {
   if (!pickingField.value) return
   pickingField.value = null
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
-  if (tab?.id) chrome.tabs.sendMessage(tab.id, { type: 'STOP_PICKER' }, () => {})
+  if (tab?.id) {
+    try {
+      await chrome.tabs.sendMessage(tab.id, { type: 'STOP_PICKER' })
+    } catch { /* content script not active — nothing to stop */ }
+  }
 }
 
 function clearField(field: FieldType) {
@@ -202,7 +208,12 @@ async function save() {
       <p class="text-xs text-gray-500 pl-7">
         Click "Pick" to select an element on the page, or use the pencil icon to type a CSS selector manually.
       </p>
-      <p v-if="pickError" class="text-xs text-red-500 pl-7 mt-1">⚠ {{ pickError }}</p>
+      <p
+        v-if="pickError"
+        class="text-xs text-red-500 pl-7 mt-1"
+      >
+        ⚠ {{ pickError }}
+      </p>
     </div>
 
     <!-- Site info -->
@@ -244,17 +255,23 @@ async function save() {
           pickingField === field
             ? 'border-primary-400 ring-2 ring-primary-200 dark:ring-primary-800'
             : mappings[field]
-            ? 'border-green-300 dark:border-green-700'
-            : 'border-gray-200 dark:border-gray-800'
+              ? 'border-green-300 dark:border-green-700'
+              : 'border-gray-200 dark:border-gray-800'
         "
       >
         <!-- Field header -->
         <div class="flex items-center gap-2 px-2.5 py-2">
-          <UIcon :name="FIELD_CONFIG[field].icon" class="text-gray-400 shrink-0 text-sm" />
+          <UIcon
+            :name="FIELD_CONFIG[field].icon"
+            class="text-gray-400 shrink-0 text-sm"
+          />
           <div class="flex-1 min-w-0">
             <p class="text-xs font-medium text-gray-800 dark:text-gray-200">
               {{ FIELD_CONFIG[field].label }}
-              <span v-if="FIELD_CONFIG[field].required" class="text-red-400 ml-0.5">*</span>
+              <span
+                v-if="FIELD_CONFIG[field].required"
+                class="text-red-400 ml-0.5"
+              >*</span>
             </p>
             <p class="text-[10px] text-gray-400 leading-tight">{{ FIELD_CONFIG[field].hint }}</p>
           </div>
@@ -272,8 +289,20 @@ async function save() {
               Cancel
             </UButton>
             <template v-else-if="editingField === field">
-              <UButton size="xs" color="green" variant="soft" icon="i-lucide-check" @click="confirmEdit(field)" />
-              <UButton size="xs" color="neutral" variant="ghost" icon="i-lucide-x" @click="cancelEdit" />
+              <UButton
+                size="xs"
+                color="green"
+                variant="soft"
+                icon="i-lucide-check"
+                @click="confirmEdit(field)"
+              />
+              <UButton
+                size="xs"
+                color="neutral"
+                variant="ghost"
+                icon="i-lucide-x"
+                @click="cancelEdit"
+              />
             </template>
             <template v-else>
               <UButton
@@ -316,7 +345,10 @@ async function save() {
         </div>
 
         <!-- Manual selector edit -->
-        <div v-if="editingField === field" class="px-2.5 pb-2 -mt-0.5">
+        <div
+          v-if="editingField === field"
+          class="px-2.5 pb-2 -mt-0.5"
+        >
           <UInput
             v-model="editValue"
             placeholder="e.g. h1, .job-title, [aria-label*='Title']"
@@ -337,7 +369,10 @@ async function save() {
             {{ mappings[field] }}
           </code>
 
-          <p v-if="previewErrors[field]" class="text-[10px] text-red-500">
+          <p
+            v-if="previewErrors[field]"
+            class="text-[10px] text-red-500"
+          >
             ⚠ {{ previewErrors[field] }}
           </p>
           <div

@@ -75,94 +75,167 @@ const contactItems = computed(() => {
 
 <template>
   <div class="preview-root">
-
     <!-- ── Toolbar (hidden on print) ────────────────── -->
     <div class="toolbar no-print">
-      <button class="tb-btn" @click="$router.back()">← Back</button>
+      <button
+        class="tb-btn"
+        @click="$router.back()"
+      >
+        ← Back
+      </button>
       <span class="tb-title">
         Resume Preview
-        <span v-if="targetApp" class="tb-tailored-tag">
+        <span
+          v-if="targetApp"
+          class="tb-tailored-tag"
+        >
           ✨ Tailored for {{ targetApp.jobTitle }} @ {{ targetApp.company }}
         </span>
       </span>
-      <button class="tb-btn tb-print" @click="print()">Print / Save as PDF</button>
+      <button
+        class="tb-btn tb-print"
+        @click="print()"
+      >
+        Print / Save as PDF
+      </button>
     </div>
 
     <!-- ── Paper ────────────────────────────────────── -->
     <div class="page-wrap">
       <div class="resume">
-
         <!-- Header -->
         <header class="r-header">
           <h1 class="r-name">{{ r.basics.name }}</h1>
-          <p v-if="r.basics.title" class="r-subtitle">{{ r.basics.title }}</p>
+          <p
+            v-if="r.basics.title"
+            class="r-subtitle"
+          >
+            {{ r.basics.title }}
+          </p>
           <p class="r-contact">
-            <template v-for="(item, i) in contactItems" :key="i">
-              <span v-if="i > 0" class="dot"> · </span>
-              <a v-if="item.href" :href="item.href" target="_blank">{{ item.label }}</a>
+            <template
+              v-for="(item, i) in contactItems"
+              :key="i"
+            >
+              <span
+                v-if="i > 0"
+                class="dot"
+              > · </span>
+              <a
+                v-if="item.href"
+                :href="item.href"
+                target="_blank"
+              >{{ item.label }}</a>
               <span v-else>{{ item.label }}</span>
             </template>
           </p>
         </header>
 
         <!-- Summary -->
-        <section v-if="r.basics.summary?.trim()" class="r-section">
+        <section
+          v-if="r.basics.summary?.trim()"
+          class="r-section"
+        >
           <h2 class="r-sec-title">Summary</h2>
           <p class="r-summary">{{ r.basics.summary }}</p>
         </section>
 
         <!-- Work Experience -->
-        <section v-if="r.work?.length" class="r-section">
+        <section
+          v-if="r.work?.length"
+          class="r-section"
+        >
           <h2 class="r-sec-title">Work Experience</h2>
-          <div v-for="job in r.work" :key="job.id" class="entry">
+          <div
+            v-for="job in r.work"
+            :key="job.id"
+            class="entry"
+          >
             <div class="entry-row">
-              <span class="entry-org">{{ job.company }}<span v-if="job.companyDescription" class="entry-org-desc"> — {{ job.companyDescription }}</span></span>
-              <span v-if="job.location" class="entry-meta">{{ job.location }}</span>
+              <span class="entry-org">{{ job.company }}<span
+                v-if="job.companyDescription"
+                class="entry-org-desc"
+              > — {{ job.companyDescription }}</span></span>
+              <span
+                v-if="job.location"
+                class="entry-meta"
+              >{{ job.location }}</span>
             </div>
             <div class="entry-row">
               <span class="entry-role">{{ job.position }}</span>
               <span class="entry-meta">{{ job.startDate }} – {{ job.endDate || 'Present' }}</span>
             </div>
-            <ul v-if="job.highlights?.length" class="bullets">
-              <li v-for="(bullet, i) in job.highlights" :key="i">{{ bullet }}</li>
+            <ul
+              v-if="job.highlights?.length"
+              class="bullets"
+            >
+              <li
+                v-for="(bullet, i) in job.highlights"
+                :key="i"
+              >
+                {{ bullet }}
+              </li>
             </ul>
           </div>
         </section>
 
         <!-- Education -->
-        <section v-if="r.education?.length" class="r-section">
+        <section
+          v-if="r.education?.length"
+          class="r-section"
+        >
           <h2 class="r-sec-title">Education</h2>
-          <div v-for="edu in r.education" :key="edu.id" class="entry">
+          <div
+            v-for="edu in r.education"
+            :key="edu.id"
+            class="entry"
+          >
             <div class="entry-row">
               <span class="entry-org">{{ edu.institution }}</span>
               <span class="entry-meta">{{ edu.startDate }} – {{ edu.endDate || 'Present' }}</span>
             </div>
             <div class="entry-row">
               <span class="entry-role">{{ edu.degree }}{{ edu.field ? ` in ${edu.field}` : '' }}</span>
-              <span v-if="edu.gpa" class="entry-meta">GPA {{ edu.gpa }}</span>
+              <span
+                v-if="edu.gpa"
+                class="entry-meta"
+              >GPA {{ edu.gpa }}</span>
             </div>
           </div>
         </section>
 
         <!-- Skills -->
-        <section v-if="r.skills?.length" class="r-section">
+        <section
+          v-if="r.skills?.length"
+          class="r-section"
+        >
           <h2 class="r-sec-title">Skills</h2>
-          <div v-for="group in r.skills" :key="group.id" class="skill-row">
+          <div
+            v-for="group in r.skills"
+            :key="group.id"
+            class="skill-row"
+          >
             <span class="skill-cat">{{ group.category }}</span>
             <span class="skill-items">{{ group.items.join(' · ') }}</span>
           </div>
         </section>
 
         <!-- Languages -->
-        <section v-if="(r.languages ?? []).length" class="r-section">
+        <section
+          v-if="(r.languages ?? []).length"
+          class="r-section"
+        >
           <h2 class="r-sec-title">Languages</h2>
           <div class="lang-row">
-            <span v-for="lang in (r.languages ?? [])" :key="lang.id" class="lang-item">
+            <span
+              v-for="lang in (r.languages ?? [])"
+              :key="lang.id"
+              class="lang-item"
+            >
               {{ lang.name }} – {{ lang.proficiency }}
             </span>
           </div>
         </section>
-
       </div>
     </div>
   </div>

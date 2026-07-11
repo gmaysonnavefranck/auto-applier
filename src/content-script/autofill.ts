@@ -53,7 +53,8 @@ export function autofillFrame(data: Record<string, string>): number {
           ? window.HTMLSelectElement.prototype
           : window.HTMLInputElement.prototype
     const setter = Object.getOwnPropertyDescriptor(proto, "value")?.set
-    setter ? setter.call(el, value) : (el.value = value)
+    if (setter) setter.call(el, value)
+    else el.value = value
     el.dispatchEvent(new Event("input", { bubbles: true }))
     el.dispatchEvent(new Event("change", { bubbles: true }))
   }

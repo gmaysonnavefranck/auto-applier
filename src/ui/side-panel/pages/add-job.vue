@@ -64,18 +64,25 @@ function submit() {
 
 <template>
   <div class="flex flex-col min-h-full">
-
     <!-- Header -->
     <div class="flex items-center gap-2 px-3 py-2.5 border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 shrink-0">
-      <UButton size="xs" variant="ghost" color="neutral" icon="i-lucide-arrow-left" @click="router.back()" />
+      <UButton
+        size="xs"
+        variant="ghost"
+        color="neutral"
+        icon="i-lucide-arrow-left"
+        @click="router.back()"
+      />
       <span class="text-sm font-medium">Add job manually</span>
     </div>
 
     <!-- Form -->
     <div class="flex-1 overflow-y-auto px-3 py-4">
       <div class="flex flex-col gap-3">
-
-        <UFormField label="Job title" required>
+        <UFormField
+          label="Job title"
+          required
+        >
           <UInput
             v-model="jobTitle"
             placeholder="Software Engineer"
@@ -84,7 +91,10 @@ function submit() {
           />
         </UFormField>
 
-        <UFormField label="Company" required>
+        <UFormField
+          label="Company"
+          required
+        >
           <UInput
             v-model="company"
             placeholder="Acme Corp"
@@ -137,15 +147,30 @@ function submit() {
           />
         </UFormField>
 
-        <p v-if="error" class="text-xs text-red-500">{{ error }}</p>
+        <p
+          v-if="error"
+          class="text-xs text-red-500"
+        >
+          {{ error }}
+        </p>
 
         <div class="flex gap-2 pt-1">
-          <UButton variant="ghost" color="neutral" class="flex-1" @click="router.back()">Cancel</UButton>
-          <UButton class="flex-1" @click="submit">Save job</UButton>
+          <UButton
+            variant="ghost"
+            color="neutral"
+            class="flex-1"
+            @click="router.back()"
+          >
+            Cancel
+          </UButton>
+          <UButton
+            class="flex-1"
+            @click="submit"
+          >
+            Save job
+          </UButton>
         </div>
-
       </div>
     </div>
-
   </div>
 </template>

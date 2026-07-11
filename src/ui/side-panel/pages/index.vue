@@ -54,7 +54,7 @@ function handleTabActivated() {
 
 function handleTabUpdated(
   _tabId: number,
-  changeInfo: chrome.tabs.TabChangeInfo,
+  changeInfo: Parameters<Parameters<typeof chrome.tabs.onUpdated.addListener>[0]>[1],
 ) {
   if (changeInfo.status === "complete" || changeInfo.url) refreshTab()
 }
@@ -84,69 +84,68 @@ async function saveJob(useJsonLdOnly = false) {
 
   const mappings = useJsonLdOnly ? [] : (siteConfig.value?.mappings ?? [])
 
-  chrome.tabs.sendMessage(
-    currentTab.value.id,
-    { type: "EXTRACT_JOB", mappings },
-    (response) => {
-      saving.value = false
+  let response: { ok: boolean; data?: Record<string, string> } | undefined
+  try {
+    response = await chrome.tabs.sendMessage(currentTab.value.id, {
+      type: "EXTRACT_JOB",
+      mappings,
+    })
+  } catch {
+    saving.value = false
+    saveError.value = "Reload this tab first — content script not active yet."
+    return
+  }
+  saving.value = false
 
-      if (chrome.runtime.lastError) {
-        saveError.value =
-          "Reload this tab first — content script not active yet."
-        return
-      }
+  if (!response?.ok) {
+    saveError.value = "Could not extract job data from this page."
+    return
+  }
 
-      if (!response?.ok) {
-        saveError.value = "Could not extract job data from this page."
-        return
-      }
+  const data = response.data as {
+    url: string
+    jobTitle?: string
+    company?: string
+    location?: string
+    salary?: string
+    description?: string
+    source?: string
+  }
+  if (!data.jobTitle) {
+    saveError.value = useJsonLdOnly
+      ? "No structured job data found. Try registering this site instead."
+      : "Could not read the job title. Check your field selectors."
+    return
+  }
 
-      const data = response.data as {
-        url: string
-        jobTitle?: string
-        company?: string
-        location?: string
-        salary?: string
-        description?: string
-        source?: string
-      }
-      if (!data.jobTitle) {
-        saveError.value = useJsonLdOnly
-          ? "No structured job data found. Try registering this site instead."
-          : "Could not read the job title. Check your field selectors."
-        return
-      }
+  const url = data.url || currentTab.value?.url || ""
+  const jobTitle = data.jobTitle || "Unknown Role"
+  const company = data.company || "Unknown Company"
 
-      const url = data.url || currentTab.value?.url || ""
-      const jobTitle = data.jobTitle || "Unknown Role"
-      const company = data.company || "Unknown Company"
+  const duplicate = appsStore.findDuplicate({ url, company, jobTitle })
+  if (
+    duplicate &&
+    !confirm(
+      `You already saved "${duplicate.jobTitle}" at ${duplicate.company} (${new Date(duplicate.dateAdded).toLocaleDateString()}). Save this as a duplicate anyway?`,
+    )
+  ) {
+    return
+  }
 
-      const duplicate = appsStore.findDuplicate({ url, company, jobTitle })
-      if (
-        duplicate &&
-        !confirm(
-          `You already saved "${duplicate.jobTitle}" at ${duplicate.company} (${new Date(duplicate.dateAdded).toLocaleDateString()}). Save this as a duplicate anyway?`,
-        )
-      ) {
-        return
-      }
-
-      appsStore.addApplication({
-        id: crypto.randomUUID(),
-        siteConfigId: siteConfig.value?.id ?? "",
-        domain: currentDomain.value,
-        jobBoard: getBoardName(currentDomain.value),
-        url,
-        jobTitle,
-        company,
-        location: data.location || undefined,
-        salary: data.salary || undefined,
-        description: data.description || undefined,
-        status: "saved",
-        dateAdded: new Date().toISOString(),
-      })
-    },
-  )
+  appsStore.addApplication({
+    id: crypto.randomUUID(),
+    siteConfigId: siteConfig.value?.id ?? "",
+    domain: currentDomain.value,
+    jobBoard: getBoardName(currentDomain.value),
+    url,
+    jobTitle,
+    company,
+    location: data.location || undefined,
+    salary: data.salary || undefined,
+    description: data.description || undefined,
+    status: "saved",
+    dateAdded: new Date().toISOString(),
+  })
 }
 
 const filteredApps = computed(() => {
@@ -193,25 +192,13 @@ async function tailorResume(app: Application) {
       throw new Error("Resume is empty — please configure your resume first.")
     }
 
-    const response = await new Promise<{
-      ok: boolean
-      result?: TailoredResume
-      error?: string
-    }>((resolve, reject) => {
-      chrome.runtime.sendMessage(
-        {
-          type: "TAILOR_RESUME",
-          apiKey: aiStore.claudeApiKey,
-          resume,
-          jobDescription: app.description!,
-        },
-        (res) => {
-          if (chrome.runtime.lastError)
-            reject(new Error(chrome.runtime.lastError.message))
-          else resolve(res)
-        },
-      )
-    })
+    const response: { ok: boolean; result?: TailoredResume; error?: string } =
+      await chrome.runtime.sendMessage({
+        type: "TAILOR_RESUME",
+        apiKey: aiStore.claudeApiKey,
+        resume,
+        jobDescription: app.description!,
+      })
 
     if (!response.ok) throw new Error(response.error ?? "Unknown error")
     appsStore.updateApplication(app.id, { tailoredResume: response.result! })

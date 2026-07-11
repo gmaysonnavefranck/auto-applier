@@ -205,8 +205,8 @@ function confirmRemove(board: JobBoard) {
     >
       <template #content>
         <div
-          class="p-5 space-y-4"
           v-if="editing"
+          class="p-5 space-y-4"
         >
           <h3 class="font-semibold text-gray-900 dark:text-white">
             {{ store.boards.some((b) => b.id === editing!.id) ? "Edit" : "Add" }}

@@ -42,7 +42,10 @@ function confirmDelete(site: SiteConfig) {
       v-if="sitesStore.sites.length === 0"
       class="flex flex-col items-center justify-center py-12 text-center"
     >
-      <UIcon name="i-lucide-globe" class="text-4xl text-gray-300 mb-3" />
+      <UIcon
+        name="i-lucide-globe"
+        class="text-4xl text-gray-300 mb-3"
+      />
       <p class="text-sm text-gray-500">No sites registered yet.</p>
       <p class="text-xs text-gray-400 mt-1">Visit a job board and click "Add site" to get started.</p>
     </div>
@@ -84,7 +87,10 @@ function confirmDelete(site: SiteConfig) {
           :key="mapping.field"
           class="flex items-center gap-1 text-[10px] bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded px-1.5 py-0.5"
         >
-          <UIcon :name="FIELD_CONFIG[mapping.field].icon" class="text-gray-400 text-[11px]" />
+          <UIcon
+            :name="FIELD_CONFIG[mapping.field].icon"
+            class="text-gray-400 text-[11px]"
+          />
           <span class="text-gray-600 dark:text-gray-400 font-medium">
             {{ FIELD_CONFIG[mapping.field].label }}
           </span>
