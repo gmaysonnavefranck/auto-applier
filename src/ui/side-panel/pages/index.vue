@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from "vue"
+import { ref, computed, onMounted, onUnmounted } from "vue"
 import { useRouter } from "vue-router"
 import type { Application, ApplicationStatus, SiteConfig } from "src/types/jobs"
 import { STATUS_CONFIG, STATUS_ORDER, getBoardName } from "src/types/jobs"
@@ -37,7 +37,27 @@ function toggleExpand(id: string) {
   }
 }
 
-onMounted(refreshTab)
+onMounted(() => {
+  refreshTab()
+  chrome.tabs.onActivated.addListener(handleTabActivated)
+  chrome.tabs.onUpdated.addListener(handleTabUpdated)
+})
+
+onUnmounted(() => {
+  chrome.tabs.onActivated.removeListener(handleTabActivated)
+  chrome.tabs.onUpdated.removeListener(handleTabUpdated)
+})
+
+function handleTabActivated() {
+  refreshTab()
+}
+
+function handleTabUpdated(
+  _tabId: number,
+  changeInfo: chrome.tabs.TabChangeInfo,
+) {
+  if (changeInfo.status === "complete" || changeInfo.url) refreshTab()
+}
 
 async function refreshTab() {
   try {
@@ -47,6 +67,9 @@ async function refreshTab() {
       currentDomain.value = new URL(tab.url).hostname
       siteConfig.value =
         sitesStore.getSiteForDomain(currentDomain.value) ?? null
+    } else {
+      currentDomain.value = ""
+      siteConfig.value = null
     }
   } catch {
     // tabs API unavailable in this context
@@ -601,31 +624,6 @@ async function tailorResume(app: Application) {
               class="text-xs text-gray-400 italic"
             >
               No description saved — re-save the job to capture it.
-            </p>
-          </div>
-
-          <!-- Resume -->
-          <div>
-            <p
-              class="text-[10px] font-semibold text-gray-500 uppercase tracking-wide mb-1"
-            >
-              Resume
-            </p>
-            <p
-              v-if="app.resumeFileName"
-              class="text-xs text-gray-700 dark:text-gray-300 flex items-center gap-1"
-            >
-              <UIcon
-                name="i-lucide-file-text"
-                class="text-gray-400 text-xs shrink-0"
-              />
-              {{ app.resumeFileName }}
-            </p>
-            <p
-              v-else
-              class="text-xs text-gray-400 italic"
-            >
-              No resume attached yet.
             </p>
           </div>
 
