@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useResumeStore } from 'src/stores/resume.store'
 import { useApplicationsStore } from 'src/stores/applications.store'
-import { sanitizeForAts } from 'src/utils/claude'
+import { sanitizeForAts } from 'src/utils/text'
 import type { Resume } from 'src/types/resume'
 
 const store = useResumeStore()

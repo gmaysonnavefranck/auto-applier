@@ -1,18 +1,6 @@
 import type { Resume } from "src/types/resume"
 import type { TailoredResume } from "src/types/jobs"
-
-export function sanitizeForAts(text: string): string {
-  return text
-    .replace(/[‘’]/g, "'")                          // smart single quotes
-    .replace(/[“”]/g, '"')                          // smart double quotes
-    .replace(/[–—]/g, '-')                          // en-dash / em-dash
-    .replace(/…/g, '...')                                // ellipsis
-    .replace(/ /g, ' ')                                  // non-breaking space
-    .replace(/[•●▪‣⁃·]/g, '-') // bullets / middle dots
-    .replace(/®/g, '(R)')
-    .replace(/™/g, 'TM')
-    .trim()
-}
+import { sanitizeForAts } from "src/utils/text"
 
 function extractJsonObject(text: string): string | null {
   const start = text.indexOf("{")

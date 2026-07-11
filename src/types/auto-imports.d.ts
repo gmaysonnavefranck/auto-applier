@@ -149,7 +149,7 @@ declare global {
   const resolveRef: typeof import('@vueuse/core').resolveRef
   const resolveUnref: typeof import('@vueuse/core')['resolveUnref']
   const router: typeof import('../utils/router')['router']
-  const sanitizeForAts: typeof import('../utils/claude').sanitizeForAts
+  const sanitizeForAts: typeof import('../utils/text').sanitizeForAts
   const setActivePinia: typeof import('pinia').setActivePinia
   const setMapStoreSuffix: typeof import('pinia').setMapStoreSuffix
   const shallowReactive: typeof import('vue').shallowReactive
@@ -521,7 +521,7 @@ declare module 'vue' {
     readonly refThrottled: UnwrapRef<typeof import('@vueuse/core')['refThrottled']>
     readonly refWithControl: UnwrapRef<typeof import('@vueuse/core')['refWithControl']>
     readonly resolveComponent: UnwrapRef<typeof import('vue')['resolveComponent']>
-    readonly sanitizeForAts: UnwrapRef<typeof import('../utils/claude')['sanitizeForAts']>
+    readonly sanitizeForAts: UnwrapRef<typeof import('../utils/text')['sanitizeForAts']>
     readonly setActivePinia: UnwrapRef<typeof import('pinia')['setActivePinia']>
     readonly setMapStoreSuffix: UnwrapRef<typeof import('pinia')['setMapStoreSuffix']>
     readonly shallowReactive: UnwrapRef<typeof import('vue')['shallowReactive']>

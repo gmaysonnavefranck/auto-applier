@@ -391,6 +391,7 @@ function prefill() {
           <UInput
             :model-value="store.resume.basics.name"
             placeholder="Jane Doe"
+            class="w-full"
             @change="
               updateBasic('name', ($event.target as HTMLInputElement).value)
             "
@@ -401,6 +402,7 @@ function prefill() {
             :model-value="store.resume.basics.email"
             placeholder="jane@example.com"
             type="email"
+            class="w-full"
             @change="
               updateBasic('email', ($event.target as HTMLInputElement).value)
             "
@@ -426,6 +428,7 @@ function prefill() {
           <UInput
             :model-value="store.resume.basics.phone ?? ''"
             placeholder="+1 555 000 0000"
+            class="w-full"
             @change="
               updateBasic('phone', ($event.target as HTMLInputElement).value)
             "
@@ -435,6 +438,7 @@ function prefill() {
           <UInput
             :model-value="store.resume.basics.location ?? ''"
             placeholder="San Francisco, CA"
+            class="w-full"
             @change="
               updateBasic('location', ($event.target as HTMLInputElement).value)
             "
@@ -444,6 +448,7 @@ function prefill() {
           <UInput
             :model-value="store.resume.basics.github ?? ''"
             placeholder="https://github.com/you"
+            class="w-full"
             @change="
               updateBasic('github', ($event.target as HTMLInputElement).value)
             "
@@ -453,6 +458,7 @@ function prefill() {
           <UInput
             :model-value="store.resume.basics.linkedin ?? ''"
             placeholder="https://linkedin.com/in/you"
+            class="w-full"
             @change="
               updateBasic('linkedin', ($event.target as HTMLInputElement).value)
             "
@@ -565,6 +571,7 @@ function prefill() {
                 <UInput
                   v-model="editingWork.company"
                   placeholder="Acme Corp"
+                  class="w-full"
                 />
               </UFormField>
               <UFormField
@@ -574,6 +581,7 @@ function prefill() {
                 <UInput
                   v-model="editingWork.position"
                   placeholder="Software Engineer"
+                  class="w-full"
                 />
               </UFormField>
               <UFormField
@@ -590,6 +598,7 @@ function prefill() {
                 <UInput
                   v-model="editingWork.location"
                   placeholder="Remote"
+                  class="w-full"
                 />
               </UFormField>
               <div class="grid grid-cols-2 gap-2">
@@ -597,12 +606,14 @@ function prefill() {
                   <UInput
                     v-model="editingWork.startDate"
                     placeholder="Jan 2022"
+                    class="w-full"
                   />
                 </UFormField>
                 <UFormField label="End">
                   <UInput
                     v-model="editingWork.endDate"
                     placeholder="Present"
+                    class="w-full"
                   />
                 </UFormField>
               </div>
@@ -782,24 +793,28 @@ function prefill() {
                 <UInput
                   v-model="editingEdu.degree"
                   placeholder="B.S."
+                  class="w-full"
                 />
               </UFormField>
               <UFormField label="Field of Study">
                 <UInput
                   v-model="editingEdu.field"
                   placeholder="Computer Science"
+                  class="w-full"
                 />
               </UFormField>
               <UFormField label="Start">
                 <UInput
                   v-model="editingEdu.startDate"
                   placeholder="Sep 2018"
+                  class="w-full"
                 />
               </UFormField>
               <UFormField label="End">
                 <UInput
                   v-model="editingEdu.endDate"
                   placeholder="May 2022"
+                  class="w-full"
                 />
               </UFormField>
               <UFormField
@@ -809,6 +824,7 @@ function prefill() {
                 <UInput
                   v-model="editingEdu.gpa"
                   placeholder="3.8"
+                  class="w-full"
                 />
               </UFormField>
             </div>

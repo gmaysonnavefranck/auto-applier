@@ -33,13 +33,6 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
-    '/side-panel/': RouteRecordInfo<
-      '/side-panel/',
-      '/side-panel',
-      Record<never, never>,
-      Record<never, never>,
-      | never
-    >,
   }
 
   /**
@@ -56,12 +49,6 @@ declare module 'vue-router/auto-routes' {
     'src/ui/common/pages/404.vue': {
       routes:
         | '/common/404'
-      views:
-        | never
-    }
-    'src/ui/side-panel/pages/index.vue': {
-      routes:
-        | '/side-panel/'
       views:
         | never
     }

@@ -28,5 +28,6 @@ declare module 'vue' {
     UFormField: typeof import('./../../node_modules/@nuxt/ui/dist/runtime/components/FormField.vue')['default']
     UInput: typeof import('./../../node_modules/@nuxt/ui/dist/runtime/components/Input.vue')['default']
     USwitch: typeof import('./../../node_modules/@nuxt/ui/dist/runtime/components/Switch.vue')['default']
+    UTooltip: typeof import('./../../node_modules/@nuxt/ui/dist/runtime/components/Tooltip.vue')['default']
   }
 }
