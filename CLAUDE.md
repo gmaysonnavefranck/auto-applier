@@ -6,8 +6,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 A Chrome (Manifest V3) extension for tracking job applications, called **Auto Applier**. Built on the `vite-vue3-browser-extension-v3` template (Vue 3 + Vite, multi-context, file-based routing).
 
-> **Status**: this repo was reset to a clean copy of the template to get organized. The domain code described below (job scraping, applications, resume tailoring) existed in a previous working version and is being rebuilt from another local branch — treat the "Domain architecture" section as the target architecture, not a guarantee that every file listed already exists in `src/`. Update that note once the rebuild lands.
-
 ## Commands
 
 ```bash
