@@ -40,13 +40,6 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
-    '/options-page/': RouteRecordInfo<
-      '/options-page/',
-      '/options-page',
-      Record<never, never>,
-      Record<never, never>,
-      | never
-    >,
     '/side-panel/': RouteRecordInfo<
       '/side-panel/',
       '/side-panel',
@@ -76,12 +69,6 @@ declare module 'vue-router/auto-routes' {
     'src/ui/content-script-iframe/pages/index.vue': {
       routes:
         | '/content-script-iframe/'
-      views:
-        | never
-    }
-    'src/ui/options-page/pages/index.vue': {
-      routes:
-        | '/options-page/'
       views:
         | never
     }
