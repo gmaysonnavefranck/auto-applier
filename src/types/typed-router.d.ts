@@ -33,13 +33,6 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
-    '/content-script-iframe/': RouteRecordInfo<
-      '/content-script-iframe/',
-      '/content-script-iframe',
-      Record<never, never>,
-      Record<never, never>,
-      | never
-    >,
     '/side-panel/': RouteRecordInfo<
       '/side-panel/',
       '/side-panel',
@@ -63,12 +56,6 @@ declare module 'vue-router/auto-routes' {
     'src/ui/common/pages/404.vue': {
       routes:
         | '/common/404'
-      views:
-        | never
-    }
-    'src/ui/content-script-iframe/pages/index.vue': {
-      routes:
-        | '/content-script-iframe/'
       views:
         | never
     }
