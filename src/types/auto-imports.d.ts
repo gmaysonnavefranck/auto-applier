@@ -120,6 +120,7 @@ declare global {
   const onUnmounted: typeof import('vue').onUnmounted
   const onUpdated: typeof import('vue').onUpdated
   const onWatcherCleanup: typeof import('vue').onWatcherCleanup
+  const openExtensionPage: typeof import('../utils/navigation').openExtensionPage
   const openStripeCheckout: typeof import('../utils/payment/stripe')['openStripeCheckout']
   const optionsStore: typeof import('../stores/options.store')['default']
   const pausableWatch: typeof import('@vueuse/core').pausableWatch
@@ -502,6 +503,7 @@ declare module 'vue' {
     readonly onUnmounted: UnwrapRef<typeof import('vue')['onUnmounted']>
     readonly onUpdated: UnwrapRef<typeof import('vue')['onUpdated']>
     readonly onWatcherCleanup: UnwrapRef<typeof import('vue')['onWatcherCleanup']>
+    readonly openExtensionPage: UnwrapRef<typeof import('../utils/navigation')['openExtensionPage']>
     readonly pausableWatch: UnwrapRef<typeof import('@vueuse/core')['pausableWatch']>
     readonly pinia: UnwrapRef<typeof import('../utils/pinia')['pinia']>
     readonly provide: UnwrapRef<typeof import('vue')['provide']>

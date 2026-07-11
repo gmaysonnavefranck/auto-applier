@@ -101,6 +101,7 @@
     "onUnmounted": true,
     "onUpdated": true,
     "onWatcherCleanup": true,
+    "openExtensionPage": true,
     "pausableWatch": true,
     "pinia": true,
     "provide": true,
