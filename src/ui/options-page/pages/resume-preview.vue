@@ -345,6 +345,7 @@ const contactItems = computed(() => {
   margin: 4px 0 0;
   padding-left: 16px;
   font-size: 10pt;
+  list-style: disc outside;
 }
 
 .bullets li {

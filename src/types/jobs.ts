@@ -161,6 +161,5 @@ export interface Application {
   dateAdded: string
   dateApplied?: string
   notes?: string
-  resumeFileName?: string
   tailoredResume?: TailoredResume
 }
