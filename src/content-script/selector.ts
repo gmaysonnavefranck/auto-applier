@@ -1,6 +1,20 @@
+// Short pure-hex strings (e.g. LinkedIn's Atomic CSS: c62a27b1, ca9510cb).
+// Real hand-written class/id names essentially never use only 0-9a-f AND
+// contain a digit; build-hash classes like these regenerate every reload/
+// deploy, so they must never be trusted as stable even though they're too
+// short to trip the 12-char hash check and too digit-sparse to trip the
+// 5-consecutive-digits check.
+function looksLikeHexHash(value: string): boolean {
+  return /^[0-9a-f]{6,10}$/i.test(value) && /\d/.test(value)
+}
+
 // IDs with 3+ digit runs are almost always dynamic (job IDs, ember IDs, etc.)
 function idLooksDynamic(value: string): boolean {
-  return /\d{3,}/.test(value) || /^[a-z0-9]{12,}$/i.test(value)
+  return (
+    /\d{3,}/.test(value) ||
+    /^[a-z0-9]{12,}$/i.test(value) ||
+    looksLikeHexHash(value)
+  )
 }
 
 // Data attribute VALUES that look like they contain job-specific data
@@ -8,7 +22,8 @@ function valueLooksDynamic(value: string): boolean {
   return (
     /\d{4,}/.test(value) ||          // long digit run → job ID
     /^[a-z0-9]{12,}$/i.test(value) || // random hash
-    /urn:|uuid|token/i.test(value)    // URNs, UUIDs, tokens
+    /urn:|uuid|token/i.test(value) ||  // URNs, UUIDs, tokens
+    looksLikeHexHash(value)
   )
 }
 
@@ -18,6 +33,7 @@ function classLooksDynamic(cls: string): boolean {
     /\d{5,}/.test(cls) ||             // 5+ consecutive digits
     /^[a-zA-Z0-9]{12,}$/.test(cls) || // pure hash (lower, upper, or mixed-case CSS-in-JS)
     /^(css-|sc-|_\w{4,})/.test(cls) ||  // CSS-in-JS prefixes
+    looksLikeHexHash(cls) ||          // short hex-hash classes (LinkedIn Atomic CSS, etc.)
     looksLikeStateFlag(cls)          // transient interaction state, not identity
   )
 }

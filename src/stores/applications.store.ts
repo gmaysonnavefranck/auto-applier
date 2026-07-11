@@ -36,6 +36,23 @@ export const useApplicationsStore = defineStore("applications", () => {
     applications.value = applications.value.filter((a) => a.id !== id)
   }
 
+  function findDuplicate(candidate: {
+    url: string
+    company: string
+    jobTitle: string
+  }): Application | undefined {
+    const company = candidate.company.trim().toLowerCase()
+    const jobTitle = candidate.jobTitle.trim().toLowerCase()
+
+    return applications.value.find((a) => {
+      if (candidate.url && a.url === candidate.url) return true
+      return (
+        a.company.trim().toLowerCase() === company &&
+        a.jobTitle.trim().toLowerCase() === jobTitle
+      )
+    })
+  }
+
   const activeCount = computed(
     () =>
       applications.value.filter(
@@ -49,6 +66,7 @@ export const useApplicationsStore = defineStore("applications", () => {
     setStatus,
     updateApplication,
     removeApplication,
+    findDuplicate,
     activeCount,
   }
 })

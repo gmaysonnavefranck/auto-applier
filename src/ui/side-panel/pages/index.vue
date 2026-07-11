@@ -90,8 +90,6 @@ async function saveJob(useJsonLdOnly = false) {
     (response) => {
       saving.value = false
 
-      console.log(response)
-
       if (chrome.runtime.lastError) {
         saveError.value =
           "Reload this tab first — content script not active yet."
@@ -119,14 +117,28 @@ async function saveJob(useJsonLdOnly = false) {
         return
       }
 
+      const url = data.url || currentTab.value?.url || ""
+      const jobTitle = data.jobTitle || "Unknown Role"
+      const company = data.company || "Unknown Company"
+
+      const duplicate = appsStore.findDuplicate({ url, company, jobTitle })
+      if (
+        duplicate &&
+        !confirm(
+          `You already saved "${duplicate.jobTitle}" at ${duplicate.company} (${new Date(duplicate.dateAdded).toLocaleDateString()}). Save this as a duplicate anyway?`,
+        )
+      ) {
+        return
+      }
+
       appsStore.addApplication({
         id: crypto.randomUUID(),
         siteConfigId: siteConfig.value?.id ?? "",
         domain: currentDomain.value,
         jobBoard: getBoardName(currentDomain.value),
-        url: data.url || currentTab.value?.url || "",
-        jobTitle: data.jobTitle || "Unknown Role",
-        company: data.company || "Unknown Company",
+        url,
+        jobTitle,
+        company,
         location: data.location || undefined,
         salary: data.salary || undefined,
         description: data.description || undefined,

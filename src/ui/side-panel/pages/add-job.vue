@@ -29,6 +29,20 @@ function submit() {
     try { domain = new URL(url.value).hostname } catch { /* invalid url */ }
   }
 
+  const duplicate = appsStore.findDuplicate({
+    url: url.value.trim(),
+    company: company.value.trim(),
+    jobTitle: jobTitle.value.trim(),
+  })
+  if (
+    duplicate &&
+    !confirm(
+      `You already saved "${duplicate.jobTitle}" at ${duplicate.company} (${new Date(duplicate.dateAdded).toLocaleDateString()}). Save this as a duplicate anyway?`,
+    )
+  ) {
+    return
+  }
+
   appsStore.addApplication({
     id:           crypto.randomUUID(),
     siteConfigId: '',
