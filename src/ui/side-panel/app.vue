@@ -2,10 +2,12 @@
 import { ref } from 'vue'
 import { toRaw } from 'vue'
 import { useResumeStore } from 'src/stores/resume.store'
+import { useJobBoardsStore } from 'src/stores/jobBoards.store'
 import { autofillFrame } from 'src/content-script/autofill'
 import { openExtensionPage } from 'src/utils/navigation'
 
 const resumeStore = useResumeStore()
+const jobBoardsStore = useJobBoardsStore()
 
 const autofilling = ref(false)
 const autofillMsg = ref('')
@@ -88,6 +90,17 @@ async function autofillPage() {
           </UTooltip>
           <UTooltip text="Registered sites">
             <UButton to="/side-panel/sites" size="xs" variant="ghost" color="neutral" icon="i-lucide-globe" />
+          </UTooltip>
+          <UTooltip
+            :text="`Daily job boards — ${jobBoardsStore.visitedTodayCount}/${jobBoardsStore.boards.length} checked today`"
+          >
+            <UButton
+              to="/side-panel/job-boards"
+              size="xs"
+              variant="ghost"
+              :color="jobBoardsStore.statusColor"
+              icon="i-lucide-list-checks"
+            />
           </UTooltip>
         </div>
       </header>

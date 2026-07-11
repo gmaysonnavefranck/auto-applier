@@ -61,6 +61,13 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    '/side-panel/job-boards': RouteRecordInfo<
+      '/side-panel/job-boards',
+      '/side-panel/job-boards',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     '/side-panel/register-site': RouteRecordInfo<
       '/side-panel/register-site',
       '/side-panel/register-site',
@@ -115,6 +122,12 @@ declare module 'vue-router/auto-routes' {
     'src/ui/side-panel/pages/add-job.vue': {
       routes:
         | '/side-panel/add-job'
+      views:
+        | never
+    }
+    'src/ui/side-panel/pages/job-boards.vue': {
+      routes:
+        | '/side-panel/job-boards'
       views:
         | never
     }
