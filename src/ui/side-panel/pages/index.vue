@@ -8,6 +8,7 @@ import { useApplicationsStore } from "src/stores/applications.store"
 import { useResumeStore } from "src/stores/resume.store"
 import { useAiStore } from "src/stores/ai.store"
 import type { TailoredResume } from "src/types/jobs"
+import { openExtensionPage } from "src/utils/navigation"
 
 const sitesStore = useSitesStore()
 const appsStore = useApplicationsStore()
@@ -138,12 +139,13 @@ function daysAgo(iso: string): string {
 }
 
 function openTailoredPreview(appId: string) {
-  chrome.tabs.create({
-    url:
-      chrome.runtime.getURL("src/ui/options-page/index.html") +
-      "#/options-page/resume-preview?appId=" +
-      encodeURIComponent(appId),
-  })
+  openExtensionPage(
+    "#/options-page/resume-preview?appId=" + encodeURIComponent(appId),
+  )
+}
+
+function openOptions() {
+  openExtensionPage()
 }
 
 async function tailorResume(app: Application) {

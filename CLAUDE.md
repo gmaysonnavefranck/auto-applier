@@ -35,9 +35,8 @@ Before committing: `npm run lint` and `npm run typecheck` must be clean.
 - `content-script/` — DOM injection, page interaction
 - `ui/side-panel/` — main UI (jobs list, site registration)
 - `ui/options-page/` — settings (Claude API key, base resume)
-- `ui/content-script-iframe/` — Vue UI injectable into the page DOM; unused today, kept for a possible future element-picker overlay
 
-There's no action-popup, devtools-panel, setup wizard, or offscreen context — trimmed since this extension only uses the side panel + options page.
+There's no action-popup, devtools-panel, setup wizard, offscreen, or content-script-iframe context — trimmed since this extension only uses the side panel + options page. The site-registration element picker (`content-script/picker.ts`) overlays a highlight box + tooltip directly via DOM manipulation, not an injected iframe.
 
 ### Shared code
 

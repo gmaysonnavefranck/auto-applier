@@ -33,6 +33,48 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    '/options-page/': RouteRecordInfo<
+      '/options-page/',
+      '/options-page',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/options-page/resume-preview': RouteRecordInfo<
+      '/options-page/resume-preview',
+      '/options-page/resume-preview',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/side-panel/': RouteRecordInfo<
+      '/side-panel/',
+      '/side-panel',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/side-panel/add-job': RouteRecordInfo<
+      '/side-panel/add-job',
+      '/side-panel/add-job',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/side-panel/register-site': RouteRecordInfo<
+      '/side-panel/register-site',
+      '/side-panel/register-site',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/side-panel/sites': RouteRecordInfo<
+      '/side-panel/sites',
+      '/side-panel/sites',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
   }
 
   /**
@@ -49,6 +91,42 @@ declare module 'vue-router/auto-routes' {
     'src/ui/common/pages/404.vue': {
       routes:
         | '/common/404'
+      views:
+        | never
+    }
+    'src/ui/options-page/pages/index.vue': {
+      routes:
+        | '/options-page/'
+      views:
+        | never
+    }
+    'src/ui/options-page/pages/resume-preview.vue': {
+      routes:
+        | '/options-page/resume-preview'
+      views:
+        | never
+    }
+    'src/ui/side-panel/pages/index.vue': {
+      routes:
+        | '/side-panel/'
+      views:
+        | never
+    }
+    'src/ui/side-panel/pages/add-job.vue': {
+      routes:
+        | '/side-panel/add-job'
+      views:
+        | never
+    }
+    'src/ui/side-panel/pages/register-site.vue': {
+      routes:
+        | '/side-panel/register-site'
+      views:
+        | never
+    }
+    'src/ui/side-panel/pages/sites.vue': {
+      routes:
+        | '/side-panel/sites'
       views:
         | never
     }

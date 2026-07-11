@@ -1,6 +1,6 @@
 import fs from "node:fs"
 import { fileURLToPath } from "node:url"
-import { dirname, relative, resolve } from "node:path"
+import { dirname, relative } from "node:path"
 import { defineConfig, type PluginOption } from "vite"
 import { crx } from "@crxjs/vite-plugin"
 import vue from "@vitejs/plugin-vue"
@@ -71,11 +71,6 @@ export default defineConfig({
     outDir: browserOutDir,
     watch: IS_DEV ? {} : undefined,
     sourcemap: IS_DEV ? "inline" : false,
-    rollupOptions: {
-      input: {
-        iframe: resolve(__dirname, "src/ui/content-script-iframe/index.html"),
-      },
-    },
     terserOptions: {
       mangle: false,
     },

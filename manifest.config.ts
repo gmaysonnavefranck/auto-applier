@@ -43,13 +43,6 @@ export default defineManifest((env) => ({
   offline_enabled: true,
   host_permissions: ["<all_urls>"],
   permissions: ["storage", "tabs", "background", "sidePanel"],
-  web_accessible_resources: [
-    {
-      resources: ["src/ui/content-script-iframe/index.html"],
-      matches: ["<all_urls>"],
-      use_dynamic_url: false,
-    },
-  ],
   icons: {
     16: "src/assets/logo.png",
     24: "src/assets/logo.png",

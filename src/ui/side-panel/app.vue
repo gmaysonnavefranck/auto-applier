@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { toRaw } from 'vue'
 import { useResumeStore } from 'src/stores/resume.store'
 import { autofillFrame } from 'src/content-script/autofill'
+import { openExtensionPage } from 'src/utils/navigation'
 
 const resumeStore = useResumeStore()
 
@@ -10,15 +11,11 @@ const autofilling = ref(false)
 const autofillMsg = ref('')
 
 function openResumePage() {
-  chrome.tabs.create({ url: chrome.runtime.getURL('src/ui/options-page/index.html') + '#/options-page/resume' })
+  openExtensionPage()
 }
 
 function openResumePreview() {
-  chrome.tabs.create({ url: chrome.runtime.getURL('src/ui/options-page/index.html') + '#/options-page/resume-preview' })
-}
-
-function openOptions() {
-  chrome.tabs.create({ url: chrome.runtime.getURL('src/ui/options-page/index.html') })
+  openExtensionPage('#/options-page/resume-preview')
 }
 
 async function autofillPage() {
@@ -85,9 +82,6 @@ async function autofillPage() {
           </UTooltip>
           <UTooltip text="Preview resume">
             <UButton size="xs" variant="ghost" color="neutral" icon="i-lucide-eye" @click="openResumePreview" />
-          </UTooltip>
-          <UTooltip text="Options">
-            <UButton size="xs" variant="ghost" color="neutral" icon="i-lucide-settings" @click="openOptions" />
           </UTooltip>
           <UTooltip text="Autofill page">
             <UButton size="xs" variant="ghost" color="neutral" icon="i-lucide-wand-2" :loading="autofilling" @click="autofillPage" />
