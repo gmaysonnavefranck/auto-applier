@@ -2,6 +2,7 @@
 import { ref } from "vue"
 import { useResumeStore } from "src/stores/resume.store"
 import { useAiStore } from "src/stores/ai.store"
+import { exportBackup, importBackup } from "src/utils/backup"
 import type {
   ResumeWork,
   ResumeEducation,
@@ -19,6 +20,43 @@ import {
 
 const store = useResumeStore()
 const aiStore = useAiStore()
+
+// ─── Backup ──────────────────────────────────────────────────────────────────
+const fileInput = ref<HTMLInputElement | null>(null)
+const backupMsg = ref("")
+const backupError = ref(false)
+
+async function handleExport() {
+  await exportBackup()
+}
+
+async function handleImport(e: Event) {
+  const input = e.target as HTMLInputElement
+  const file = input.files?.[0]
+  if (!file) return
+
+  if (
+    !confirm(
+      "This overwrites your current sites, applications, resume, and job board list with the contents of this file. Continue?",
+    )
+  ) {
+    input.value = ""
+    return
+  }
+
+  try {
+    await importBackup(file)
+    backupError.value = false
+    backupMsg.value =
+      "Backup restored. Open the side panel to see your sites and applications."
+  } catch (err) {
+    backupError.value = true
+    backupMsg.value =
+      err instanceof Error ? err.message : "Could not import this file."
+  } finally {
+    input.value = ""
+  }
+}
 
 // ─── Basics ──────────────────────────────────────────────────────────────────
 function updateBasic(key: string, val: string) {
@@ -1108,6 +1146,55 @@ function prefill() {
           </div>
         </template>
       </UModal>
+    </section>
+
+    <USeparator />
+
+    <!-- ── Backup ────────────────────────────────────────────────────────── -->
+    <section class="space-y-3">
+      <h2
+        class="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide"
+      >
+        Backup & Restore
+      </h2>
+      <p class="text-[11px] text-gray-400">
+        Export your sites, applications, resume, and job board list to a JSON
+        file — this data only lives in this browser's local storage, so it's
+        worth keeping a copy. Does not include your Claude API key.
+      </p>
+      <div class="flex gap-2">
+        <UButton
+          size="xs"
+          variant="soft"
+          icon="i-lucide-download"
+          @click="handleExport"
+        >
+          Export backup
+        </UButton>
+        <UButton
+          size="xs"
+          variant="soft"
+          color="neutral"
+          icon="i-lucide-upload"
+          @click="fileInput?.click()"
+        >
+          Import backup
+        </UButton>
+        <input
+          ref="fileInput"
+          type="file"
+          accept="application/json"
+          class="hidden"
+          @change="handleImport"
+        />
+      </div>
+      <p
+        v-if="backupMsg"
+        class="text-xs"
+        :class="backupError ? 'text-red-500' : 'text-green-600 dark:text-green-400'"
+      >
+        {{ backupMsg }}
+      </p>
     </section>
   </div>
 </template>
