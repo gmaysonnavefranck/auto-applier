@@ -4,7 +4,6 @@ import { dirname, relative, resolve } from "node:path"
 import { defineConfig, type PluginOption } from "vite"
 import { crx } from "@crxjs/vite-plugin"
 import vue from "@vitejs/plugin-vue"
-import vueDevTools from "vite-plugin-vue-devtools"
 import VueRouter from "vue-router/vite"
 import TurboConsole from "unplugin-turbo-console/vite"
 import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite"
@@ -104,8 +103,6 @@ export default defineConfig({
           fs.mkdirSync(browserOutDir, { recursive: true })
       },
     },
-
-    vueDevTools(),
 
     VueI18nPlugin({
       include: "src/locales/**",
