@@ -117,15 +117,22 @@ export const STATUS_CONFIG: Record<
   ApplicationStatus,
   {
     label: string
-    color: "neutral" | "primary" | "violet" | "amber" | "green" | "red"
+    color:
+      | "neutral"
+      | "primary"
+      | "secondary"
+      | "info"
+      | "warning"
+      | "success"
+      | "error"
   }
 > = {
   saved: { label: "Saved", color: "neutral" },
   applied: { label: "Applied", color: "primary" },
-  screening: { label: "Screening", color: "violet" },
-  interview: { label: "Interview", color: "amber" },
-  offer: { label: "Offer", color: "green" },
-  rejected: { label: "Rejected", color: "red" },
+  screening: { label: "Screening", color: "info" },
+  interview: { label: "Interview", color: "warning" },
+  offer: { label: "Offer", color: "success" },
+  rejected: { label: "Rejected", color: "error" },
   withdrawn: { label: "Withdrawn", color: "neutral" },
 }
 

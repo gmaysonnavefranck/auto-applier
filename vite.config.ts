@@ -146,6 +146,11 @@ export default defineConfig({
       ui: {
         colors: {
           primary: "green",
+          secondary: "violet",
+          success: "green",
+          warning: "amber",
+          error: "red",
+          info: "blue",
           neutral: "slate",
         },
       },
