@@ -1,20 +1,27 @@
 import fs from "node:fs"
 import { fileURLToPath } from "node:url"
-import { defineConfig } from "vite"
+import { dirname, relative, resolve } from "node:path"
+import { defineConfig, type PluginOption } from "vite"
+import { crx } from "@crxjs/vite-plugin"
 import vue from "@vitejs/plugin-vue"
 import vueDevTools from "vite-plugin-vue-devtools"
 import VueRouter from "vue-router/vite"
 import TurboConsole from "unplugin-turbo-console/vite"
 import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite"
 import ui from "@nuxt/ui/vite"
+import zipPack from "vite-plugin-zip-pack"
+import chalk from "chalk"
 import "dotenv/config"
 
 // @ts-expect-error commonjs module
 import { define, raw } from "./define.config.mjs"
-import { dirname, relative, resolve } from "node:path"
+import manifest from "./manifest.config"
+import packageJson from "./package.json" with { type: "json" }
 
 const IS_DEV = process.env.NODE_ENV === "development"
-const PORT = Number(process.env.PORT) || 3303
+const outDir = "dist"
+const browserOutDir = `${outDir}/chrome`
+const outFileName = `chrome-${packageJson.version}.zip`
 
 const getImmediateDirectories = (path: string) =>
   fs
@@ -22,17 +29,52 @@ const getImmediateDirectories = (path: string) =>
     .filter((entry) => entry.isDirectory())
     .map((entry) => entry.name)
 
+const printMessage = (isDev: boolean): void => {
+  setTimeout(() => {
+    console.info("\n")
+    console.info(chalk.greenBright("✅ Successfully built for chrome."))
+    if (isDev) {
+      console.info(
+        chalk.greenBright(
+          `🚀 Load the extension via chrome://extensions/, enable "Developer mode", click "Load unpacked", and select the directory:`,
+        ),
+      )
+      console.info(chalk.greenBright(`📂 ${browserOutDir}`))
+    } else {
+      console.info(
+        chalk.greenBright(
+          `📦 Zip File: ${outDir}/${outFileName} (Upload to the store)`,
+        ),
+      )
+      console.info(chalk.greenBright(`🚀 Load manually from ${browserOutDir}`))
+    }
+    console.info("\n")
+  }, 50)
+}
+
+const buildMessagePlugin: PluginOption = {
+  name: "vite-plugin-build-message",
+  enforce: "post",
+  ...(IS_DEV
+    ? {
+        configureServer(server) {
+          server.httpServer?.once("listening", () => printMessage(true))
+        },
+      }
+    : {}),
+  closeBundle: { sequential: true, handler: () => printMessage(IS_DEV) },
+}
+
 export default defineConfig({
   base: IS_DEV ? `/` : "",
 
   build: {
+    outDir: browserOutDir,
     watch: IS_DEV ? {} : undefined,
     sourcemap: IS_DEV ? "inline" : false,
     rollupOptions: {
       input: {
-        setup: resolve(__dirname, "src/ui/setup/index.html"),
         iframe: resolve(__dirname, "src/ui/content-script-iframe/index.html"),
-        devtoolsPanel: resolve(__dirname, "src/ui/devtools-panel/index.html"),
       },
     },
     terserOptions: {
@@ -58,9 +100,8 @@ export default defineConfig({
     {
       name: "ensure-output-dir",
       buildStart() {
-        ;["dist/chrome", "dist/firefox"].forEach((dir) => {
-          if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true })
-        })
+        if (!fs.existsSync(browserOutDir))
+          fs.mkdirSync(browserOutDir, { recursive: true })
       },
     },
 
@@ -143,6 +184,26 @@ export default defineConfig({
         )
       },
     },
+
+    crx({
+      manifest,
+      browser: "chrome",
+      contentScripts: { injectCss: true },
+    }),
+
+    buildMessagePlugin,
+
+    ...(IS_DEV
+      ? []
+      : [
+          zipPack({
+            inDir: browserOutDir,
+            outDir,
+            outFileName,
+            filter: (_, filePath, isDirectory) =>
+              !(isDirectory && filePath.includes(".vite")),
+          }) as PluginOption,
+        ]),
   ],
 
   resolve: {
