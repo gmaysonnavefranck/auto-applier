@@ -62,7 +62,7 @@ Auto-imports enabled for Vue functions, stores, components. Use `~/` for project
 
 ### 1. Site registration → scraping pipeline
 
-Users register a job board domain (`src/ui/side-panel/pages/register-site.vue`) by picking DOM elements for each `FieldType` (`jobTitle`, `company`, `location`, `salary`, `description`, `applyButton` — defined in [src/types/jobs.ts](src/types/jobs.ts)). The flow crosses three layers:
+Users register a job board domain (`src/ui/side-panel/pages/register-site.vue`) by picking DOM elements for each `FieldType` (`jobTitle`, `company`, `location`, `salary`, `description` — defined in [src/types/jobs.ts](src/types/jobs.ts)). The flow crosses three layers:
 
 - **Picker** ([src/content-script/picker.ts](src/content-script/picker.ts)) — `ElementPicker` overlays a highlight box + tooltip on hover, and on click computes a selector via `getStableSelector`.
 - **Selector generation** ([src/content-script/selector.ts](src/content-script/selector.ts)) — builds a CSS selector that survives across job postings on the same site, not just the current DOM instance. It deliberately avoids anything that "looks dynamic" (job IDs, CSS-in-JS hashes, UUIDs) and prefers stable class combos → non-dynamic id → stable data-\* attr → structural nth-of-type path, in that priority order.

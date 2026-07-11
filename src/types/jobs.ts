@@ -4,7 +4,6 @@ export type FieldType =
   | "location"
   | "salary"
   | "description"
-  | "applyButton"
 
 export interface FieldConfig {
   label: string
@@ -44,12 +43,6 @@ export const FIELD_CONFIG: Record<FieldType, FieldConfig> = {
     icon: "i-lucide-file-text",
     hint: "Job responsibilities and requirements",
   },
-  applyButton: {
-    label: "Apply Button",
-    required: false,
-    icon: "i-lucide-mouse-pointer-click",
-    hint: "The primary apply / submit button",
-  },
 }
 
 export const FIELD_ORDER: FieldType[] = [
@@ -58,7 +51,6 @@ export const FIELD_ORDER: FieldType[] = [
   "location",
   "salary",
   "description",
-  "applyButton",
 ]
 
 const KNOWN_BOARDS: Record<string, string> = {
