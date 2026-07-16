@@ -222,7 +222,7 @@ const MY_RESUME: Resume = {
         "Developed and maintained a complex Vue.js resume editor featuring AI-powered resume rewriting, contextual improvement suggestions, and interactive editing tools.",
         "Engineered complex interactive editing experiences using advanced CSS and reactive Vue.js components to provide real-time visual feedback during resume creation.",
         "Improved accessibility across core product features by implementing WCAG-compliant interfaces and interaction patterns.",
-        "Developed reusable components for WordPress-based marketing websites, ensuring design consistency and reducing development effort.",
+        "Developed reusable WordPress components and implemented SEO-focused improvements, ensuring design consistency, maintainability, and search engine optimization across marketing websites.",
         "Extended the platform through Chrome extension development, integrating resume optimization directly into users' job application workflow.",
         "Collaborated cross-functionally with Product and Design to translate requirements into scalable frontend solutions.",
         "Documented reusable frontend components and established implementation guidelines to improve maintainability and developer onboarding.",
