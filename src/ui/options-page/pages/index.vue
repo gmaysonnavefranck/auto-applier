@@ -2,6 +2,7 @@
 import { ref } from "vue"
 import { useResumeStore } from "src/stores/resume.store"
 import { useAiStore } from "src/stores/ai.store"
+import { useGoalsStore } from "src/stores/goals.store"
 import { exportBackup, importBackup } from "src/utils/backup"
 import type {
   ResumeWork,
@@ -20,6 +21,7 @@ import {
 
 const store = useResumeStore()
 const aiStore = useAiStore()
+const goalsStore = useGoalsStore()
 
 // ─── Backup ──────────────────────────────────────────────────────────────────
 const fileInput = ref<HTMLInputElement | null>(null)
@@ -360,6 +362,7 @@ const MY_RESUME: Resume = {
         "SPA Development",
         "Responsive Design",
         "Accessibility (WCAG)",
+        "Technical SEO",
         "State Management",
         "Performance Optimization",
         "Micro-frontends",
@@ -480,6 +483,34 @@ function prefill() {
       <p class="text-[11px] text-gray-400">
         Stored locally. Used to call the Anthropic API directly from your
         browser when tailoring a resume for a job.
+      </p>
+    </section>
+
+    <USeparator />
+
+    <!-- ── Daily Goal ──────────────────────────────────────────────────────── -->
+    <section class="space-y-3">
+      <h2
+        class="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide"
+      >
+        Daily Goal
+      </h2>
+
+      <UFormField label="Applications per day">
+        <UInput
+          :model-value="goalsStore.dailyTarget || undefined"
+          type="number"
+          min="0"
+          placeholder="0 (disabled)"
+          class="w-full"
+          @change="
+            goalsStore.dailyTarget =
+              Number(($event.target as HTMLInputElement).value) || 0
+          "
+        />
+      </UFormField>
+      <p class="text-[11px] text-gray-400">
+        Set to 0 to hide the progress indicator in the side panel.
       </p>
     </section>
 

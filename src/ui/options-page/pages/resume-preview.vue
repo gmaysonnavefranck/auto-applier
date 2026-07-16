@@ -431,7 +431,7 @@ const contactItems = computed(() => {
   display: flex;
   gap: 8px;
   font-size: 9.5pt;
-  margin-bottom: 3px;
+  margin-bottom: 6px;
   line-height: 1.45;
 }
 
@@ -439,7 +439,7 @@ const contactItems = computed(() => {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 700;
   color: #1e3a5f;
-  min-width: 130px;
+  width: 130px;
   flex-shrink: 0;
 }
 

@@ -85,8 +85,9 @@ Read the job description and extract:
 
 STEP 2 — APPLY KEYWORDS HONESTLY
 For each keyword from Step 1:
-- If the candidate clearly uses it (same thing, different name) → use the JD's exact term in highlights and skills
-- If it is strongly implied by their tech stack or role (e.g. JD says "TypeScript" and candidate builds Vue 3 apps) → add it to skills
+- If the candidate clearly uses it, or it is the exact same underlying technology under a different name (e.g. JD says "TypeScript" and the candidate's resume shows TypeScript usage, even if not listed as a standalone skill) → use the JD's exact term in highlights and skills
+- If it is a specific named technology, framework, tool, or library the candidate's resume does NOT show them using — even if related or commonly paired with something they do use (e.g. JD says "React" and candidate only shows Vue experience) → do NOT add it. Never substitute one specific tool/framework/library for a different one.
+- General methodologies or practices clearly evidenced by their actual work (e.g. "agile", "CI/CD") may be added if genuinely reflected in their highlights
 - If it is completely absent from their background → do NOT add it
 
 STEP 3 — REWRITE
@@ -94,7 +95,7 @@ Summary: rewrite from scratch using the JD's role title, the candidate's real ye
 
 Work highlights: rewrite each bullet to mirror the JD's language. Replace generic phrases with the JD's specific terminology. Keep all facts (companies, dates, technologies actually mentioned) accurate. Lead each bullet with a strong action verb.
 
-Skills: add any clearly implied keywords from Step 2 into the appropriate categories. Reorder items so the most JD-relevant appear first.
+Skills: add only the keywords Step 2 approved into the appropriate categories. Reorder items so the most JD-relevant appear first.
 
 JOB DESCRIPTION:
 """

@@ -7,6 +7,7 @@ import { useSitesStore } from "src/stores/sites.store"
 import { useApplicationsStore } from "src/stores/applications.store"
 import { useResumeStore } from "src/stores/resume.store"
 import { useAiStore } from "src/stores/ai.store"
+import { useGoalsStore } from "src/stores/goals.store"
 import type { TailoredResume } from "src/types/jobs"
 import { openExtensionPage } from "src/utils/navigation"
 
@@ -14,6 +15,7 @@ const sitesStore = useSitesStore()
 const appsStore = useApplicationsStore()
 const resumeStore = useResumeStore()
 const aiStore = useAiStore()
+const goalsStore = useGoalsStore()
 const router = useRouter()
 
 const currentTab = ref<chrome.tabs.Tab | null>(null)
@@ -160,6 +162,13 @@ const statusCounts = computed(() => {
   return counts
 })
 
+const appliedToday = computed(() => {
+  const today = new Date().toDateString()
+  return appsStore.applications.filter(
+    (a) => a.dateApplied && new Date(a.dateApplied).toDateString() === today,
+  ).length
+})
+
 function nextStatus(current: ApplicationStatus): ApplicationStatus {
   const idx = STATUS_ORDER.indexOf(current)
   return STATUS_ORDER[Math.min(idx + 1, STATUS_ORDER.length - 1)]
@@ -292,6 +301,30 @@ async function tailorResume(app: Application) {
             Register
           </UButton>
         </div>
+      </div>
+    </div>
+
+    <!-- Daily goal progress -->
+    <div
+      v-if="goalsStore.dailyTarget > 0"
+      class="px-3 py-2 border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950"
+    >
+      <div class="flex items-center justify-between gap-2 mb-1">
+        <p class="text-[11px] font-medium text-gray-500">Today's goal</p>
+        <p class="text-[11px] font-medium text-gray-500">
+          {{ appliedToday }} / {{ goalsStore.dailyTarget }}
+        </p>
+      </div>
+      <div
+        class="h-1.5 rounded-full bg-gray-100 dark:bg-gray-800 overflow-hidden"
+      >
+        <div
+          class="h-full rounded-full bg-primary-500 transition-all"
+          :class="{ 'bg-green-500': appliedToday >= goalsStore.dailyTarget }"
+          :style="{
+            width: `${Math.min(100, (appliedToday / goalsStore.dailyTarget) * 100)}%`,
+          }"
+        />
       </div>
     </div>
 
