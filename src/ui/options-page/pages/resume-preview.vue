@@ -100,6 +100,19 @@ const contactItems = computed(() => {
       </button>
     </div>
 
+    <!-- ── Missing keywords (hidden on print) ────────── -->
+    <div
+      v-if="tailored?.missingKeywords?.length"
+      class="missing-kw no-print"
+    >
+      <span class="missing-kw-label">Not in your resume:</span>
+      <span
+        v-for="kw in tailored.missingKeywords"
+        :key="kw"
+        class="missing-kw-chip"
+      >{{ kw }}</span>
+    </div>
+
     <!-- ── Paper ────────────────────────────────────── -->
     <div class="page-wrap">
       <div class="resume">
@@ -295,6 +308,32 @@ const contactItems = computed(() => {
   font-size: 11px;
   font-weight: 400;
   opacity: 0.9;
+}
+
+/* ── Missing keywords ────────────────────────────────── */
+.missing-kw {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 20px;
+  background: #fff4e5;
+  border-bottom: 1px solid #f0d9b5;
+  font-size: 12px;
+}
+
+.missing-kw-label {
+  font-weight: 600;
+  color: #8a5a00;
+  margin-right: 2px;
+}
+
+.missing-kw-chip {
+  padding: 2px 9px;
+  border-radius: 20px;
+  background: #ffe3b3;
+  color: #7a4b00;
+  font-weight: 500;
 }
 
 

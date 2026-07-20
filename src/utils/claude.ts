@@ -86,9 +86,9 @@ Read the job description and extract:
 STEP 2 — APPLY KEYWORDS HONESTLY
 For each keyword from Step 1:
 - If the candidate clearly uses it, or it is the exact same underlying technology under a different name (e.g. JD says "TypeScript" and the candidate's resume shows TypeScript usage, even if not listed as a standalone skill) → use the JD's exact term in highlights and skills
-- If it is a specific named technology, framework, tool, or library the candidate's resume does NOT show them using — even if related or commonly paired with something they do use (e.g. JD says "React" and candidate only shows Vue experience) → do NOT add it. Never substitute one specific tool/framework/library for a different one.
+- If it is a specific named technology, framework, tool, or library the candidate's resume does NOT show them using — even if related or commonly paired with something they do use (e.g. JD says "React" and candidate only shows Vue experience) → do NOT add it, and record it in missingKeywords. Never substitute one specific tool/framework/library for a different one.
 - General methodologies or practices clearly evidenced by their actual work (e.g. "agile", "CI/CD") may be added if genuinely reflected in their highlights
-- If it is completely absent from their background → do NOT add it
+- If it is completely absent from their background → do NOT add it, and record it in missingKeywords
 
 STEP 3 — REWRITE
 Summary: rewrite from scratch using the JD's role title, the candidate's real years of experience, and the top 4–6 matched keywords. Make it directly address what the JD asks for.
@@ -121,7 +121,8 @@ Respond with ONLY valid JSON — no markdown fences, no explanation, nothing els
       "id": "exact-id-shown-in-brackets-above",
       "items": ["Most JD-relevant skill first", "...all items including any added keywords"]
     }
-  ]
+  ],
+  "missingKeywords": ["keyword from Step 1 that was NOT added to the resume, per Step 2 rules"]
 }
 
 Return ALL work entries and ALL skill groups. Every highlight must use the JD's language where applicable.`
@@ -167,6 +168,7 @@ Return ALL work entries and ALL skill groups. Every highlight must use the JD's 
     summary?: string
     work?: { id: string; highlights: string[] }[]
     skills?: { id: string; items: string[] }[]
+    missingKeywords?: string[]
   }
   try {
     parsed = JSON.parse(jsonStr)
@@ -189,6 +191,9 @@ Return ALL work entries and ALL skill groups. Every highlight must use the JD's 
           id: s.id,
           items: Array.isArray(s.items) ? s.items.map(sanitizeForAts) : [],
         }))
+      : [],
+    missingKeywords: Array.isArray(parsed.missingKeywords)
+      ? parsed.missingKeywords.map(sanitizeForAts)
       : [],
     generatedAt: new Date().toISOString(),
   }

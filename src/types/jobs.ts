@@ -142,6 +142,7 @@ export interface TailoredResume {
   summary: string
   work: { id: string; highlights: string[] }[]
   skills?: { id: string; items: string[] }[]
+  missingKeywords: string[]
   generatedAt: string
 }
 
