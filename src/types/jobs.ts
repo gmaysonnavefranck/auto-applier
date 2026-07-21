@@ -138,12 +138,19 @@ export const STATUS_ORDER: ApplicationStatus[] = [
   "withdrawn",
 ]
 
+export interface TailoredResumeReview {
+  summaryAccepted: boolean
+  work: { id: string; acceptedAdds: string[]; acceptedRemoves: string[] }[]
+  skills: { id: string; acceptedAdds: string[]; acceptedRemoves: string[] }[]
+}
+
 export interface TailoredResume {
   summary: string
   work: { id: string; highlights: string[] }[]
   skills?: { id: string; items: string[] }[]
   missingKeywords: string[]
   generatedAt: string
+  review?: TailoredResumeReview
 }
 
 export interface Application {
