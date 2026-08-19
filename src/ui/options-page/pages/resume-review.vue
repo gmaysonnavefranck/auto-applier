@@ -166,14 +166,48 @@ const showOnlyChanges = ref(true)
 function visibleOps(ops: DiffOp[]): DiffOp[] {
   return showOnlyChanges.value ? ops.filter((op) => op.type !== "unchanged") : ops
 }
+
+// ── Skills gap: not-covered vs still-pending ─────────────────────────────
+// Reuses the same skillDiffs/isAccepted computeds the checkboxes below are
+// bound to, so this list shrinks live as items get accepted — no separate
+// diffing pass and no separate "covered" list (once accepted, an item just
+// drops out of here).
+const pendingSkillAdds = computed(() => {
+  const items: string[] = []
+  for (const { group, ops } of skillDiffs.value) {
+    for (const op of ops) {
+      if (
+        op.type === "added" &&
+        !isAccepted("skills", group.id, op.value, "add") &&
+        !items.includes(op.value)
+      ) {
+        items.push(op.value)
+      }
+    }
+  }
+  return items
+})
+
+const hasSkillsGap = computed(
+  () => !!tailored.value?.missingKeywords?.length || pendingSkillAdds.value.length > 0,
+)
 </script>
 
 <template>
   <div class="max-w-5xl mx-auto px-4 py-8 space-y-8">
     <div v-if="!app || !tailored">
       <p class="text-sm text-gray-500">
-        No tailored resume found for this application. Go back to the side
-        panel and click "Optimize for this job" first.
+        <template v-if="!appId">
+          No application selected. Open this page from the side panel by
+          clicking "Review" on a tailored application.
+        </template>
+        <template v-else-if="!app">
+          This application could not be found — it may have been removed.
+        </template>
+        <template v-else>
+          This application doesn't have a tailored resume yet. Go back to
+          the side panel and click "Optimize for this job" first.
+        </template>
       </p>
     </div>
 
@@ -183,8 +217,11 @@ function visibleOps(ops: DiffOp[]): DiffOp[] {
           Review suggested changes
         </h1>
         <p class="text-sm text-gray-500">
-          Tailored for {{ app.jobTitle }} @ {{ app.company }}. Nothing is
-          applied until you check it off below —
+          Tailored for {{ app.jobTitle }} @ {{ app.company }}. This review
+          applies only to this application — your base resume and other
+          jobs stay untouched, and re-optimizing a different job starts
+          independently. Every checkbox below saves immediately, so there's
+          no separate save step —
           <span
             class="font-semibold"
             :class="
@@ -212,23 +249,48 @@ function visibleOps(ops: DiffOp[]): DiffOp[] {
       </div>
 
       <div
-        v-if="tailored.missingKeywords?.length"
-        class="rounded-xl border border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-950/40 px-3.5 py-3"
+        v-if="hasSkillsGap"
+        class="rounded-xl border border-gray-200 dark:border-gray-800 divide-y divide-gray-200 dark:divide-gray-800 overflow-hidden"
       >
-        <p class="text-xs font-semibold text-amber-700 dark:text-amber-400 mb-1.5 flex items-center gap-1.5">
-          <UIcon
-            name="i-lucide-triangle-alert"
-            class="shrink-0"
-          />
-          Not in your resume — the job asked for these but nothing in your
-          background backs them up
-        </p>
-        <div class="flex flex-wrap gap-1.5">
-          <span
-            v-for="kw in tailored.missingKeywords"
-            :key="kw"
-            class="text-xs font-medium px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-900/60 text-amber-800 dark:text-amber-300"
-          >{{ kw }}</span>
+        <div
+          v-if="tailored.missingKeywords?.length"
+          class="px-3.5 py-3 bg-amber-50 dark:bg-amber-950/40"
+        >
+          <p class="text-xs font-semibold text-amber-700 dark:text-amber-400 mb-1.5 flex items-center gap-1.5">
+            <UIcon
+              name="i-lucide-triangle-alert"
+              class="shrink-0"
+            />
+            Not covered — not in your background, nothing to accept here
+          </p>
+          <div class="flex flex-wrap gap-1.5">
+            <span
+              v-for="kw in tailored.missingKeywords"
+              :key="kw"
+              class="text-xs font-medium px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-900/60 text-amber-800 dark:text-amber-300"
+            >{{ kw }}</span>
+          </div>
+        </div>
+
+        <div
+          v-if="pendingSkillAdds.length"
+          class="px-3.5 py-3 bg-primary-50 dark:bg-primary-950/40"
+        >
+          <p class="text-xs font-semibold text-primary-700 dark:text-primary-400 mb-1.5 flex items-center gap-1.5">
+            <UIcon
+              name="i-lucide-circle-dashed"
+              class="shrink-0"
+            />
+            You can still cover these — accept the matching skill below to
+            add it
+          </p>
+          <div class="flex flex-wrap gap-1.5">
+            <span
+              v-for="kw in pendingSkillAdds"
+              :key="kw"
+              class="text-xs font-medium px-2 py-0.5 rounded-full bg-primary-100 dark:bg-primary-900/60 text-primary-800 dark:text-primary-300"
+            >{{ kw }}</span>
+          </div>
         </div>
       </div>
 
