@@ -90,12 +90,13 @@ For each keyword from Step 1:
 - General methodologies or practices clearly evidenced by their actual work (e.g. "agile", "CI/CD") may be added if genuinely reflected in their highlights
 - If it is completely absent from their background → do NOT add it, and record it in missingKeywords
 
-STEP 3 — REWRITE
+STEP 3 — REWRITE ONLY WHAT NEEDS IT
 Summary: rewrite from scratch using the JD's role title, the candidate's real years of experience, and the top 4–6 matched keywords. Make it directly address what the JD asks for.
+GROUNDING RULE (applies to every word of the summary): every technology, framework, or tool name you use in the summary must be either (a) already written somewhere in the candidate's resume above, verbatim, or (b) a keyword Step 2 explicitly approved adding. Do not reach for generic "senior [role]" boilerplate that name-drops common ecosystem tools the candidate never mentioned — e.g. if the candidate's resume shows Vue but not React, the summary must not say "Expert in React" and must not mention Next.js, Redux, or any other React-ecosystem tool, even though those are common industry pairings. If you're not certain a tool name came from the candidate's own resume text or Step 2, leave it out.
 
-Work highlights: rewrite each bullet to mirror the JD's language. Replace generic phrases with the JD's specific terminology. Keep all facts (companies, dates, technologies actually mentioned) accurate. Lead each bullet with a strong action verb.
+Work highlights: leave a bullet EXACTLY as it already appears (character-for-character, do not touch it) unless changing it actually adds a Step-2-approved keyword or materially sharpens the match to the JD. Do NOT rewrite a bullet just to rephrase it, swap in a synonym, or change its wording style — a bullet that already says the same thing in different words is not an improvement and wastes the candidate's time reviewing it. Every bullet you DO change must be changed because it now contains a keyword or phrase it didn't have before, not merely reworded.
 
-Skills: add only the keywords Step 2 approved into the appropriate categories. Reorder items so the most JD-relevant appear first.
+Skills: add only the keywords Step 2 approved into the appropriate categories. Reorder items so the most JD-relevant appear first. Do not rewrite existing item text.
 
 JOB DESCRIPTION:
 """
@@ -107,13 +108,15 @@ ${buildResumeText(resume)}
 
 CRITICAL: Use ONLY plain ASCII characters. No em dashes (use hyphen -), no smart/curly quotes (use straight " and '), no bullet characters (use plain text), no ellipsis character (use ...). ATS systems reject resumes with non-ASCII characters.
 
+CRITICAL: Before writing the summary, re-check every technology/tool name against the candidate resume above. Never introduce a tool the candidate hasn't used, in the summary or anywhere else, even a common pairing with something they do use.
+
 Respond with ONLY valid JSON — no markdown fences, no explanation, nothing else:
 {
   "summary": "rewritten summary using JD language and matched keywords",
   "work": [
     {
       "id": "exact-id-shown-in-brackets-above",
-      "highlights": ["bullet mirroring JD terminology", "another rewritten bullet"]
+      "highlights": ["bullet left untouched", "bullet changed only because it now includes an approved keyword"]
     }
   ],
   "skills": [
@@ -125,7 +128,7 @@ Respond with ONLY valid JSON — no markdown fences, no explanation, nothing els
   "missingKeywords": ["keyword from Step 1 that was NOT added to the resume, per Step 2 rules"]
 }
 
-Return ALL work entries and ALL skill groups. Every highlight must use the JD's language where applicable.`
+Return ALL work entries and ALL skill groups, including every highlight and skill item — unchanged ones returned verbatim, not omitted.`
 
   const requestBody = {
     model: "claude-haiku-4-5-20251001",

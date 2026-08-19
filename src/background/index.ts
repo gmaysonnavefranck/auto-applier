@@ -7,7 +7,7 @@ chrome.sidePanel
   .catch((error) => console.error(error))
 
 chrome.runtime.onInstalled.addListener((opt) => {
-  if (opt.reason === "install" || opt.reason === "update") {
+  if (opt.reason === "install") {
     chrome.runtime.openOptionsPage()
   }
 })

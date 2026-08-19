@@ -1,5 +1,3 @@
-import { pathToFileURL } from "node:url"
-
 export type DiffOp =
   | { type: "unchanged"; value: string }
   | { type: "added"; value: string }
@@ -42,59 +40,39 @@ export function diffLines(oldLines: string[], newLines: string[]): DiffOp[] {
   return ops
 }
 
-// ponytail: manual self-check (no test runner in this repo) — run with
-// `node --experimental-strip-types src/utils/diff.ts`
-// (uses pathToFileURL, not a plain string join, so it also works on Windows)
-if (
-  process.argv[1] &&
-  import.meta.url === pathToFileURL(process.argv[1]).href
-) {
-  const assertEqual = (actual: unknown, expected: unknown, label: string) => {
-    const a = JSON.stringify(actual)
-    const e = JSON.stringify(expected)
-    if (a !== e) throw new Error(`${label}: expected ${e}, got ${a}`)
-    console.info(`ok - ${label}`)
+// Membership-based diff (order-independent) — for lists like skill tags where
+// Claude is explicitly asked to reorder items, so a plain sequence diff (like
+// diffLines) would misreport every reordered-but-identical item as a
+// remove+add pair. Order in the result: newItems' order first (so an
+// accepted reorder is preserved), then any dropped old items at the end.
+export function diffSet(oldItems: string[], newItems: string[]): DiffOp[] {
+  const oldSet = new Set(oldItems)
+  const newSet = new Set(newItems)
+  const ops: DiffOp[] = newItems.map((value) => ({
+    type: oldSet.has(value) ? "unchanged" : "added",
+    value,
+  }))
+  for (const value of oldItems) {
+    if (!newSet.has(value)) ops.push({ type: "removed", value })
   }
+  return ops
+}
 
-  assertEqual(diffLines([], []), [], "empty arrays")
-
-  assertEqual(
-    diffLines(["a", "b"], ["a", "b"]),
-    [
-      { type: "unchanged", value: "a" },
-      { type: "unchanged", value: "b" },
-    ],
-    "identical arrays",
-  )
-
-  assertEqual(
-    diffLines(["a", "b", "c"], ["a", "x", "c"]),
-    [
-      { type: "unchanged", value: "a" },
-      { type: "removed", value: "b" },
-      { type: "added", value: "x" },
-      { type: "unchanged", value: "c" },
-    ],
-    "single replacement",
-  )
-
-  assertEqual(
-    diffLines(["a"], ["a", "b"]),
-    [
-      { type: "unchanged", value: "a" },
-      { type: "added", value: "b" },
-    ],
-    "pure addition",
-  )
-
-  assertEqual(
-    diffLines(["a", "b"], ["a"]),
-    [
-      { type: "unchanged", value: "a" },
-      { type: "removed", value: "b" },
-    ],
-    "pure removal",
-  )
-
-  console.info("diffLines self-check passed")
+// Applies an accept/reject decision to a diff: unchanged lines always stay,
+// removed lines stay unless their removal was accepted, added lines are
+// included only if explicitly accepted. Nothing reviewed yet == old lines.
+export function resolveReviewedLines(
+  ops: DiffOp[],
+  acceptedAdds: string[],
+  acceptedRemoves: string[],
+): string[] {
+  const addSet = new Set(acceptedAdds)
+  const removeSet = new Set(acceptedRemoves)
+  const out: string[] = []
+  for (const op of ops) {
+    if (op.type === "unchanged") out.push(op.value)
+    else if (op.type === "added" && addSet.has(op.value)) out.push(op.value)
+    else if (op.type === "removed" && !removeSet.has(op.value)) out.push(op.value)
+  }
+  return out
 }

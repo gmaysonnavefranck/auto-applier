@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router'
 import { useResumeStore } from 'src/stores/resume.store'
 import { useApplicationsStore } from 'src/stores/applications.store'
 import { sanitizeForAts } from 'src/utils/text'
+import { diffLines, diffSet, resolveReviewedLines } from 'src/utils/diff'
 import type { Resume } from 'src/types/resume'
 
 const store = useResumeStore()
@@ -38,20 +39,29 @@ function sanitizeResume(resume: Resume): Resume {
 const r = computed((): Resume => {
   const base = store.resume as Resume
   const t = tailored.value
+  const review = t?.review
 
   const merged: Resume = t ? {
     ...base,
     basics: {
       ...base.basics,
-      summary: t.summary || base.basics.summary,
+      summary: review?.summaryAccepted ? t.summary : base.basics.summary,
     },
     work: base.work.map(job => {
       const tw = t.work.find(w => w.id === job.id)
-      return tw && tw.highlights.length > 0 ? { ...job, highlights: tw.highlights } : job
+      if (!tw) return job
+      const ops = diffLines(job.highlights, tw.highlights)
+      const entry = review?.work.find(w => w.id === job.id)
+      const highlights = resolveReviewedLines(ops, entry?.acceptedAdds ?? [], entry?.acceptedRemoves ?? [])
+      return { ...job, highlights }
     }),
     skills: base.skills.map(group => {
       const ts = t.skills?.find(s => s.id === group.id)
-      return ts && ts.items.length > 0 ? { ...group, items: ts.items } : group
+      if (!ts) return group
+      const ops = diffSet(group.items, ts.items)
+      const entry = review?.skills.find(s => s.id === group.id)
+      const items = resolveReviewedLines(ops, entry?.acceptedAdds ?? [], entry?.acceptedRemoves ?? [])
+      return { ...group, items }
     }),
   } : base
 
@@ -82,6 +92,13 @@ const contactItems = computed(() => {
         @click="$router.back()"
       >
         ← Back
+      </button>
+      <button
+        v-if="targetApp"
+        class="tb-btn"
+        @click="$router.push('/options-page/resume-review?appId=' + targetApp.id)"
+      >
+        Review changes
       </button>
       <span class="tb-title">
         Resume Preview

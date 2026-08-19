@@ -26,9 +26,14 @@ export const useApplicationsStore = defineStore("applications", () => {
     )
   }
 
+  // structuredClone strips any lingering Pinia reactive proxies out of `updates`
+  // (e.g. a caller spreading a nested reactive value it read back out of this
+  // store) before it reaches chrome.storage — a live Proxy doesn't survive
+  // that serialization boundary intact and silently corrupts the stored data.
   function updateApplication(id: string, updates: Partial<Application>) {
+    const plainUpdates = structuredClone(toRaw(updates))
     applications.value = applications.value.map((a) =>
-      a.id === id ? { ...a, ...updates } : a,
+      a.id === id ? { ...a, ...plainUpdates } : a,
     )
   }
 

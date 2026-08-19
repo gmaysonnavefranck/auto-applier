@@ -13,7 +13,7 @@ const autofilling = ref(false)
 const autofillMsg = ref('')
 
 function openResumePage() {
-  openExtensionPage()
+  openExtensionPage('#/options-page/resume')
 }
 
 function openResumePreview() {

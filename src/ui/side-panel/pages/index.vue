@@ -181,14 +181,26 @@ function daysAgo(iso: string): string {
   return `${days}d ago`
 }
 
-function openTailoredPreview(appId: string) {
+function openTailoredReview(appId: string) {
   openExtensionPage(
-    "#/options-page/resume-preview?appId=" + encodeURIComponent(appId),
+    "#/options-page/resume-review?appId=" + encodeURIComponent(appId),
   )
 }
 
+// Count of individually accepted lines/words across the whole review —
+// 0 means the final resume is still identical to the base resume, no
+// matter how long ago "Optimize" ran.
+function acceptedChangeCount(tailored: TailoredResume): number {
+  const review = tailored.review
+  if (!review) return 0
+  let count = review.summaryAccepted ? 1 : 0
+  for (const w of review.work) count += w.acceptedAdds.length + w.acceptedRemoves.length
+  for (const s of review.skills) count += s.acceptedAdds.length + s.acceptedRemoves.length
+  return count
+}
+
 function openOptions() {
-  openExtensionPage()
+  openExtensionPage("#/options-page/resume")
 }
 
 async function tailorResume(app: Application) {
@@ -699,11 +711,32 @@ async function tailorResume(app: Application) {
                 <span class="text-xs text-gray-500">
                   Tailored {{ daysAgo(app.tailoredResume.generatedAt) }}
                 </span>
+                <span
+                  class="text-xs font-medium"
+                  :class="
+                    acceptedChangeCount(app.tailoredResume) > 0
+                      ? 'text-green-600 dark:text-green-400'
+                      : 'text-amber-600 dark:text-amber-400'
+                  "
+                >
+                  ·
+                  {{
+                    acceptedChangeCount(app.tailoredResume) > 0
+                      ? `${acceptedChangeCount(app.tailoredResume)} change${acceptedChangeCount(app.tailoredResume) === 1 ? "" : "s"} accepted`
+                      : "not reviewed yet"
+                  }}
+                </span>
+                <span
+                  v-if="app.tailoredResume.missingKeywords?.length"
+                  class="text-xs font-medium text-amber-600 dark:text-amber-400"
+                >
+                  · {{ app.tailoredResume.missingKeywords.length }} missing
+                </span>
                 <button
                   class="text-xs text-primary-500 hover:underline ml-auto"
-                  @click="openTailoredPreview(app.id)"
+                  @click="openTailoredReview(app.id)"
                 >
-                  View ↗
+                  Review ↗
                 </button>
               </div>
               <UButton
