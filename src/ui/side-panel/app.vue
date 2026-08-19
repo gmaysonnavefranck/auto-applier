@@ -69,15 +69,15 @@ async function autofillPage() {
 <template>
   <UApp>
     <div class="flex flex-col h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-white">
-      <header class="flex items-center justify-between px-3 py-2.5 border-b border-gray-200 dark:border-gray-800 shrink-0">
+      <header class="flex items-center justify-between px-3 py-2.5 border-b border-gray-200 dark:border-gray-800 shrink-0 bg-white dark:bg-gray-950">
         <RouterLink
           to="/side-panel"
-          class="flex items-center gap-2"
+          class="flex items-center gap-2 rounded-md transition-opacity hover:opacity-80"
         >
-          <div class="w-7 h-7 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-xs select-none">
+          <div class="w-7 h-7 rounded-lg bg-primary-600 flex items-center justify-center text-white font-bold text-xs select-none shadow-elevated">
             AA
           </div>
-          <span class="font-semibold text-sm">Auto Applier</span>
+          <span class="font-semibold text-sm tracking-tight">Auto Applier</span>
         </RouterLink>
 
         <div class="flex gap-0.5">
@@ -134,12 +134,12 @@ async function autofillPage() {
 
       <div
         v-if="autofillMsg"
-        class="px-3 py-1.5 bg-primary-50 dark:bg-primary-950 border-b border-primary-200 dark:border-primary-800 text-xs text-primary-700 dark:text-primary-300 shrink-0"
+        class="px-3 py-1.5 bg-primary-50 dark:bg-primary-950/50 border-b border-primary-200 dark:border-primary-900 text-xs font-medium text-primary-700 dark:text-primary-300 shrink-0 transition-colors"
       >
         {{ autofillMsg }}
       </div>
 
-      <main class="flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-900">
+      <main class="flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-950">
         <RouterView />
       </main>
     </div>

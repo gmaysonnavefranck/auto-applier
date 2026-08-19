@@ -145,13 +145,19 @@ export default defineConfig({
       },
       ui: {
         colors: {
-          primary: "green",
+          // Desaturated teal — the app's single confident accent. Was "green",
+          // which collided visually with the "success" status color below.
+          primary: "teal",
           secondary: "violet",
           success: "green",
           warning: "amber",
           error: "red",
           info: "blue",
-          neutral: "slate",
+          // "gray" everywhere (was "slate") so Nuxt UI's neutral-colored
+          // components match the raw `gray-*` utility classes used across
+          // every page's markup instead of a second, slightly different
+          // neutral family.
+          neutral: "gray",
         },
       },
     }),

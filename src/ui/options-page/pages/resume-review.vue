@@ -179,14 +179,14 @@ function visibleOps(ops: DiffOp[]): DiffOp[] {
 
     <template v-else>
       <div>
-        <h1 class="text-xl font-bold text-gray-900 dark:text-white">
+        <h1 class="text-xl font-bold text-gray-900 dark:text-white tracking-tight">
           Review suggested changes
         </h1>
         <p class="text-sm text-gray-500">
           Tailored for {{ app.jobTitle }} @ {{ app.company }}. Nothing is
           applied until you check it off below —
           <span
-            class="font-medium"
+            class="font-semibold"
             :class="
               acceptedCount > 0
                 ? 'text-green-600 dark:text-green-400'
@@ -213,11 +213,15 @@ function visibleOps(ops: DiffOp[]): DiffOp[] {
 
       <div
         v-if="tailored.missingKeywords?.length"
-        class="rounded-lg border border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-950/40 px-3 py-2.5"
+        class="rounded-xl border border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-950/40 px-3.5 py-3"
       >
-        <p class="text-xs font-semibold text-amber-700 dark:text-amber-400 mb-1.5">
+        <p class="text-xs font-semibold text-amber-700 dark:text-amber-400 mb-1.5 flex items-center gap-1.5">
+          <UIcon
+            name="i-lucide-triangle-alert"
+            class="shrink-0"
+          />
           Not in your resume — the job asked for these but nothing in your
-          background backs them up:
+          background backs them up
         </p>
         <div class="flex flex-wrap gap-1.5">
           <span
@@ -260,7 +264,7 @@ function visibleOps(ops: DiffOp[]): DiffOp[] {
       >
         <div class="flex items-center justify-between">
           <h2
-            class="text-xs font-semibold text-gray-500 uppercase tracking-wide"
+            class="text-[13px] font-semibold text-gray-900 dark:text-white tracking-tight"
           >
             Summary
           </h2>
@@ -301,14 +305,14 @@ function visibleOps(ops: DiffOp[]): DiffOp[] {
           <div class="flex gap-1 shrink-0">
             <button
               type="button"
-              class="text-xs text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+              class="text-xs text-gray-400 transition-colors hover:text-gray-700 dark:hover:text-gray-200"
               @click="clearSection('work', job.id)"
             >
               Reset
             </button>
             <button
               type="button"
-              class="text-xs text-primary-500 hover:underline"
+              class="text-xs font-medium text-primary-600 dark:text-primary-400 hover:underline underline-offset-2"
               @click="acceptAllSection('work', job.id, ops)"
             >
               Accept all
@@ -370,14 +374,14 @@ function visibleOps(ops: DiffOp[]): DiffOp[] {
           <div class="flex gap-1 shrink-0">
             <button
               type="button"
-              class="text-xs text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+              class="text-xs text-gray-400 transition-colors hover:text-gray-700 dark:hover:text-gray-200"
               @click="clearSection('skills', group.id)"
             >
               Reset
             </button>
             <button
               type="button"
-              class="text-xs text-primary-500 hover:underline"
+              class="text-xs font-medium text-primary-600 dark:text-primary-400 hover:underline underline-offset-2"
               @click="acceptAllSection('skills', group.id, ops)"
             >
               Accept all
@@ -389,7 +393,7 @@ function visibleOps(ops: DiffOp[]): DiffOp[] {
           <label
             v-for="(op, i) in visibleOps(ops)"
             :key="i"
-            class="flex items-center gap-1.5 rounded px-2 py-1 text-xs"
+            class="flex items-center gap-1.5 rounded-md px-2 py-1 text-xs transition-colors"
             :class="{
               'bg-gray-50 dark:bg-gray-900 text-gray-500': op.type === 'unchanged',
               'bg-rose-50 dark:bg-rose-950 text-rose-600 dark:text-rose-400':

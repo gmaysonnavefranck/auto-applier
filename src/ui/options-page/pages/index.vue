@@ -46,15 +46,15 @@ const steps = computed(() => [
 </script>
 
 <template>
-  <div class="max-w-2xl mx-auto px-4 py-8 space-y-8">
+  <div class="max-w-2xl mx-auto px-4 py-10 space-y-8">
     <div class="flex items-center gap-3">
       <div
-        class="w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-sm select-none shrink-0"
+        class="w-9 h-9 rounded-lg bg-primary-600 flex items-center justify-center text-white font-bold text-sm select-none shrink-0 shadow-elevated"
       >
         AA
       </div>
       <div>
-        <h1 class="text-xl font-bold text-gray-900 dark:text-white">
+        <h1 class="text-xl font-bold text-gray-900 dark:text-white tracking-tight">
           Auto Applier
         </h1>
         <p class="text-sm text-gray-500">
@@ -64,18 +64,23 @@ const steps = computed(() => [
       </div>
     </div>
 
-    <div class="space-y-3">
+    <div class="space-y-2.5">
       <div
         v-for="(step, i) in steps"
         :key="step.label"
-        class="flex items-start gap-3 rounded-lg border border-gray-200 dark:border-gray-800 px-4 py-3.5 bg-white dark:bg-gray-950"
+        class="flex items-start gap-3 rounded-xl border px-4 py-3.5 bg-white dark:bg-gray-950 transition-colors"
+        :class="
+          step.done
+            ? 'border-gray-200 dark:border-gray-800'
+            : 'border-primary-200 dark:border-primary-900'
+        "
       >
         <div
           class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold shrink-0 mt-0.5"
           :class="
             step.done
               ? 'bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-400'
-              : 'bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400'
+              : 'bg-primary-50 text-primary-700 dark:bg-primary-950 dark:text-primary-400'
           "
         >
           <UIcon
@@ -89,7 +94,7 @@ const steps = computed(() => [
           <p class="text-sm font-medium text-gray-900 dark:text-white">
             {{ step.label }}
           </p>
-          <p class="text-xs text-gray-500 mt-0.5">
+          <p class="text-xs text-gray-500 mt-0.5 leading-relaxed">
             {{ step.body }}
           </p>
         </div>

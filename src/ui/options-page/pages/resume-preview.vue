@@ -277,7 +277,7 @@ const contactItems = computed(() => {
   position: fixed;
   inset: 0;
   z-index: 1000;
-  background: #d6d6d6;
+  background: oklch(0.87 0.008 65);
   overflow-y: auto;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -291,7 +291,7 @@ const contactItems = computed(() => {
   align-items: center;
   gap: 12px;
   padding: 10px 20px;
-  background: #1e3a5f;
+  background: oklch(0.24 0.045 195);
   color: white;
   font-size: 13px;
 }
@@ -301,20 +301,23 @@ const contactItems = computed(() => {
   text-align: center;
   font-weight: 600;
   font-size: 14px;
+  letter-spacing: -0.01em;
 }
 
 .tb-btn {
   padding: 6px 14px;
   border: 1px solid rgba(255,255,255,0.35);
-  border-radius: 6px;
+  border-radius: 8px;
   background: rgba(255,255,255,0.1);
   color: white;
   cursor: pointer;
   font-size: 13px;
+  transition: background-color 150ms ease, transform 100ms ease;
 }
 
-.tb-btn:hover { background: rgba(255,255,255,0.2); }
-.tb-print { font-weight: 600; }
+.tb-btn:hover { background: rgba(255,255,255,0.22); }
+.tb-btn:active { transform: scale(0.97); }
+.tb-print { font-weight: 600; background: rgba(255,255,255,0.16); }
 
 .tb-tailored-tag {
   display: inline-block;

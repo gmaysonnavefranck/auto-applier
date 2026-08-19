@@ -237,7 +237,7 @@ async function tailorResume(app: Application) {
     <!-- Error toast -->
     <div
       v-if="saveError"
-      class="px-3 py-2 bg-red-50 dark:bg-red-950 border-b border-red-200 dark:border-red-800 flex items-center gap-2"
+      class="px-3 py-2 bg-red-50 dark:bg-red-950/50 border-b border-red-200 dark:border-red-900 flex items-center gap-2"
     >
       <UIcon
         name="i-lucide-alert-circle"
@@ -267,8 +267,12 @@ async function tailorResume(app: Application) {
           <p class="text-xs font-medium text-gray-500 truncate">
             {{ currentDomain }}
           </p>
-          <p class="text-xs text-green-600 dark:text-green-400 font-medium">
-            ✓ Site registered
+          <p class="text-xs text-green-600 dark:text-green-400 font-medium flex items-center gap-1">
+            <UIcon
+              name="i-lucide-check-circle-2"
+              class="shrink-0"
+            />
+            Site registered
           </p>
         </div>
         <UButton
@@ -331,7 +335,7 @@ async function tailorResume(app: Application) {
         class="h-1.5 rounded-full bg-gray-100 dark:bg-gray-800 overflow-hidden"
       >
         <div
-          class="h-full rounded-full bg-primary-500 transition-all"
+          class="h-full rounded-full bg-primary-500 transition-all duration-300"
           :class="{ 'bg-green-500': appliedToday >= goalsStore.dailyTarget }"
           :style="{
             width: `${Math.min(100, (appliedToday / goalsStore.dailyTarget) * 100)}%`,
@@ -399,16 +403,24 @@ async function tailorResume(app: Application) {
       v-if="filteredApps.length === 0"
       class="flex flex-col items-center justify-center flex-1 py-16 px-6 text-center"
     >
-      <UIcon
-        name="i-lucide-clipboard-list"
-        class="text-4xl text-gray-300 mb-3"
-      />
-      <p class="text-sm text-gray-500">
+      <div class="w-14 h-14 rounded-full bg-primary-50 dark:bg-primary-950 flex items-center justify-center mb-3">
+        <UIcon
+          name="i-lucide-clipboard-list"
+          class="text-2xl text-primary-500 dark:text-primary-400"
+        />
+      </div>
+      <p class="text-sm font-medium text-gray-700 dark:text-gray-300 max-w-64">
         {{
           appsStore.applications.length === 0
-            ? 'No jobs saved yet. Register a site and click "Save job" on a listing.'
-            : "No jobs match this filter."
+            ? "No jobs saved yet"
+            : "No jobs match this filter"
         }}
+      </p>
+      <p
+        v-if="appsStore.applications.length === 0"
+        class="text-xs text-gray-400 mt-1 max-w-64"
+      >
+        Register a site and click "Save job" on a listing.
       </p>
       <UButton
         v-if="appsStore.applications.length === 0"
@@ -434,7 +446,7 @@ async function tailorResume(app: Application) {
       >
         <!-- Card header (always visible) -->
         <div
-          class="px-3 py-2.5 hover:bg-gray-50 dark:hover:bg-gray-900 group cursor-pointer select-none"
+          class="px-3 py-2.5 transition-colors hover:bg-gray-50 dark:hover:bg-gray-900 group cursor-pointer select-none"
           @click="toggleExpand(app.id)"
         >
           <div class="flex items-start justify-between gap-2">
@@ -495,7 +507,7 @@ async function tailorResume(app: Application) {
             <a
               :href="app.url"
               target="_blank"
-              class="text-xs text-primary-500 hover:underline"
+              class="text-xs font-medium text-primary-600 dark:text-primary-400 hover:underline underline-offset-2"
             >
               View listing ↗
             </a>

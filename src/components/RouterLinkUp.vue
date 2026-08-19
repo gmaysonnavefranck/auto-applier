@@ -8,7 +8,7 @@ defineProps<{
 
 <template>
   <UButton
-    class="my-4"
+    variant="soft"
     icon="ph:arrow-left"
     @click="router.back()"
   >

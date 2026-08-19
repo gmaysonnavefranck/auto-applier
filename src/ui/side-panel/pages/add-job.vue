@@ -73,7 +73,7 @@ function submit() {
         icon="i-lucide-arrow-left"
         @click="router.back()"
       />
-      <span class="text-sm font-medium">Add job manually</span>
+      <span class="text-sm font-semibold tracking-tight">Add job manually</span>
     </div>
 
     <!-- Form -->

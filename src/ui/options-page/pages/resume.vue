@@ -433,7 +433,7 @@ function prefill() {
   <div class="max-w-2xl mx-auto px-4 py-8 space-y-10">
     <div class="flex items-center justify-between gap-3">
       <div>
-        <h1 class="text-xl font-bold text-gray-900 dark:text-white">
+        <h1 class="text-xl font-bold text-gray-900 dark:text-white tracking-tight">
           Resume & Settings
         </h1>
         <p class="text-sm text-gray-500">
@@ -464,7 +464,7 @@ function prefill() {
     <!-- ── Claude API Key ─────────────────────────────────────────────────── -->
     <section class="space-y-3">
       <h2
-        class="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide"
+        class="text-[13px] font-semibold text-gray-900 dark:text-white tracking-tight"
       >
         Claude API Key
       </h2>
@@ -491,7 +491,7 @@ function prefill() {
     <!-- ── Daily Goal ──────────────────────────────────────────────────────── -->
     <section class="space-y-3">
       <h2
-        class="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide"
+        class="text-[13px] font-semibold text-gray-900 dark:text-white tracking-tight"
       >
         Daily Goal
       </h2>
@@ -519,7 +519,7 @@ function prefill() {
     <!-- ── Basics ─────────────────────────────────────────────────────────── -->
     <section class="space-y-4">
       <h2
-        class="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide"
+        class="text-[13px] font-semibold text-gray-900 dark:text-white tracking-tight"
       >
         Basics
       </h2>
@@ -623,7 +623,7 @@ function prefill() {
     <section class="space-y-3">
       <div class="flex items-center justify-between">
         <h2
-          class="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide"
+          class="text-[13px] font-semibold text-gray-900 dark:text-white tracking-tight"
         >
           Work Experience
         </h2>
@@ -640,7 +640,7 @@ function prefill() {
         <div
           v-for="entry in store.resume.work"
           :key="entry.id"
-          class="flex items-start justify-between gap-2 rounded-lg border border-gray-200 dark:border-gray-800 px-3 py-2.5 bg-white dark:bg-gray-950"
+          class="flex items-start justify-between gap-2 rounded-lg border border-gray-200 dark:border-gray-800 px-3 py-2.5 bg-white dark:bg-gray-950 transition-colors hover:border-gray-300 dark:hover:border-gray-700"
         >
           <div class="min-w-0">
             <p class="text-sm font-medium text-gray-900 dark:text-white">
@@ -697,7 +697,7 @@ function prefill() {
             v-if="editingWork"
             class="p-5 space-y-4"
           >
-            <h3 class="font-semibold text-gray-900 dark:text-white">
+            <h3 class="font-semibold text-gray-900 dark:text-white tracking-tight">
               Work Experience
             </h3>
 
@@ -846,7 +846,7 @@ function prefill() {
     <section class="space-y-3">
       <div class="flex items-center justify-between">
         <h2
-          class="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide"
+          class="text-[13px] font-semibold text-gray-900 dark:text-white tracking-tight"
         >
           Education
         </h2>
@@ -863,7 +863,7 @@ function prefill() {
         <div
           v-for="entry in store.resume.education"
           :key="entry.id"
-          class="flex items-start justify-between gap-2 rounded-lg border border-gray-200 dark:border-gray-800 px-3 py-2.5 bg-white dark:bg-gray-950"
+          class="flex items-start justify-between gap-2 rounded-lg border border-gray-200 dark:border-gray-800 px-3 py-2.5 bg-white dark:bg-gray-950 transition-colors hover:border-gray-300 dark:hover:border-gray-700"
         >
           <div class="min-w-0">
             <p class="text-sm font-medium text-gray-900 dark:text-white">
@@ -909,7 +909,7 @@ function prefill() {
             v-if="editingEdu"
             class="p-5 space-y-4"
           >
-            <h3 class="font-semibold text-gray-900 dark:text-white">
+            <h3 class="font-semibold text-gray-900 dark:text-white tracking-tight">
               Education
             </h3>
             <div class="grid grid-cols-2 gap-3">
@@ -994,7 +994,7 @@ function prefill() {
     <section class="space-y-3">
       <div class="flex items-center justify-between">
         <h2
-          class="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide"
+          class="text-[13px] font-semibold text-gray-900 dark:text-white tracking-tight"
         >
           Skills
         </h2>
@@ -1011,7 +1011,7 @@ function prefill() {
         <div
           v-for="group in store.resume.skills"
           :key="group.id"
-          class="flex items-start justify-between gap-2 rounded-lg border border-gray-200 dark:border-gray-800 px-3 py-2.5 bg-white dark:bg-gray-950"
+          class="flex items-start justify-between gap-2 rounded-lg border border-gray-200 dark:border-gray-800 px-3 py-2.5 bg-white dark:bg-gray-950 transition-colors hover:border-gray-300 dark:hover:border-gray-700"
         >
           <div class="min-w-0 flex-1">
             <p class="text-sm font-medium text-gray-900 dark:text-white mb-1">
@@ -1063,7 +1063,7 @@ function prefill() {
             v-if="editingSkill"
             class="p-5 space-y-4"
           >
-            <h3 class="font-semibold">Skill Category</h3>
+            <h3 class="font-semibold text-gray-900 dark:text-white tracking-tight">Skill category</h3>
             <UFormField
               label="Category name"
               required
@@ -1084,13 +1084,13 @@ function prefill() {
                 <div
                   v-for="(item, i) in editingSkill.items"
                   :key="i"
-                  class="flex items-center gap-1 bg-gray-100 dark:bg-gray-800 rounded px-2 py-0.5"
+                  class="flex items-center gap-1 bg-gray-100 dark:bg-gray-800 rounded-md px-2 py-0.5"
                 >
                   <span class="text-xs text-gray-700 dark:text-gray-300">
                     {{ item }}
                   </span>
                   <button
-                    class="text-gray-400 hover:text-red-500 text-xs leading-none"
+                    class="text-gray-400 hover:text-red-500 text-xs leading-none transition-colors"
                     @click="removeSkillItem(i)"
                   >
                     ×
@@ -1149,7 +1149,7 @@ function prefill() {
     <section class="space-y-3">
       <div class="flex items-center justify-between">
         <h2
-          class="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide"
+          class="text-[13px] font-semibold text-gray-900 dark:text-white tracking-tight"
         >
           Languages
         </h2>
@@ -1166,7 +1166,7 @@ function prefill() {
         <div
           v-for="lang in store.resume.languages ?? []"
           :key="lang.id"
-          class="flex items-center justify-between gap-2 rounded-lg border border-gray-200 dark:border-gray-800 px-3 py-2.5 bg-white dark:bg-gray-950"
+          class="flex items-center justify-between gap-2 rounded-lg border border-gray-200 dark:border-gray-800 px-3 py-2.5 bg-white dark:bg-gray-950 transition-colors hover:border-gray-300 dark:hover:border-gray-700"
         >
           <div>
             <p class="text-sm font-medium text-gray-900 dark:text-white">
@@ -1208,7 +1208,7 @@ function prefill() {
             v-if="editingLang"
             class="p-5 space-y-4"
           >
-            <h3 class="font-semibold">Language</h3>
+            <h3 class="font-semibold text-gray-900 dark:text-white tracking-tight">Language</h3>
             <UFormField
               label="Language"
               required
@@ -1253,7 +1253,7 @@ function prefill() {
     <!-- ── Backup ────────────────────────────────────────────────────────── -->
     <section class="space-y-3">
       <h2
-        class="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide"
+        class="text-[13px] font-semibold text-gray-900 dark:text-white tracking-tight"
       >
         Backup & Restore
       </h2>
