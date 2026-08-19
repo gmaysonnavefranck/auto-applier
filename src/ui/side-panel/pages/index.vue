@@ -8,8 +8,9 @@ import { useApplicationsStore } from "src/stores/applications.store"
 import { useResumeStore } from "src/stores/resume.store"
 import { useAiStore } from "src/stores/ai.store"
 import { useGoalsStore } from "src/stores/goals.store"
-import type { TailoredResume } from "src/types/jobs"
+import type { TailoredResume, TailoredResumeReview } from "src/types/jobs"
 import { openExtensionPage } from "src/utils/navigation"
+import { diffLines, diffSet } from "src/utils/diff"
 
 const sitesStore = useSitesStore()
 const appsStore = useApplicationsStore()
@@ -28,6 +29,7 @@ const expandedId = ref<string | null>(null)
 const expandedDescFull = ref<string | null>(null)
 const tailoring = ref<Record<string, boolean>>({})
 const tailorError = ref<Record<string, string>>({})
+const acceptingAll = ref<Record<string, boolean>>({})
 
 function toggleExpand(id: string) {
   if (expandedId.value === id) {
@@ -199,8 +201,88 @@ function acceptedChangeCount(tailored: TailoredResume): number {
   return count
 }
 
+// Skills Claude proposed adding that the user hasn't accepted yet — same
+// diffSet + acceptedAdds logic resume-review.vue uses per-section, applied
+// across every skill group for this application.
+function pendingSkillCount(tailored: TailoredResume): number {
+  if (!tailored.skills) return 0
+  const review = tailored.review
+  let count = 0
+  for (const group of resumeStore.resume.skills) {
+    const ts = tailored.skills.find((s) => s.id === group.id)
+    if (!ts) continue
+    const accepted = new Set(
+      review?.skills.find((s) => s.id === group.id)?.acceptedAdds ?? [],
+    )
+    count += diffSet(group.items, ts.items).filter(
+      (op) => op.type === "added" && !accepted.has(op.value),
+    ).length
+  }
+  return count
+}
+
 function openOptions() {
   openExtensionPage("#/options-page/resume")
+}
+
+function openResumePreview(appId: string) {
+  openExtensionPage(
+    "#/options-page/resume-preview?appId=" + encodeURIComponent(appId),
+  )
+}
+
+// Generalizes resume-review.vue's per-section "Accept all" button
+// (ops.filter(added/removed) -> acceptedAdds/acceptedRemoves) across every
+// section at once, for the one-click "Accept all & export" path.
+function buildAcceptAllReview(app: Application): TailoredResumeReview {
+  const t = app.tailoredResume!
+  const work = resumeStore.resume.work.flatMap((job) => {
+    const tw = t.work.find((w) => w.id === job.id)
+    if (!tw) return []
+    const ops = diffLines(job.highlights, tw.highlights)
+    return [
+      {
+        id: job.id,
+        acceptedAdds: ops.filter((o) => o.type === "added").map((o) => o.value),
+        acceptedRemoves: ops
+          .filter((o) => o.type === "removed")
+          .map((o) => o.value),
+      },
+    ]
+  })
+  const skills = resumeStore.resume.skills.flatMap((group) => {
+    const ts = t.skills?.find((s) => s.id === group.id)
+    if (!ts) return []
+    const ops = diffSet(group.items, ts.items)
+    return [
+      {
+        id: group.id,
+        acceptedAdds: ops.filter((o) => o.type === "added").map((o) => o.value),
+        acceptedRemoves: ops
+          .filter((o) => o.type === "removed")
+          .map((o) => o.value),
+      },
+    ]
+  })
+  return { summaryAccepted: true, work, skills }
+}
+
+async function acceptAllAndExport(app: Application) {
+  acceptingAll.value[app.id] = true
+  try {
+    if (!app.tailoredResume) await tailorResume(app)
+    const current = appsStore.applications.find((a) => a.id === app.id)
+    if (!current?.tailoredResume) return
+    appsStore.updateApplication(current.id, {
+      tailoredResume: {
+        ...current.tailoredResume,
+        review: buildAcceptAllReview(current),
+      },
+    })
+    openResumePreview(current.id)
+  } finally {
+    acceptingAll.value[app.id] = false
+  }
 }
 
 async function tailorResume(app: Application) {
@@ -511,6 +593,15 @@ async function tailorResume(app: Application) {
             >
               View listing ↗
             </a>
+            <UTooltip text="No AI involved — opens your base resume as-is">
+              <button
+                type="button"
+                class="text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:underline underline-offset-2"
+                @click="openResumePreview(app.id)"
+              >
+                Export resume ↗
+              </button>
+            </UTooltip>
             <UButton
               size="xs"
               variant="ghost"
@@ -742,7 +833,14 @@ async function tailorResume(app: Application) {
                   v-if="app.tailoredResume.missingKeywords?.length"
                   class="text-xs font-medium text-amber-600 dark:text-amber-400"
                 >
-                  · {{ app.tailoredResume.missingKeywords.length }} missing
+                  · {{ app.tailoredResume.missingKeywords.length }} not
+                  covered
+                </span>
+                <span
+                  v-if="pendingSkillCount(app.tailoredResume) > 0"
+                  class="text-xs font-medium text-primary-600 dark:text-primary-400"
+                >
+                  · {{ pendingSkillCount(app.tailoredResume) }} pending
                 </span>
                 <button
                   class="text-xs text-primary-500 hover:underline ml-auto"
@@ -769,6 +867,23 @@ async function tailorResume(app: Application) {
                 class="text-xs text-red-500 mt-1.5"
               >
                 {{ tailorError[app.id] }}
+              </p>
+              <UButton
+                size="xs"
+                variant="ghost"
+                color="primary"
+                icon="i-lucide-check-check"
+                :loading="acceptingAll[app.id]"
+                :disabled="tailoring[app.id]"
+                block
+                class="mt-1.5"
+                @click="acceptAllAndExport(app)"
+              >
+                Accept all & export
+              </UButton>
+              <p class="text-[10px] text-gray-400 mt-1">
+                Tailors with AI if needed, then auto-accepts every
+                suggestion — no manual review.
               </p>
             </template>
           </div>

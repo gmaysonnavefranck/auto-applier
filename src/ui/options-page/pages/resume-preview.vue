@@ -122,7 +122,7 @@ const contactItems = computed(() => {
       v-if="tailored?.missingKeywords?.length"
       class="missing-kw no-print"
     >
-      <span class="missing-kw-label">Not in your resume:</span>
+      <span class="missing-kw-label">Not covered:</span>
       <span
         v-for="kw in tailored.missingKeywords"
         :key="kw"
