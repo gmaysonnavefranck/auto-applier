@@ -8,8 +8,10 @@ import { useApplicationsStore } from "src/stores/applications.store"
 import { useResumeStore } from "src/stores/resume.store"
 import { useAiStore } from "src/stores/ai.store"
 import { useGoalsStore } from "src/stores/goals.store"
-import type { TailoredResume } from "src/types/jobs"
+import type { TailoredResume, TailoredResumeReview } from "src/types/jobs"
 import { openExtensionPage } from "src/utils/navigation"
+import { diffLines, diffSet } from "src/utils/diff"
+import { computeMatchScore } from "src/utils/matchScore"
 
 const sitesStore = useSitesStore()
 const appsStore = useApplicationsStore()
@@ -28,6 +30,7 @@ const expandedId = ref<string | null>(null)
 const expandedDescFull = ref<string | null>(null)
 const tailoring = ref<Record<string, boolean>>({})
 const tailorError = ref<Record<string, string>>({})
+const acceptingAll = ref<Record<string, boolean>>({})
 
 function toggleExpand(id: string) {
   if (expandedId.value === id) {
@@ -181,14 +184,123 @@ function daysAgo(iso: string): string {
   return `${days}d ago`
 }
 
-function openTailoredPreview(appId: string) {
+function openTailoredReview(appId: string) {
+  openExtensionPage(
+    "#/options-page/resume-review?appId=" + encodeURIComponent(appId),
+  )
+}
+
+// Count of individually accepted lines/words across the whole review —
+// 0 means the final resume is still identical to the base resume, no
+// matter how long ago "Optimize" ran.
+function acceptedChangeCount(tailored: TailoredResume): number {
+  const review = tailored.review
+  if (!review) return 0
+  let count = review.summaryAccepted ? 1 : 0
+  if (review.titleAccepted) count++
+  for (const w of review.work) {
+    count += w.acceptedAdds.length + w.acceptedRemoves.length
+    if (w.titleAccepted) count++
+  }
+  for (const s of review.skills) count += s.acceptedAdds.length + s.acceptedRemoves.length
+  return count
+}
+
+// Skills Claude proposed adding that the user hasn't accepted yet — same
+// diffSet + acceptedAdds logic resume-review.vue uses per-section, applied
+// across every skill group for this application.
+function pendingSkillCount(tailored: TailoredResume): number {
+  if (!tailored.skills) return 0
+  const review = tailored.review
+  let count = 0
+  for (const group of resumeStore.resume.skills) {
+    const ts = tailored.skills.find((s) => s.id === group.id)
+    if (!ts) continue
+    const accepted = new Set(
+      review?.skills.find((s) => s.id === group.id)?.acceptedAdds ?? [],
+    )
+    count += diffSet(group.items, ts.items).filter(
+      (op) => op.type === "added" && !accepted.has(op.value),
+    ).length
+  }
+  return count
+}
+
+function matchScore(tailored: TailoredResume) {
+  return computeMatchScore(tailored, resumeStore.resume)
+}
+
+function openOptions() {
+  openExtensionPage("#/options-page/resume")
+}
+
+function openResumePreview(appId: string) {
   openExtensionPage(
     "#/options-page/resume-preview?appId=" + encodeURIComponent(appId),
   )
 }
 
-function openOptions() {
-  openExtensionPage()
+// Generalizes resume-review.vue's per-section "Accept all" button
+// (ops.filter(added/removed) -> acceptedAdds/acceptedRemoves) across every
+// section at once, for the one-click "Accept all & export" path.
+function buildAcceptAllReview(app: Application): TailoredResumeReview {
+  const t = app.tailoredResume!
+  const work = resumeStore.resume.work.flatMap((job) => {
+    const tw = t.work.find((w) => w.id === job.id)
+    if (!tw) return []
+    const ops = diffLines(job.highlights, tw.highlights)
+    return [
+      {
+        id: job.id,
+        titleAccepted: !!tw.title?.trim() && tw.title.trim() !== job.position.trim(),
+        acceptedAdds: ops.filter((o) => o.type === "added").map((o) => o.value),
+        acceptedRemoves: ops
+          .filter((o) => o.type === "removed")
+          .map((o) => o.value),
+      },
+    ]
+  })
+  const skills = resumeStore.resume.skills.flatMap((group) => {
+    const ts = t.skills?.find((s) => s.id === group.id)
+    if (!ts) return []
+    const ops = diffSet(group.items, ts.items)
+    const inferred = new Set(ts.inferred ?? [])
+    return [
+      {
+        id: group.id,
+        // Inferred companion-tool guesses are never silently bulk-accepted,
+        // even by this one-click shortcut — they need an individual confirm
+        // on the review screen (see resume-review.vue's isInferred).
+        acceptedAdds: ops
+          .filter((o) => o.type === "added" && !inferred.has(o.value))
+          .map((o) => o.value),
+        acceptedRemoves: ops
+          .filter((o) => o.type === "removed")
+          .map((o) => o.value),
+      },
+    ]
+  })
+  const titleAccepted =
+    !!t.title?.trim() && t.title.trim() !== (resumeStore.resume.basics.title ?? "").trim()
+  return { summaryAccepted: true, titleAccepted, work, skills }
+}
+
+async function acceptAllAndExport(app: Application) {
+  acceptingAll.value[app.id] = true
+  try {
+    if (!app.tailoredResume) await tailorResume(app)
+    const current = appsStore.applications.find((a) => a.id === app.id)
+    if (!current?.tailoredResume) return
+    appsStore.updateApplication(current.id, {
+      tailoredResume: {
+        ...current.tailoredResume,
+        review: buildAcceptAllReview(current),
+      },
+    })
+    openResumePreview(current.id)
+  } finally {
+    acceptingAll.value[app.id] = false
+  }
 }
 
 async function tailorResume(app: Application) {
@@ -225,7 +337,7 @@ async function tailorResume(app: Application) {
     <!-- Error toast -->
     <div
       v-if="saveError"
-      class="px-3 py-2 bg-red-50 dark:bg-red-950 border-b border-red-200 dark:border-red-800 flex items-center gap-2"
+      class="px-3 py-2 bg-red-50 dark:bg-red-950/50 border-b border-red-200 dark:border-red-900 flex items-center gap-2"
     >
       <UIcon
         name="i-lucide-alert-circle"
@@ -255,8 +367,12 @@ async function tailorResume(app: Application) {
           <p class="text-xs font-medium text-gray-500 truncate">
             {{ currentDomain }}
           </p>
-          <p class="text-xs text-green-600 dark:text-green-400 font-medium">
-            ✓ Site registered
+          <p class="text-xs text-green-600 dark:text-green-400 font-medium flex items-center gap-1">
+            <UIcon
+              name="i-lucide-check-circle-2"
+              class="shrink-0"
+            />
+            Site registered
           </p>
         </div>
         <UButton
@@ -319,7 +435,7 @@ async function tailorResume(app: Application) {
         class="h-1.5 rounded-full bg-gray-100 dark:bg-gray-800 overflow-hidden"
       >
         <div
-          class="h-full rounded-full bg-primary-500 transition-all"
+          class="h-full rounded-full bg-primary-500 transition-all duration-300"
           :class="{ 'bg-green-500': appliedToday >= goalsStore.dailyTarget }"
           :style="{
             width: `${Math.min(100, (appliedToday / goalsStore.dailyTarget) * 100)}%`,
@@ -387,16 +503,24 @@ async function tailorResume(app: Application) {
       v-if="filteredApps.length === 0"
       class="flex flex-col items-center justify-center flex-1 py-16 px-6 text-center"
     >
-      <UIcon
-        name="i-lucide-clipboard-list"
-        class="text-4xl text-gray-300 mb-3"
-      />
-      <p class="text-sm text-gray-500">
+      <div class="w-14 h-14 rounded-full bg-primary-50 dark:bg-primary-950 flex items-center justify-center mb-3">
+        <UIcon
+          name="i-lucide-clipboard-list"
+          class="text-2xl text-primary-500 dark:text-primary-400"
+        />
+      </div>
+      <p class="text-sm font-medium text-gray-700 dark:text-gray-300 max-w-64">
         {{
           appsStore.applications.length === 0
-            ? 'No jobs saved yet. Register a site and click "Save job" on a listing.'
-            : "No jobs match this filter."
+            ? "No jobs saved yet"
+            : "No jobs match this filter"
         }}
+      </p>
+      <p
+        v-if="appsStore.applications.length === 0"
+        class="text-xs text-gray-400 mt-1 max-w-64"
+      >
+        Register a site and click "Save job" on a listing.
       </p>
       <UButton
         v-if="appsStore.applications.length === 0"
@@ -422,7 +546,7 @@ async function tailorResume(app: Application) {
       >
         <!-- Card header (always visible) -->
         <div
-          class="px-3 py-2.5 hover:bg-gray-50 dark:hover:bg-gray-900 group cursor-pointer select-none"
+          class="px-3 py-2.5 transition-colors hover:bg-gray-50 dark:hover:bg-gray-900 group cursor-pointer select-none"
           @click="toggleExpand(app.id)"
         >
           <div class="flex items-start justify-between gap-2">
@@ -483,10 +607,19 @@ async function tailorResume(app: Application) {
             <a
               :href="app.url"
               target="_blank"
-              class="text-xs text-primary-500 hover:underline"
+              class="text-xs font-medium text-primary-600 dark:text-primary-400 hover:underline underline-offset-2"
             >
               View listing ↗
             </a>
+            <UTooltip text="No AI involved — opens your base resume as-is">
+              <button
+                type="button"
+                class="text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:underline underline-offset-2"
+                @click="openResumePreview(app.id)"
+              >
+                Export resume ↗
+              </button>
+            </UTooltip>
             <UButton
               size="xs"
               variant="ghost"
@@ -692,6 +825,24 @@ async function tailorResume(app: Application) {
                 v-if="app.tailoredResume"
                 class="flex items-center gap-1.5 mb-2"
               >
+                <span
+                  class="text-xs font-semibold px-1.5 py-0.5 rounded shrink-0"
+                  :class="
+                    matchScore(app.tailoredResume).current >= 70
+                      ? 'bg-emerald-100 dark:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300'
+                      : matchScore(app.tailoredResume).current >= 40
+                        ? 'bg-amber-100 dark:bg-amber-900/60 text-amber-700 dark:text-amber-300'
+                        : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400'
+                  "
+                  :title="
+                    matchScore(app.tailoredResume).current +
+                      '% match now, up to ' +
+                      matchScore(app.tailoredResume).potential +
+                      '% if you accept everything'
+                  "
+                >
+                  {{ matchScore(app.tailoredResume).current }}%
+                </span>
                 <UIcon
                   name="i-lucide-sparkles"
                   class="text-primary-500 text-xs shrink-0"
@@ -699,11 +850,53 @@ async function tailorResume(app: Application) {
                 <span class="text-xs text-gray-500">
                   Tailored {{ daysAgo(app.tailoredResume.generatedAt) }}
                 </span>
+                <span
+                  class="text-xs font-medium"
+                  :class="
+                    acceptedChangeCount(app.tailoredResume) > 0
+                      ? 'text-green-600 dark:text-green-400'
+                      : 'text-amber-600 dark:text-amber-400'
+                  "
+                >
+                  ·
+                  {{
+                    acceptedChangeCount(app.tailoredResume) > 0
+                      ? `${acceptedChangeCount(app.tailoredResume)} change${acceptedChangeCount(app.tailoredResume) === 1 ? "" : "s"} accepted`
+                      : "not reviewed yet"
+                  }}
+                </span>
+                <span
+                  v-if="app.tailoredResume.missingKeywords?.length"
+                  class="text-xs font-medium text-amber-600 dark:text-amber-400"
+                >
+                  · {{ app.tailoredResume.missingKeywords.length }} not
+                  covered
+                </span>
+                <span
+                  v-if="pendingSkillCount(app.tailoredResume) > 0"
+                  class="text-xs font-medium text-primary-600 dark:text-primary-400"
+                >
+                  · {{ pendingSkillCount(app.tailoredResume) }} pending
+                </span>
+                <UIcon
+                  v-if="app.tailoredResume.educationMatch"
+                  name="i-lucide-graduation-cap"
+                  class="text-xs shrink-0"
+                  :class="
+                    app.tailoredResume.educationMatch.met
+                      ? 'text-emerald-600 dark:text-emerald-400'
+                      : 'text-rose-600 dark:text-rose-400'
+                  "
+                  :title="
+                    (app.tailoredResume.educationMatch.met ? 'Matches: ' : 'Doesn\'t match: ') +
+                      app.tailoredResume.educationMatch.requirement
+                  "
+                />
                 <button
                   class="text-xs text-primary-500 hover:underline ml-auto"
-                  @click="openTailoredPreview(app.id)"
+                  @click="openTailoredReview(app.id)"
                 >
-                  View ↗
+                  Review ↗
                 </button>
               </div>
               <UButton
@@ -724,6 +917,23 @@ async function tailorResume(app: Application) {
                 class="text-xs text-red-500 mt-1.5"
               >
                 {{ tailorError[app.id] }}
+              </p>
+              <UButton
+                size="xs"
+                variant="ghost"
+                color="primary"
+                icon="i-lucide-check-check"
+                :loading="acceptingAll[app.id]"
+                :disabled="tailoring[app.id]"
+                block
+                class="mt-1.5"
+                @click="acceptAllAndExport(app)"
+              >
+                Accept all & export
+              </UButton>
+              <p class="text-[10px] text-gray-400 mt-1">
+                Tailors with AI if needed, then auto-accepts every
+                suggestion — no manual review.
               </p>
             </template>
           </div>

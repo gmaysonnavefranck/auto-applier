@@ -26,9 +26,21 @@ export const useApplicationsStore = defineStore("applications", () => {
     )
   }
 
+  // Strips any lingering Pinia reactive proxies out of `updates` (e.g. a caller
+  // spreading a nested reactive value it read back out of this store) before it
+  // reaches chrome.storage. JSON round-trip, not structuredClone(toRaw(...)):
+  // toRaw only unwraps the top level and structuredClone throws DataCloneError
+  // on any nested Proxy. Done per top-level key so `{ notes: undefined }` still
+  // clears the field instead of being dropped by JSON.
   function updateApplication(id: string, updates: Partial<Application>) {
+    const plainUpdates = Object.fromEntries(
+      Object.entries(updates).map(([k, v]) => [
+        k,
+        v === undefined ? undefined : JSON.parse(JSON.stringify(v)),
+      ]),
+    ) as Partial<Application>
     applications.value = applications.value.map((a) =>
-      a.id === id ? { ...a, ...updates } : a,
+      a.id === id ? { ...a, ...plainUpdates } : a,
     )
   }
 

@@ -96,8 +96,8 @@ function confirmRemove(board: JobBoard) {
           size="xs"
           @click="router.push('/side-panel')"
         />
-        <h2 class="font-semibold text-sm text-gray-900 dark:text-white">
-          Daily Job Boards
+        <h2 class="font-semibold text-sm text-gray-900 dark:text-white tracking-tight">
+          Daily job boards
         </h2>
       </div>
       <div class="flex gap-1.5">
@@ -129,14 +129,16 @@ function confirmRemove(board: JobBoard) {
     <!-- Empty state -->
     <div
       v-if="store.boards.length === 0"
-      class="flex flex-col items-center justify-center py-12 text-center"
+      class="flex flex-col items-center justify-center py-14 text-center"
     >
-      <UIcon
-        name="i-lucide-list-checks"
-        class="text-4xl text-gray-300 mb-3"
-      />
-      <p class="text-sm text-gray-500">No job boards added yet.</p>
-      <p class="text-xs text-gray-400 mt-1">
+      <div class="w-12 h-12 rounded-full bg-primary-50 dark:bg-primary-950 flex items-center justify-center mb-3">
+        <UIcon
+          name="i-lucide-list-checks"
+          class="text-xl text-primary-500 dark:text-primary-400"
+        />
+      </div>
+      <p class="text-sm font-medium text-gray-700 dark:text-gray-300">No job boards added yet</p>
+      <p class="text-xs text-gray-400 mt-1 max-w-56">
         Add the sites you check regularly for new postings.
       </p>
       <UButton
@@ -154,7 +156,7 @@ function confirmRemove(board: JobBoard) {
     <div
       v-for="board in store.boards"
       :key="board.id"
-      class="flex items-center gap-2 rounded-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 px-3 py-2.5"
+      class="flex items-center gap-2 rounded-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 px-3 py-2.5 transition-colors hover:border-gray-300 dark:hover:border-gray-700"
     >
       <UButton
         size="xs"
@@ -208,9 +210,9 @@ function confirmRemove(board: JobBoard) {
           v-if="editing"
           class="p-5 space-y-4"
         >
-          <h3 class="font-semibold text-gray-900 dark:text-white">
+          <h3 class="font-semibold text-gray-900 dark:text-white tracking-tight">
             {{ store.boards.some((b) => b.id === editing!.id) ? "Edit" : "Add" }}
-            Job Board
+            job board
           </h3>
 
           <UFormField

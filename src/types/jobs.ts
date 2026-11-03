@@ -140,15 +140,45 @@ export const STATUS_ORDER: ApplicationStatus[] = [
 
 export interface TailoredResumeReview {
   summaryAccepted: boolean
-  work: { id: string; acceptedAdds: string[]; acceptedRemoves: string[] }[]
-  skills: { id: string; acceptedAdds: string[]; acceptedRemoves: string[] }[]
+  summaryEdit?: string
+  titleAccepted?: boolean
+  titleEdit?: string
+  work: {
+    id: string
+    titleAccepted?: boolean
+    titleEdit?: string
+    acceptedAdds: string[]
+    acceptedRemoves: string[]
+    // Original Claude-suggested line -> the candidate's rewritten version of it.
+    edits?: Record<string, string>
+  }[]
+  skills: {
+    id: string
+    acceptedAdds: string[]
+    acceptedRemoves: string[]
+    edits?: Record<string, string>
+  }[]
+}
+
+// Informational only — never edited/accepted, just reported (see resume-review.vue).
+export interface EducationMatch {
+  requirement: string
+  met: boolean
+  note?: string
 }
 
 export interface TailoredResume {
+  title?: string
   summary: string
-  work: { id: string; highlights: string[] }[]
-  skills?: { id: string; items: string[] }[]
+  work: { id: string; title?: string; highlights: string[] }[]
+  // `inferred` is a subset of a group's `items`: companion tools Claude guessed
+  // the candidate likely uses (e.g. Pinia for a Vue codebase) but didn't find
+  // directly evidenced — flagged separately so the review UI can mark them as
+  // unconfirmed and require an explicit accept, never a silent bulk-accept.
+  skills?: { id: string; items: string[]; inferred?: string[] }[]
   missingKeywords: string[]
+  // Undefined when the job description states no degree requirement at all.
+  educationMatch?: EducationMatch
   generatedAt: string
   review?: TailoredResumeReview
 }

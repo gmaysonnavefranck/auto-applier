@@ -201,7 +201,7 @@ async function save() {
           size="xs"
           @click="router.push('/side-panel/sites')"
         />
-        <h2 class="font-semibold text-sm text-gray-900 dark:text-white">
+        <h2 class="font-semibold text-sm text-gray-900 dark:text-white tracking-tight">
           {{ editingSiteId ? 'Edit site' : 'Register new site' }}
         </h2>
       </div>
@@ -210,9 +210,13 @@ async function save() {
       </p>
       <p
         v-if="pickError"
-        class="text-xs text-red-500 pl-7 mt-1"
+        class="text-xs text-red-600 dark:text-red-400 pl-7 mt-1 flex items-center gap-1"
       >
-        ⚠ {{ pickError }}
+        <UIcon
+          name="i-lucide-alert-triangle"
+          class="shrink-0"
+        />
+        {{ pickError }}
       </p>
     </div>
 
@@ -243,14 +247,14 @@ async function save() {
 
     <!-- Field mapping list -->
     <div class="flex flex-col gap-2">
-      <p class="text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
-        Field Mapping
+      <p class="text-xs font-semibold text-gray-500 dark:text-gray-400">
+        Field mapping
       </p>
 
       <div
         v-for="field in FIELD_ORDER"
         :key="field"
-        class="rounded-lg border bg-white dark:bg-gray-950 overflow-hidden"
+        class="rounded-lg border bg-white dark:bg-gray-950 overflow-hidden transition-colors"
         :class="
           pickingField === field
             ? 'border-primary-400 ring-2 ring-primary-200 dark:ring-primary-800'
@@ -365,7 +369,7 @@ async function save() {
           v-else-if="mappings[field]"
           class="px-2.5 pb-2 -mt-0.5 flex flex-col gap-1"
         >
-          <code class="text-[10px] text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-950 px-1.5 py-0.5 rounded font-mono break-all">
+          <code class="text-[10px] text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-950 px-1.5 py-0.5 rounded-md font-mono break-all">
             {{ mappings[field] }}
           </code>
 
@@ -377,7 +381,7 @@ async function save() {
           </p>
           <div
             v-else-if="previews[field]"
-            class="text-[10px] text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-900 rounded px-1.5 py-1"
+            class="text-[10px] text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-900 rounded-md px-1.5 py-1"
           >
             <span class="font-medium">
               {{ previews[field]!.count }} match{{ previews[field]!.count === 1 ? '' : 'es' }}:

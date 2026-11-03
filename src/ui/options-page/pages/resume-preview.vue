@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router'
 import { useResumeStore } from 'src/stores/resume.store'
 import { useApplicationsStore } from 'src/stores/applications.store'
 import { sanitizeForAts } from 'src/utils/text'
+import { diffLines, diffSet, resolveReviewedLines } from 'src/utils/diff'
 import type { Resume } from 'src/types/resume'
 
 const store = useResumeStore()
@@ -38,20 +39,37 @@ function sanitizeResume(resume: Resume): Resume {
 const r = computed((): Resume => {
   const base = store.resume as Resume
   const t = tailored.value
+  const review = t?.review
 
   const merged: Resume = t ? {
     ...base,
     basics: {
       ...base.basics,
-      summary: t.summary || base.basics.summary,
+      title: review?.titleAccepted
+        ? (review.titleEdit ?? t.title ?? base.basics.title)
+        : base.basics.title,
+      summary: review?.summaryAccepted
+        ? (review.summaryEdit ?? t.summary)
+        : base.basics.summary,
     },
     work: base.work.map(job => {
       const tw = t.work.find(w => w.id === job.id)
-      return tw && tw.highlights.length > 0 ? { ...job, highlights: tw.highlights } : job
+      if (!tw) return job
+      const ops = diffLines(job.highlights, tw.highlights)
+      const entry = review?.work.find(w => w.id === job.id)
+      const highlights = resolveReviewedLines(ops, entry?.acceptedAdds ?? [], entry?.acceptedRemoves ?? [], entry?.edits)
+      const position = entry?.titleAccepted
+        ? (entry.titleEdit ?? tw.title ?? job.position)
+        : job.position
+      return { ...job, highlights, position }
     }),
     skills: base.skills.map(group => {
       const ts = t.skills?.find(s => s.id === group.id)
-      return ts && ts.items.length > 0 ? { ...group, items: ts.items } : group
+      if (!ts) return group
+      const ops = diffSet(group.items, ts.items)
+      const entry = review?.skills.find(s => s.id === group.id)
+      const items = resolveReviewedLines(ops, entry?.acceptedAdds ?? [], entry?.acceptedRemoves ?? [], entry?.edits)
+      return { ...group, items }
     }),
   } : base
 
@@ -83,6 +101,13 @@ const contactItems = computed(() => {
       >
         ← Back
       </button>
+      <button
+        v-if="targetApp"
+        class="tb-btn"
+        @click="$router.push('/options-page/resume-review?appId=' + targetApp.id)"
+      >
+        Review changes
+      </button>
       <span class="tb-title">
         Resume Preview
         <span
@@ -105,7 +130,7 @@ const contactItems = computed(() => {
       v-if="tailored?.missingKeywords?.length"
       class="missing-kw no-print"
     >
-      <span class="missing-kw-label">Not in your resume:</span>
+      <span class="missing-kw-label">Not covered:</span>
       <span
         v-for="kw in tailored.missingKeywords"
         :key="kw"
@@ -260,7 +285,7 @@ const contactItems = computed(() => {
   position: fixed;
   inset: 0;
   z-index: 1000;
-  background: #d6d6d6;
+  background: oklch(0.87 0.008 65);
   overflow-y: auto;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -274,7 +299,7 @@ const contactItems = computed(() => {
   align-items: center;
   gap: 12px;
   padding: 10px 20px;
-  background: #1e3a5f;
+  background: oklch(0.24 0.045 195);
   color: white;
   font-size: 13px;
 }
@@ -284,20 +309,23 @@ const contactItems = computed(() => {
   text-align: center;
   font-weight: 600;
   font-size: 14px;
+  letter-spacing: -0.01em;
 }
 
 .tb-btn {
   padding: 6px 14px;
   border: 1px solid rgba(255,255,255,0.35);
-  border-radius: 6px;
+  border-radius: 8px;
   background: rgba(255,255,255,0.1);
   color: white;
   cursor: pointer;
   font-size: 13px;
+  transition: background-color 150ms ease, transform 100ms ease;
 }
 
-.tb-btn:hover { background: rgba(255,255,255,0.2); }
-.tb-print { font-weight: 600; }
+.tb-btn:hover { background: rgba(255,255,255,0.22); }
+.tb-btn:active { transform: scale(0.97); }
+.tb-print { font-weight: 600; background: rgba(255,255,255,0.16); }
 
 .tb-tailored-tag {
   display: inline-block;

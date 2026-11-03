@@ -26,7 +26,7 @@ function confirmDelete(site: SiteConfig) {
           size="xs"
           @click="router.push('/side-panel')"
         />
-        <h2 class="font-semibold text-sm text-gray-900 dark:text-white">Registered Sites</h2>
+        <h2 class="font-semibold text-sm text-gray-900 dark:text-white tracking-tight">Registered sites</h2>
       </div>
       <UButton
         size="xs"
@@ -40,21 +40,23 @@ function confirmDelete(site: SiteConfig) {
     <!-- Empty state -->
     <div
       v-if="sitesStore.sites.length === 0"
-      class="flex flex-col items-center justify-center py-12 text-center"
+      class="flex flex-col items-center justify-center py-14 text-center"
     >
-      <UIcon
-        name="i-lucide-globe"
-        class="text-4xl text-gray-300 mb-3"
-      />
-      <p class="text-sm text-gray-500">No sites registered yet.</p>
-      <p class="text-xs text-gray-400 mt-1">Visit a job board and click "Add site" to get started.</p>
+      <div class="w-12 h-12 rounded-full bg-primary-50 dark:bg-primary-950 flex items-center justify-center mb-3">
+        <UIcon
+          name="i-lucide-globe"
+          class="text-xl text-primary-500 dark:text-primary-400"
+        />
+      </div>
+      <p class="text-sm font-medium text-gray-700 dark:text-gray-300">No sites registered yet</p>
+      <p class="text-xs text-gray-400 mt-1 max-w-56">Visit a job board and click "Add site" to get started.</p>
     </div>
 
     <!-- Site cards -->
     <div
       v-for="site in sitesStore.sites"
       :key="site.id"
-      class="rounded-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 overflow-hidden"
+      class="rounded-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 overflow-hidden transition-colors hover:border-gray-300 dark:hover:border-gray-700"
     >
       <!-- Site header -->
       <div class="flex items-center justify-between gap-2 px-3 py-2.5">
@@ -85,7 +87,7 @@ function confirmDelete(site: SiteConfig) {
         <div
           v-for="mapping in site.mappings"
           :key="mapping.field"
-          class="flex items-center gap-1 text-[10px] bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded px-1.5 py-0.5"
+          class="flex items-center gap-1 text-[10px] bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-md px-1.5 py-0.5"
         >
           <UIcon
             :name="FIELD_CONFIG[mapping.field].icon"
