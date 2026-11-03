@@ -60,18 +60,21 @@ export function diffSet(oldItems: string[], newItems: string[]): DiffOp[] {
 
 // Applies an accept/reject decision to a diff: unchanged lines always stay,
 // removed lines stay unless their removal was accepted, added lines are
-// included only if explicitly accepted. Nothing reviewed yet == old lines.
+// included only if explicitly accepted — using the user's edited text in
+// place of Claude's suggestion when one was saved for that line.
 export function resolveReviewedLines(
   ops: DiffOp[],
   acceptedAdds: string[],
   acceptedRemoves: string[],
+  edits?: Record<string, string>,
 ): string[] {
   const addSet = new Set(acceptedAdds)
   const removeSet = new Set(acceptedRemoves)
   const out: string[] = []
   for (const op of ops) {
     if (op.type === "unchanged") out.push(op.value)
-    else if (op.type === "added" && addSet.has(op.value)) out.push(op.value)
+    else if (op.type === "added" && addSet.has(op.value))
+      out.push(edits?.[op.value] ?? op.value)
     else if (op.type === "removed" && !removeSet.has(op.value)) out.push(op.value)
   }
   return out

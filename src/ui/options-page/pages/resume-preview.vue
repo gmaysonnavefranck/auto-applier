@@ -45,22 +45,30 @@ const r = computed((): Resume => {
     ...base,
     basics: {
       ...base.basics,
-      summary: review?.summaryAccepted ? t.summary : base.basics.summary,
+      title: review?.titleAccepted
+        ? (review.titleEdit ?? t.title ?? base.basics.title)
+        : base.basics.title,
+      summary: review?.summaryAccepted
+        ? (review.summaryEdit ?? t.summary)
+        : base.basics.summary,
     },
     work: base.work.map(job => {
       const tw = t.work.find(w => w.id === job.id)
       if (!tw) return job
       const ops = diffLines(job.highlights, tw.highlights)
       const entry = review?.work.find(w => w.id === job.id)
-      const highlights = resolveReviewedLines(ops, entry?.acceptedAdds ?? [], entry?.acceptedRemoves ?? [])
-      return { ...job, highlights }
+      const highlights = resolveReviewedLines(ops, entry?.acceptedAdds ?? [], entry?.acceptedRemoves ?? [], entry?.edits)
+      const position = entry?.titleAccepted
+        ? (entry.titleEdit ?? tw.title ?? job.position)
+        : job.position
+      return { ...job, highlights, position }
     }),
     skills: base.skills.map(group => {
       const ts = t.skills?.find(s => s.id === group.id)
       if (!ts) return group
       const ops = diffSet(group.items, ts.items)
       const entry = review?.skills.find(s => s.id === group.id)
-      const items = resolveReviewedLines(ops, entry?.acceptedAdds ?? [], entry?.acceptedRemoves ?? [])
+      const items = resolveReviewedLines(ops, entry?.acceptedAdds ?? [], entry?.acceptedRemoves ?? [], entry?.edits)
       return { ...group, items }
     }),
   } : base

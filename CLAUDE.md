@@ -14,9 +14,12 @@ npm run build       # Production build
 npm run lint        # ESLint with auto-fix
 npm run typecheck   # TypeScript type checking
 npm run format      # Format with Prettier
+npm test            # Vitest (utils + Pinia stores), npm run test:watch for watch mode
 ```
 
-Before committing: `npm run lint` and `npm run typecheck` must be clean.
+Before committing: `npm run lint`, `npm run typecheck` and `npm test` must be clean.
+
+Tests live next to source as `*.test.ts`. [src/test/setup.ts](src/test/setup.ts) exposes Vue's exports as globals (stand-in for Vite auto-imports) and mocks `chrome.storage.local` in memory (JSON-serialized like the real API; inspect via the exported `storage`).
 
 ## Code style
 
