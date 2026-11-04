@@ -5,6 +5,9 @@ const BACKUP_KEYS = [
   "aa-applications",
   "aa-resume",
   "aa-job-boards",
+  "aa-skill-learning",
+  "aa-skill-added",
+  "aa-learning-plan",
 ] as const
 
 export interface BackupFile {

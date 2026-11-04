@@ -177,6 +177,9 @@ export interface TailoredResume {
   // unconfirmed and require an explicit accept, never a silent bulk-accept.
   skills?: { id: string; items: string[]; inferred?: string[] }[]
   missingKeywords: string[]
+  // Subset of missingKeywords the posting lists as must-have (not "preferred"
+  // / "nice to have"). Missing on resumes tailored before this was added.
+  requiredMissing?: string[]
   // Undefined when the job description states no degree requirement at all.
   educationMatch?: EducationMatch
   generatedAt: string
@@ -197,6 +200,9 @@ export interface Application {
   status: ApplicationStatus
   dateAdded: string
   dateApplied?: string
+  // Appended on every status change (see setStatus). Missing on jobs that
+  // predate it, so analytics falls back to `status` + `dateApplied`.
+  statusHistory?: { status: ApplicationStatus; at: string }[]
   notes?: string
   tailoredResume?: TailoredResume
 }

@@ -13,13 +13,15 @@ export const useApplicationsStore = defineStore("applications", () => {
   }
 
   function setStatus(id: string, status: ApplicationStatus) {
+    const now = new Date().toISOString()
     applications.value = applications.value.map((a) =>
-      a.id === id
+      a.id === id && a.status !== status
         ? {
             ...a,
             status,
+            statusHistory: [...(a.statusHistory ?? []), { status, at: now }],
             ...(status === "applied" && !a.dateApplied
-              ? { dateApplied: new Date().toISOString() }
+              ? { dateApplied: now }
               : {}),
           }
         : a,

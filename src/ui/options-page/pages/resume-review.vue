@@ -355,6 +355,19 @@ const pendingSkillAdds = computed(() => {
   return items
 })
 
+// requiredMissing is undefined on resumes tailored before the flag existed;
+// those get one unlabeled list instead of a must-have / nice-to-have split.
+const missingGroups = computed(() => {
+  const t = tailored.value
+  if (!t?.missingKeywords?.length) return []
+  if (!t.requiredMissing) return [{ label: "", items: t.missingKeywords, mustHave: false }]
+  const req = new Set(t.requiredMissing)
+  return [
+    { label: "Must-have", items: t.missingKeywords.filter((k) => req.has(k)), mustHave: true },
+    { label: "Nice to have", items: t.missingKeywords.filter((k) => !req.has(k)), mustHave: false },
+  ].filter((g) => g.items.length)
+})
+
 const hasSkillsGap = computed(
   () => !!tailored.value?.missingKeywords?.length || pendingSkillAdds.value.length > 0,
 )
@@ -509,12 +522,26 @@ const hasSkillsGap = computed(
             />
             Not covered — not in your background, nothing to accept here
           </p>
-          <div class="flex flex-wrap gap-1.5">
-            <span
-              v-for="kw in tailored.missingKeywords"
-              :key="kw"
-              class="text-xs font-medium px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-900/60 text-amber-800 dark:text-amber-300"
-            >{{ kw }}</span>
+          <div class="space-y-1.5">
+            <div
+              v-for="group in missingGroups"
+              :key="group.label"
+              class="flex flex-wrap items-center gap-1.5"
+            >
+              <span
+                v-if="group.label"
+                class="text-[11px] font-semibold uppercase tracking-wide w-24 shrink-0"
+                :class="group.mustHave ? 'text-red-700 dark:text-red-400' : 'text-amber-700 dark:text-amber-400'"
+              >{{ group.label }}</span>
+              <span
+                v-for="kw in group.items"
+                :key="kw"
+                class="text-xs font-medium px-2 py-0.5 rounded-full"
+                :class="group.mustHave
+                  ? 'bg-red-100 dark:bg-red-900/60 text-red-800 dark:text-red-300'
+                  : 'bg-amber-100 dark:bg-amber-900/60 text-amber-800 dark:text-amber-300'"
+              >{{ kw }}</span>
+            </div>
           </div>
         </div>
 

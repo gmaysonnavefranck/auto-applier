@@ -291,12 +291,16 @@ async function acceptAllAndExport(app: Application) {
     if (!app.tailoredResume) await tailorResume(app)
     const current = appsStore.applications.find((a) => a.id === app.id)
     if (!current?.tailoredResume) return
-    appsStore.updateApplication(current.id, {
-      tailoredResume: {
-        ...current.tailoredResume,
-        review: buildAcceptAllReview(current),
-      },
-    })
+    // An existing review holds deliberate rejects/edits; export it as-is
+    // instead of overwriting it with accept-all.
+    if (!current.tailoredResume.review) {
+      appsStore.updateApplication(current.id, {
+        tailoredResume: {
+          ...current.tailoredResume,
+          review: buildAcceptAllReview(current),
+        },
+      })
+    }
     openResumePreview(current.id)
   } finally {
     acceptingAll.value[app.id] = false
@@ -929,11 +933,12 @@ async function tailorResume(app: Application) {
                 class="mt-1.5"
                 @click="acceptAllAndExport(app)"
               >
-                Accept all & export
+                {{ app.tailoredResume?.review ? "Export reviewed resume" : "Accept all & export" }}
               </UButton>
               <p class="text-[10px] text-gray-400 mt-1">
-                Tailors with AI if needed, then auto-accepts every
-                suggestion — no manual review.
+                {{ app.tailoredResume?.review
+                  ? "Exports your reviewed choices as-is."
+                  : "Tailors with AI if needed, then auto-accepts every suggestion — no manual review." }}
               </p>
             </template>
           </div>

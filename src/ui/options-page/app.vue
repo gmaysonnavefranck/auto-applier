@@ -47,7 +47,14 @@ const showNav = computed(() => route.path !== "/options-page/resume-preview")
             class="px-2.5 py-1 rounded-md text-xs font-medium text-gray-500 transition-colors hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
             active-class="!text-primary-700 dark:!text-primary-400 bg-primary-50 dark:bg-primary-950/60 hover:!bg-primary-50 dark:hover:!bg-primary-950/60"
           >
-            Skills Analytics
+            Analytics
+          </RouterLink>
+          <RouterLink
+            to="/options-page/usage"
+            class="px-2.5 py-1 rounded-md text-xs font-medium text-gray-500 transition-colors hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+            active-class="!text-primary-700 dark:!text-primary-400 bg-primary-50 dark:bg-primary-950/60 hover:!bg-primary-50 dark:hover:!bg-primary-950/60"
+          >
+            Usage
           </RouterLink>
         </nav>
       </header>

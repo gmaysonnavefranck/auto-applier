@@ -135,7 +135,8 @@ const contactItems = computed(() => {
         v-for="kw in tailored.missingKeywords"
         :key="kw"
         class="missing-kw-chip"
-      >{{ kw }}</span>
+        :class="{ 'missing-kw-chip--req': tailored.requiredMissing?.includes(kw) }"
+      >{{ kw }}<template v-if="tailored.requiredMissing?.includes(kw)"> (must-have)</template></span>
     </div>
 
     <!-- ── Paper ────────────────────────────────────── -->
@@ -362,6 +363,11 @@ const contactItems = computed(() => {
   background: #ffe3b3;
   color: #7a4b00;
   font-weight: 500;
+}
+
+.missing-kw-chip--req {
+  background: #fdd;
+  color: #8a1c1c;
 }
 
 

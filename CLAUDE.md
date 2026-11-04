@@ -84,6 +84,14 @@ Saved site configs live in `useSitesStore` ([src/stores/sites.store.ts](src/stor
 - The actual API call is proxied through the background script (`TAILOR_RESUME` message in [src/background/index.ts](src/background/index.ts)) rather than called directly from UI contexts.
 - Resume PDF export is `window.print()` (see [src/ui/options-page/pages/resume-preview.vue](src/ui/options-page/pages/resume-preview.vue)), styled via `@media print` / `.no-print` — there is no PDF-generation library in play.
 
+### 4. Usage / cost tracking
+
+Every Claude call goes through `callClaudeForJson` ([src/utils/claude.ts](src/utils/claude.ts)), which calls `recordUsage` ([src/utils/usage.ts](src/utils/usage.ts)), which appends to `aa-usage` from the background (serialized through a promise queue). Neither API returns dollars — cost is computed from hardcoded list prices in `usage.ts`, so update `CLAUDE_PRICES_PER_MTOK` when changing models. Shown on the options [usage.vue](src/ui/options-page/pages/usage.vue) page.
+
+### 5. Analytics
+
+Options [analytics.vue](src/ui/options-page/pages/analytics.vue); all logic is pure functions in [src/utils/analytics.ts](src/utils/analytics.ts), local only. Skill gaps come from `missingKeywords` / `requiredMissing` of tailoring runs, merged by `skillKey`, then searched in every saved description. Funnel uses `Application.statusHistory` (appended by `setStatus`). `useSkillsStore` holds "learning" marks, the date each skill was added to the base resume (recorded in `upsertSkillGroup`), and the AI learning plan (`LEARNING_PLAN` message → [learningPlan.ts](src/utils/learningPlan.ts)).
+
 ## Storage
 
-All persistence is `chrome.storage.local` via `useBrowserLocalStorage` ([src/composables/useBrowserStorage.ts](src/composables/useBrowserStorage.ts)), keyed with an `aa-` prefix: `aa-sites`, `aa-applications`, `aa-resume`, `aa-claude-key`. That composable deep-merges stored objects onto the passed default (so new fields added to a type get backfilled for existing users) and syncs both directions (`chrome.storage.onChanged` → ref, ref `watch` → `chrome.storage.set`).
+All persistence is `chrome.storage.local` via `useBrowserLocalStorage` ([src/composables/useBrowserStorage.ts](src/composables/useBrowserStorage.ts)), keyed with an `aa-` prefix: `aa-sites`, `aa-applications`, `aa-resume`, `aa-claude-key`, `aa-usage`, `aa-skill-learning`, `aa-skill-added`, `aa-learning-plan`. That composable deep-merges stored objects onto the passed default (so new fields added to a type get backfilled for existing users) and syncs both directions (`chrome.storage.onChanged` → ref, ref `watch` → `chrome.storage.set`).

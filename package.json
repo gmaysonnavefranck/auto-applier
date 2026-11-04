@@ -56,6 +56,7 @@
   },
   "scripts": {
     "build": "cross-env NODE_ENV=production vite build",
+    "demo-data": "node scripts/demo-data.mjs",
     "dev": "cross-env NODE_ENV=development vite",
     "format": "prettier --write .",
     "lint": "eslint . --fix --cache",

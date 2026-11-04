@@ -1,0 +1,2172 @@
+{
+  "version": 1,
+  "exportedAt": "2026-11-03T12:00:00.000Z",
+  "data": {
+    "aa-applications": [
+      {
+        "id": "demo-26",
+        "siteConfigId": "",
+        "domain": "jobs.lever.co",
+        "jobBoard": "Lever",
+        "url": "https://jobs.lever.co/jobs/demo-26",
+        "jobTitle": "Staff Frontend Engineer",
+        "company": "Globex",
+        "status": "applied",
+        "dateAdded": "2026-10-30T12:00:00.000Z",
+        "description": "Globex is hiring a Staff Frontend Engineer. Requirements: React, GraphQL. Our stack: React.js, TypeScript, AWS, GraphQL. Nice to have: TypeScript, AWS.",
+        "dateApplied": "2026-10-30T12:00:00.000Z",
+        "statusHistory": [
+          {
+            "status": "applied",
+            "at": "2026-10-30T12:00:00.000Z"
+          }
+        ]
+      },
+      {
+        "id": "demo-6",
+        "siteConfigId": "",
+        "domain": "careers.example.com",
+        "jobBoard": "",
+        "url": "https://careers.example.com/jobs/demo-6",
+        "jobTitle": "Software Engineer",
+        "company": "Hooli",
+        "status": "saved",
+        "dateAdded": "2026-10-29T12:00:00.000Z",
+        "description": "Hooli is hiring a Software Engineer. Requirements: AWS, Kubernetes. Our stack: TypeScript, AWS, Docker, Kubernetes, Terraform. Nice to have: TypeScript, Docker, Terraform.",
+        "tailoredResume": {
+          "title": "Frontend Developer",
+          "summary": "Frontend developer with 4 years of experience, ready for Software Engineer work.",
+          "work": [
+            {
+              "id": "w1",
+              "title": "Frontend Developer",
+              "highlights": [
+                "Built a Vue 3 dashboard used by 2k users",
+                "Migrated the build from Webpack to Vite"
+              ]
+            }
+          ],
+          "skills": [
+            {
+              "id": "s1",
+              "items": [
+                "Vue",
+                "TypeScript",
+                "JavaScript",
+                "CSS",
+                "Pinia",
+                "Vitest",
+                "REST APIs",
+                "Tailwind CSS"
+              ],
+              "inferred": []
+            }
+          ],
+          "missingKeywords": [
+            "AWS",
+            "Kubernetes",
+            "Terraform"
+          ],
+          "requiredMissing": [
+            "AWS",
+            "Kubernetes"
+          ],
+          "generatedAt": "2026-10-30T00:00:00.000Z",
+          "review": {
+            "summaryAccepted": true,
+            "work": [],
+            "skills": [
+              {
+                "id": "s1",
+                "acceptedAdds": [
+                  "Vitest",
+                  "REST APIs",
+                  "Tailwind CSS"
+                ],
+                "acceptedRemoves": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "demo-46",
+        "siteConfigId": "",
+        "domain": "linkedin.com",
+        "jobBoard": "LinkedIn",
+        "url": "https://linkedin.com/jobs/demo-46",
+        "jobTitle": "Senior Frontend Engineer",
+        "company": "Pied Piper",
+        "status": "applied",
+        "dateAdded": "2026-10-28T12:00:00.000Z",
+        "description": "Pied Piper is hiring a Senior Frontend Engineer. Requirements: React. Our stack: React, TypeScript, Next.js, GraphQL. Nice to have: TypeScript, Next.js, GraphQL.",
+        "tailoredResume": {
+          "title": "Frontend Developer",
+          "summary": "Frontend developer with 4 years of experience, ready for Senior Frontend Engineer work.",
+          "work": [
+            {
+              "id": "w1",
+              "title": "Frontend Developer",
+              "highlights": [
+                "Built a Vue 3 dashboard used by 2k users",
+                "Migrated the build from Webpack to Vite"
+              ]
+            }
+          ],
+          "skills": [
+            {
+              "id": "s1",
+              "items": [
+                "Vue",
+                "TypeScript",
+                "JavaScript",
+                "CSS",
+                "Pinia",
+                "Vite",
+                "Vitest"
+              ],
+              "inferred": []
+            }
+          ],
+          "missingKeywords": [
+            "React",
+            "Next.js",
+            "GraphQL"
+          ],
+          "requiredMissing": [
+            "React"
+          ],
+          "generatedAt": "2026-10-29T00:00:00.000Z",
+          "review": {
+            "summaryAccepted": true,
+            "work": [],
+            "skills": [
+              {
+                "id": "s1",
+                "acceptedAdds": [
+                  "Vite",
+                  "Vitest"
+                ],
+                "acceptedRemoves": []
+              }
+            ]
+          }
+        },
+        "dateApplied": "2026-10-28T12:00:00.000Z",
+        "statusHistory": [
+          {
+            "status": "applied",
+            "at": "2026-10-28T12:00:00.000Z"
+          }
+        ]
+      },
+      {
+        "id": "demo-47",
+        "siteConfigId": "",
+        "domain": "linkedin.com",
+        "jobBoard": "LinkedIn",
+        "url": "https://linkedin.com/jobs/demo-47",
+        "jobTitle": "Software Engineer",
+        "company": "Umbrella",
+        "status": "screening",
+        "dateAdded": "2026-10-25T12:00:00.000Z",
+        "description": "Umbrella is hiring a Software Engineer. Requirements: AWS, Kubernetes. Our stack: TypeScript, AWS, Docker, Kubernetes, Terraform. Nice to have: TypeScript, Docker, Terraform.",
+        "dateApplied": "2026-10-26T12:00:00.000Z",
+        "statusHistory": [
+          {
+            "status": "applied",
+            "at": "2026-10-26T12:00:00.000Z"
+          },
+          {
+            "status": "screening",
+            "at": "2026-10-31T12:00:00.000Z"
+          }
+        ]
+      },
+      {
+        "id": "demo-12",
+        "siteConfigId": "",
+        "domain": "careers.example.com",
+        "jobBoard": "",
+        "url": "https://careers.example.com/jobs/demo-12",
+        "jobTitle": "React Native Developer",
+        "company": "Hooli",
+        "status": "interview",
+        "dateAdded": "2026-10-19T12:00:00.000Z",
+        "description": "Hooli is hiring a React Native Developer. Requirements: React Native. Our stack: React Native, TypeScript, iOS. Nice to have: TypeScript, iOS.",
+        "tailoredResume": {
+          "title": "Frontend Developer",
+          "summary": "Frontend developer with 4 years of experience, ready for React Native Developer work.",
+          "work": [
+            {
+              "id": "w1",
+              "title": "Frontend Developer",
+              "highlights": [
+                "Built a Vue 3 dashboard used by 2k users",
+                "Migrated the build from Webpack to Vite"
+              ]
+            }
+          ],
+          "skills": [
+            {
+              "id": "s1",
+              "items": [
+                "Vue",
+                "TypeScript",
+                "JavaScript",
+                "CSS",
+                "Pinia",
+                "Vitest"
+              ],
+              "inferred": []
+            }
+          ],
+          "missingKeywords": [
+            "React Native",
+            "iOS"
+          ],
+          "requiredMissing": [
+            "React Native"
+          ],
+          "generatedAt": "2026-10-20T00:00:00.000Z",
+          "review": {
+            "summaryAccepted": true,
+            "work": [],
+            "skills": [
+              {
+                "id": "s1",
+                "acceptedAdds": [
+                  "Vitest"
+                ],
+                "acceptedRemoves": []
+              }
+            ]
+          }
+        },
+        "dateApplied": "2026-10-20T12:00:00.000Z",
+        "statusHistory": [
+          {
+            "status": "applied",
+            "at": "2026-10-20T12:00:00.000Z"
+          },
+          {
+            "status": "screening",
+            "at": "2026-10-29T12:00:00.000Z"
+          },
+          {
+            "status": "interview",
+            "at": "2026-11-03T12:00:00.000Z"
+          }
+        ]
+      },
+      {
+        "id": "demo-32",
+        "siteConfigId": "",
+        "domain": "careers.example.com",
+        "jobBoard": "",
+        "url": "https://careers.example.com/jobs/demo-32",
+        "jobTitle": "Senior Frontend Engineer",
+        "company": "Globex",
+        "status": "rejected",
+        "dateAdded": "2026-10-17T12:00:00.000Z",
+        "description": "Globex is hiring a Senior Frontend Engineer. Requirements: React. Our stack: ReactJS, TypeScript, NextJS, GraphQL. Nice to have: TypeScript, Next.js, GraphQL.",
+        "tailoredResume": {
+          "title": "Frontend Developer",
+          "summary": "Frontend developer with 4 years of experience, ready for Senior Frontend Engineer work.",
+          "work": [
+            {
+              "id": "w1",
+              "title": "Frontend Developer",
+              "highlights": [
+                "Built a Vue 3 dashboard used by 2k users",
+                "Migrated the build from Webpack to Vite"
+              ]
+            }
+          ],
+          "skills": [
+            {
+              "id": "s1",
+              "items": [
+                "Vue",
+                "TypeScript",
+                "JavaScript",
+                "CSS",
+                "Pinia",
+                "Vite",
+                "Vitest"
+              ],
+              "inferred": []
+            }
+          ],
+          "missingKeywords": [
+            "ReactJS",
+            "Next.js",
+            "GraphQL"
+          ],
+          "requiredMissing": [
+            "ReactJS"
+          ],
+          "generatedAt": "2026-10-18T00:00:00.000Z",
+          "review": {
+            "summaryAccepted": true,
+            "work": [],
+            "skills": [
+              {
+                "id": "s1",
+                "acceptedAdds": [
+                  "Vite",
+                  "Vitest"
+                ],
+                "acceptedRemoves": []
+              }
+            ]
+          }
+        },
+        "dateApplied": "2026-10-17T12:00:00.000Z",
+        "statusHistory": [
+          {
+            "status": "applied",
+            "at": "2026-10-17T12:00:00.000Z"
+          },
+          {
+            "status": "rejected",
+            "at": "2026-10-28T12:00:00.000Z"
+          }
+        ]
+      },
+      {
+        "id": "demo-34",
+        "siteConfigId": "",
+        "domain": "careers.example.com",
+        "jobBoard": "",
+        "url": "https://careers.example.com/jobs/demo-34",
+        "jobTitle": "Software Engineer",
+        "company": "Globex",
+        "status": "applied",
+        "dateAdded": "2026-10-13T12:00:00.000Z",
+        "description": "Globex is hiring a Software Engineer. Requirements: AWS, Kubernetes. Our stack: TypeScript, AWS, Docker, Kubernetes, Terraform. Nice to have: TypeScript, Docker, Terraform.",
+        "dateApplied": "2026-10-14T12:00:00.000Z",
+        "statusHistory": [
+          {
+            "status": "applied",
+            "at": "2026-10-14T12:00:00.000Z"
+          }
+        ]
+      },
+      {
+        "id": "demo-29",
+        "siteConfigId": "",
+        "domain": "linkedin.com",
+        "jobBoard": "LinkedIn",
+        "url": "https://linkedin.com/jobs/demo-29",
+        "jobTitle": "Frontend Developer (React)",
+        "company": "Wayne Digital",
+        "status": "rejected",
+        "dateAdded": "2026-10-11T12:00:00.000Z",
+        "description": "Wayne Digital is hiring a Frontend Developer (React). Requirements: React. Our stack: ReactJS, Redux, TypeScript, Jest. Nice to have: Redux, TypeScript, Jest.",
+        "tailoredResume": {
+          "title": "Frontend Developer",
+          "summary": "Frontend developer with 4 years of experience, ready for Frontend Developer (React) work.",
+          "work": [
+            {
+              "id": "w1",
+              "title": "Frontend Developer",
+              "highlights": [
+                "Built a Vue 3 dashboard used by 2k users",
+                "Migrated the build from Webpack to Vite"
+              ]
+            }
+          ],
+          "skills": [
+            {
+              "id": "s1",
+              "items": [
+                "Vue",
+                "TypeScript",
+                "JavaScript",
+                "CSS",
+                "Pinia",
+                "Vitest"
+              ],
+              "inferred": []
+            }
+          ],
+          "missingKeywords": [
+            "React",
+            "Redux",
+            "Jest"
+          ],
+          "requiredMissing": [
+            "React"
+          ],
+          "generatedAt": "2026-10-12T00:00:00.000Z",
+          "review": {
+            "summaryAccepted": true,
+            "work": [],
+            "skills": [
+              {
+                "id": "s1",
+                "acceptedAdds": [],
+                "acceptedRemoves": []
+              }
+            ]
+          }
+        },
+        "dateApplied": "2026-10-12T12:00:00.000Z",
+        "statusHistory": [
+          {
+            "status": "applied",
+            "at": "2026-10-12T12:00:00.000Z"
+          },
+          {
+            "status": "rejected",
+            "at": "2026-10-23T12:00:00.000Z"
+          }
+        ]
+      },
+      {
+        "id": "demo-2",
+        "siteConfigId": "",
+        "domain": "jobs.ashbyhq.com",
+        "jobBoard": "Ashby",
+        "url": "https://jobs.ashbyhq.com/jobs/demo-2",
+        "jobTitle": "Junior Web Developer",
+        "company": "Vandelay",
+        "status": "screening",
+        "dateAdded": "2026-10-07T12:00:00.000Z",
+        "description": "Vandelay is hiring a Junior Web Developer. Requirements: JavaScript, CSS. Our stack: JavaScript, CSS, Vue. Nice to have: JavaScript, CSS, Vue.",
+        "tailoredResume": {
+          "title": "Frontend Developer",
+          "summary": "Frontend developer with 4 years of experience, ready for Junior Web Developer work.",
+          "work": [
+            {
+              "id": "w1",
+              "title": "Frontend Developer",
+              "highlights": [
+                "Built a Vue 3 dashboard used by 2k users",
+                "Migrated the build from Webpack to Vite"
+              ]
+            }
+          ],
+          "skills": [
+            {
+              "id": "s1",
+              "items": [
+                "Vue",
+                "TypeScript",
+                "JavaScript",
+                "CSS",
+                "Pinia",
+                "Vitest",
+                "REST APIs"
+              ],
+              "inferred": []
+            }
+          ],
+          "missingKeywords": [],
+          "requiredMissing": [],
+          "generatedAt": "2026-10-08T00:00:00.000Z",
+          "review": {
+            "summaryAccepted": true,
+            "work": [],
+            "skills": [
+              {
+                "id": "s1",
+                "acceptedAdds": [
+                  "Vitest"
+                ],
+                "acceptedRemoves": []
+              }
+            ]
+          }
+        },
+        "dateApplied": "2026-10-07T12:00:00.000Z",
+        "statusHistory": [
+          {
+            "status": "applied",
+            "at": "2026-10-07T12:00:00.000Z"
+          },
+          {
+            "status": "screening",
+            "at": "2026-10-17T12:00:00.000Z"
+          }
+        ]
+      },
+      {
+        "id": "demo-16",
+        "siteConfigId": "",
+        "domain": "boards.greenhouse.io",
+        "jobBoard": "Greenhouse",
+        "url": "https://boards.greenhouse.io/jobs/demo-16",
+        "jobTitle": "Senior Frontend Engineer",
+        "company": "Vandelay",
+        "status": "rejected",
+        "dateAdded": "2026-10-05T12:00:00.000Z",
+        "description": "Vandelay is hiring a Senior Frontend Engineer. Requirements: React. Our stack: React, TypeScript, NextJS, GraphQL. Nice to have: TypeScript, Next.js, GraphQL.",
+        "tailoredResume": {
+          "title": "Frontend Developer",
+          "summary": "Frontend developer with 4 years of experience, ready for Senior Frontend Engineer work.",
+          "work": [
+            {
+              "id": "w1",
+              "title": "Frontend Developer",
+              "highlights": [
+                "Built a Vue 3 dashboard used by 2k users",
+                "Migrated the build from Webpack to Vite"
+              ]
+            }
+          ],
+          "skills": [
+            {
+              "id": "s1",
+              "items": [
+                "Vue",
+                "TypeScript",
+                "JavaScript",
+                "CSS",
+                "Pinia",
+                "Vite",
+                "Vitest",
+                "Tailwind CSS"
+              ],
+              "inferred": []
+            }
+          ],
+          "missingKeywords": [
+            "React",
+            "Next.js",
+            "GraphQL"
+          ],
+          "requiredMissing": [
+            "React"
+          ],
+          "generatedAt": "2026-10-06T00:00:00.000Z"
+        },
+        "dateApplied": "2026-10-07T12:00:00.000Z",
+        "statusHistory": [
+          {
+            "status": "applied",
+            "at": "2026-10-07T12:00:00.000Z"
+          },
+          {
+            "status": "screening",
+            "at": "2026-10-12T12:00:00.000Z"
+          },
+          {
+            "status": "interview",
+            "at": "2026-10-17T12:00:00.000Z"
+          },
+          {
+            "status": "rejected",
+            "at": "2026-10-22T12:00:00.000Z"
+          }
+        ]
+      },
+      {
+        "id": "demo-25",
+        "siteConfigId": "",
+        "domain": "jobs.ashbyhq.com",
+        "jobBoard": "Ashby",
+        "url": "https://jobs.ashbyhq.com/jobs/demo-25",
+        "jobTitle": "Software Engineer",
+        "company": "Pied Piper",
+        "status": "saved",
+        "dateAdded": "2026-10-04T12:00:00.000Z",
+        "description": "Pied Piper is hiring a Software Engineer. Requirements: AWS, Kubernetes. Our stack: TypeScript, AWS, Docker, Kubernetes, Terraform. Nice to have: TypeScript, Docker, Terraform.",
+        "tailoredResume": {
+          "title": "Frontend Developer",
+          "summary": "Frontend developer with 4 years of experience, ready for Software Engineer work.",
+          "work": [
+            {
+              "id": "w1",
+              "title": "Frontend Developer",
+              "highlights": [
+                "Built a Vue 3 dashboard used by 2k users",
+                "Migrated the build from Webpack to Vite"
+              ]
+            }
+          ],
+          "skills": [
+            {
+              "id": "s1",
+              "items": [
+                "Vue",
+                "TypeScript",
+                "JavaScript",
+                "CSS",
+                "Pinia"
+              ],
+              "inferred": []
+            }
+          ],
+          "missingKeywords": [
+            "AWS",
+            "Kubernetes",
+            "Terraform"
+          ],
+          "requiredMissing": [
+            "AWS",
+            "Kubernetes"
+          ],
+          "generatedAt": "2026-10-05T00:00:00.000Z",
+          "review": {
+            "summaryAccepted": true,
+            "work": [],
+            "skills": [
+              {
+                "id": "s1",
+                "acceptedAdds": [],
+                "acceptedRemoves": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "demo-3",
+        "siteConfigId": "",
+        "domain": "linkedin.com",
+        "jobBoard": "LinkedIn",
+        "url": "https://linkedin.com/jobs/demo-3",
+        "jobTitle": "Backend Engineer",
+        "company": "Wayne Digital",
+        "status": "interview",
+        "dateAdded": "2026-10-03T12:00:00.000Z",
+        "description": "Wayne Digital is hiring a Backend Engineer. Requirements: Golang. Our stack: Golang, PostgreSQL, Kubernetes, gRPC. Nice to have: PostgreSQL, Kubernetes, gRPC.",
+        "dateApplied": "2026-10-04T12:00:00.000Z",
+        "statusHistory": [
+          {
+            "status": "applied",
+            "at": "2026-10-04T12:00:00.000Z"
+          },
+          {
+            "status": "screening",
+            "at": "2026-10-07T12:00:00.000Z"
+          },
+          {
+            "status": "interview",
+            "at": "2026-10-13T12:00:00.000Z"
+          }
+        ]
+      },
+      {
+        "id": "demo-1",
+        "siteConfigId": "",
+        "domain": "linkedin.com",
+        "jobBoard": "LinkedIn",
+        "url": "https://linkedin.com/jobs/demo-1",
+        "jobTitle": "Staff Frontend Engineer",
+        "company": "Vandelay",
+        "status": "screening",
+        "dateAdded": "2026-09-26T12:00:00.000Z",
+        "description": "Vandelay is hiring a Staff Frontend Engineer. Requirements: React, GraphQL. Our stack: React.js, TypeScript, AWS, GraphQL. Nice to have: TypeScript, AWS.",
+        "dateApplied": "2026-09-27T12:00:00.000Z",
+        "statusHistory": [
+          {
+            "status": "applied",
+            "at": "2026-09-27T12:00:00.000Z"
+          },
+          {
+            "status": "screening",
+            "at": "2026-10-05T12:00:00.000Z"
+          }
+        ]
+      },
+      {
+        "id": "demo-22",
+        "siteConfigId": "",
+        "domain": "jobs.ashbyhq.com",
+        "jobBoard": "Ashby",
+        "url": "https://jobs.ashbyhq.com/jobs/demo-22",
+        "jobTitle": "Staff Frontend Engineer",
+        "company": "Soylent",
+        "status": "saved",
+        "dateAdded": "2026-09-26T12:00:00.000Z",
+        "description": "Soylent is hiring a Staff Frontend Engineer. Requirements: React, GraphQL. Our stack: React, TypeScript, AWS, GraphQL. Nice to have: TypeScript, AWS."
+      },
+      {
+        "id": "demo-8",
+        "siteConfigId": "",
+        "domain": "linkedin.com",
+        "jobBoard": "LinkedIn",
+        "url": "https://linkedin.com/jobs/demo-8",
+        "jobTitle": "Senior Frontend Engineer",
+        "company": "Pied Piper",
+        "status": "applied",
+        "dateAdded": "2026-09-21T12:00:00.000Z",
+        "description": "Pied Piper is hiring a Senior Frontend Engineer. Requirements: React. Our stack: React.js, TypeScript, NextJS, GraphQL. Nice to have: TypeScript, Next.js, GraphQL.",
+        "dateApplied": "2026-09-21T12:00:00.000Z",
+        "statusHistory": [
+          {
+            "status": "applied",
+            "at": "2026-09-21T12:00:00.000Z"
+          }
+        ]
+      },
+      {
+        "id": "demo-11",
+        "siteConfigId": "",
+        "domain": "jobs.ashbyhq.com",
+        "jobBoard": "Ashby",
+        "url": "https://jobs.ashbyhq.com/jobs/demo-11",
+        "jobTitle": "Full Stack Developer",
+        "company": "Umbrella",
+        "status": "rejected",
+        "dateAdded": "2026-09-21T12:00:00.000Z",
+        "description": "Umbrella is hiring a Full Stack Developer. Requirements: AWS. Our stack: Vue, Node.js, PostgreSQL, AWS, Docker. Nice to have: Vue, Node.js, PostgreSQL, Docker.",
+        "tailoredResume": {
+          "title": "Frontend Developer",
+          "summary": "Frontend developer with 4 years of experience, ready for Full Stack Developer work.",
+          "work": [
+            {
+              "id": "w1",
+              "title": "Frontend Developer",
+              "highlights": [
+                "Built a Vue 3 dashboard used by 2k users",
+                "Migrated the build from Webpack to Vite"
+              ]
+            }
+          ],
+          "skills": [
+            {
+              "id": "s1",
+              "items": [
+                "Vue",
+                "TypeScript",
+                "JavaScript",
+                "CSS",
+                "Pinia",
+                "Vite",
+                "Vitest",
+                "Tailwind CSS"
+              ],
+              "inferred": []
+            }
+          ],
+          "missingKeywords": [
+            "AWS"
+          ],
+          "requiredMissing": [
+            "AWS"
+          ],
+          "generatedAt": "2026-09-22T00:00:00.000Z"
+        },
+        "dateApplied": "2026-09-21T12:00:00.000Z",
+        "statusHistory": [
+          {
+            "status": "applied",
+            "at": "2026-09-21T12:00:00.000Z"
+          },
+          {
+            "status": "screening",
+            "at": "2026-09-28T12:00:00.000Z"
+          },
+          {
+            "status": "rejected",
+            "at": "2026-10-07T12:00:00.000Z"
+          }
+        ]
+      },
+      {
+        "id": "demo-42",
+        "siteConfigId": "",
+        "domain": "linkedin.com",
+        "jobBoard": "LinkedIn",
+        "url": "https://linkedin.com/jobs/demo-42",
+        "jobTitle": "Backend Engineer",
+        "company": "Hooli",
+        "status": "applied",
+        "dateAdded": "2026-09-20T12:00:00.000Z",
+        "description": "Hooli is hiring a Backend Engineer. Requirements: Golang. Our stack: Golang, PostgreSQL, Kubernetes, gRPC. Nice to have: PostgreSQL, Kubernetes, gRPC.",
+        "tailoredResume": {
+          "title": "Frontend Developer",
+          "summary": "Frontend developer with 4 years of experience, ready for Backend Engineer work.",
+          "work": [
+            {
+              "id": "w1",
+              "title": "Frontend Developer",
+              "highlights": [
+                "Built a Vue 3 dashboard used by 2k users",
+                "Migrated the build from Webpack to Vite"
+              ]
+            }
+          ],
+          "skills": [
+            {
+              "id": "s1",
+              "items": [
+                "Vue",
+                "TypeScript",
+                "JavaScript",
+                "CSS",
+                "Pinia"
+              ],
+              "inferred": []
+            }
+          ],
+          "missingKeywords": [
+            "Golang",
+            "Kubernetes",
+            "gRPC"
+          ],
+          "requiredMissing": [
+            "Golang"
+          ],
+          "generatedAt": "2026-09-21T00:00:00.000Z"
+        },
+        "dateApplied": "2026-09-22T12:00:00.000Z",
+        "statusHistory": [
+          {
+            "status": "applied",
+            "at": "2026-09-22T12:00:00.000Z"
+          }
+        ]
+      },
+      {
+        "id": "demo-41",
+        "siteConfigId": "",
+        "domain": "jobs.lever.co",
+        "jobBoard": "Lever",
+        "url": "https://jobs.lever.co/jobs/demo-41",
+        "jobTitle": "Backend Engineer",
+        "company": "Hooli",
+        "status": "rejected",
+        "dateAdded": "2026-09-19T12:00:00.000Z",
+        "description": "Hooli is hiring a Backend Engineer. Requirements: Golang. Our stack: Golang, PostgreSQL, Kubernetes, gRPC. Nice to have: PostgreSQL, Kubernetes, gRPC.",
+        "tailoredResume": {
+          "title": "Frontend Developer",
+          "summary": "Frontend developer with 4 years of experience, ready for Backend Engineer work.",
+          "work": [
+            {
+              "id": "w1",
+              "title": "Frontend Developer",
+              "highlights": [
+                "Built a Vue 3 dashboard used by 2k users",
+                "Migrated the build from Webpack to Vite"
+              ]
+            }
+          ],
+          "skills": [
+            {
+              "id": "s1",
+              "items": [
+                "Vue",
+                "TypeScript",
+                "JavaScript",
+                "CSS",
+                "Pinia",
+                "Vitest",
+                "REST APIs",
+                "Tailwind CSS"
+              ],
+              "inferred": []
+            }
+          ],
+          "missingKeywords": [
+            "Golang",
+            "Kubernetes",
+            "gRPC"
+          ],
+          "requiredMissing": [
+            "Golang"
+          ],
+          "generatedAt": "2026-09-20T00:00:00.000Z",
+          "review": {
+            "summaryAccepted": true,
+            "work": [],
+            "skills": [
+              {
+                "id": "s1",
+                "acceptedAdds": [
+                  "Vitest",
+                  "REST APIs",
+                  "Tailwind CSS"
+                ],
+                "acceptedRemoves": []
+              }
+            ]
+          }
+        },
+        "dateApplied": "2026-09-19T12:00:00.000Z",
+        "statusHistory": [
+          {
+            "status": "applied",
+            "at": "2026-09-19T12:00:00.000Z"
+          },
+          {
+            "status": "rejected",
+            "at": "2026-09-24T12:00:00.000Z"
+          }
+        ]
+      },
+      {
+        "id": "demo-35",
+        "siteConfigId": "",
+        "domain": "linkedin.com",
+        "jobBoard": "LinkedIn",
+        "url": "https://linkedin.com/jobs/demo-35",
+        "jobTitle": "Senior Frontend Engineer",
+        "company": "Pied Piper",
+        "status": "applied",
+        "dateAdded": "2026-09-15T12:00:00.000Z",
+        "description": "Pied Piper is hiring a Senior Frontend Engineer. Requirements: React. Our stack: React, TypeScript, Next.js, GraphQL. Nice to have: TypeScript, Next.js, GraphQL.",
+        "dateApplied": "2026-09-16T12:00:00.000Z",
+        "statusHistory": [
+          {
+            "status": "applied",
+            "at": "2026-09-16T12:00:00.000Z"
+          }
+        ]
+      },
+      {
+        "id": "demo-20",
+        "siteConfigId": "",
+        "domain": "careers.example.com",
+        "jobBoard": "",
+        "url": "https://careers.example.com/jobs/demo-20",
+        "jobTitle": "React Native Developer",
+        "company": "Initech",
+        "status": "applied",
+        "dateAdded": "2026-09-11T12:00:00.000Z",
+        "description": "Initech is hiring a React Native Developer. Requirements: React Native. Our stack: React Native, TypeScript, iOS. Nice to have: TypeScript, iOS.",
+        "dateApplied": "2026-09-12T12:00:00.000Z",
+        "statusHistory": [
+          {
+            "status": "applied",
+            "at": "2026-09-12T12:00:00.000Z"
+          }
+        ]
+      },
+      {
+        "id": "demo-45",
+        "siteConfigId": "",
+        "domain": "jobs.ashbyhq.com",
+        "jobBoard": "Ashby",
+        "url": "https://jobs.ashbyhq.com/jobs/demo-45",
+        "jobTitle": "Junior Web Developer",
+        "company": "Northwind",
+        "status": "screening",
+        "dateAdded": "2026-09-06T12:00:00.000Z",
+        "description": "Northwind is hiring a Junior Web Developer. Requirements: JavaScript, CSS. Our stack: JavaScript, CSS, Vue. Nice to have: JavaScript, CSS, Vue.",
+        "dateApplied": "2026-09-07T12:00:00.000Z",
+        "statusHistory": [
+          {
+            "status": "applied",
+            "at": "2026-09-07T12:00:00.000Z"
+          },
+          {
+            "status": "screening",
+            "at": "2026-09-12T12:00:00.000Z"
+          }
+        ]
+      },
+      {
+        "id": "demo-24",
+        "siteConfigId": "",
+        "domain": "boards.greenhouse.io",
+        "jobBoard": "Greenhouse",
+        "url": "https://boards.greenhouse.io/jobs/demo-24",
+        "jobTitle": "Junior Web Developer",
+        "company": "Wayne Digital",
+        "status": "rejected",
+        "dateAdded": "2026-09-05T12:00:00.000Z",
+        "description": "Wayne Digital is hiring a Junior Web Developer. Requirements: JavaScript, CSS. Our stack: JavaScript, CSS, Vue. Nice to have: JavaScript, CSS, Vue.",
+        "tailoredResume": {
+          "title": "Frontend Developer",
+          "summary": "Frontend developer with 4 years of experience, ready for Junior Web Developer work.",
+          "work": [
+            {
+              "id": "w1",
+              "title": "Frontend Developer",
+              "highlights": [
+                "Built a Vue 3 dashboard used by 2k users",
+                "Migrated the build from Webpack to Vite"
+              ]
+            }
+          ],
+          "skills": [
+            {
+              "id": "s1",
+              "items": [
+                "Vue",
+                "TypeScript",
+                "JavaScript",
+                "CSS",
+                "Pinia",
+                "Vite",
+                "Tailwind CSS"
+              ],
+              "inferred": []
+            }
+          ],
+          "missingKeywords": [],
+          "requiredMissing": [],
+          "generatedAt": "2026-09-06T00:00:00.000Z",
+          "review": {
+            "summaryAccepted": true,
+            "work": [],
+            "skills": [
+              {
+                "id": "s1",
+                "acceptedAdds": [
+                  "Vite",
+                  "Tailwind CSS"
+                ],
+                "acceptedRemoves": []
+              }
+            ]
+          }
+        },
+        "dateApplied": "2026-09-05T12:00:00.000Z",
+        "statusHistory": [
+          {
+            "status": "applied",
+            "at": "2026-09-05T12:00:00.000Z"
+          },
+          {
+            "status": "screening",
+            "at": "2026-09-16T12:00:00.000Z"
+          },
+          {
+            "status": "interview",
+            "at": "2026-09-21T12:00:00.000Z"
+          },
+          {
+            "status": "rejected",
+            "at": "2026-10-02T12:00:00.000Z"
+          }
+        ]
+      },
+      {
+        "id": "demo-44",
+        "siteConfigId": "",
+        "domain": "jobs.lever.co",
+        "jobBoard": "Lever",
+        "url": "https://jobs.lever.co/jobs/demo-44",
+        "jobTitle": "React Native Developer",
+        "company": "Vandelay",
+        "status": "applied",
+        "dateAdded": "2026-08-29T12:00:00.000Z",
+        "description": "Vandelay is hiring a React Native Developer. Requirements: React Native. Our stack: React Native, TypeScript, iOS. Nice to have: TypeScript, iOS.",
+        "dateApplied": "2026-08-31T12:00:00.000Z",
+        "statusHistory": [
+          {
+            "status": "applied",
+            "at": "2026-08-31T12:00:00.000Z"
+          }
+        ]
+      },
+      {
+        "id": "demo-37",
+        "siteConfigId": "",
+        "domain": "boards.greenhouse.io",
+        "jobBoard": "Greenhouse",
+        "url": "https://boards.greenhouse.io/jobs/demo-37",
+        "jobTitle": "Senior Frontend Engineer",
+        "company": "Pied Piper",
+        "status": "offer",
+        "dateAdded": "2026-08-27T12:00:00.000Z",
+        "description": "Pied Piper is hiring a Senior Frontend Engineer. Requirements: React. Our stack: ReactJS, TypeScript, NextJS, GraphQL. Nice to have: TypeScript, Next.js, GraphQL.",
+        "tailoredResume": {
+          "title": "Frontend Developer",
+          "summary": "Frontend developer with 4 years of experience, ready for Senior Frontend Engineer work.",
+          "work": [
+            {
+              "id": "w1",
+              "title": "Frontend Developer",
+              "highlights": [
+                "Built a Vue 3 dashboard used by 2k users",
+                "Migrated the build from Webpack to Vite"
+              ]
+            }
+          ],
+          "skills": [
+            {
+              "id": "s1",
+              "items": [
+                "Vue",
+                "TypeScript",
+                "JavaScript",
+                "CSS",
+                "Pinia",
+                "Vite",
+                "Vitest"
+              ],
+              "inferred": []
+            }
+          ],
+          "missingKeywords": [
+            "React.js",
+            "NextJS",
+            "GraphQL"
+          ],
+          "requiredMissing": [
+            "React.js"
+          ],
+          "generatedAt": "2026-08-28T00:00:00.000Z"
+        },
+        "dateApplied": "2026-08-27T12:00:00.000Z",
+        "statusHistory": [
+          {
+            "status": "applied",
+            "at": "2026-08-27T12:00:00.000Z"
+          },
+          {
+            "status": "screening",
+            "at": "2026-09-04T12:00:00.000Z"
+          },
+          {
+            "status": "interview",
+            "at": "2026-09-13T12:00:00.000Z"
+          },
+          {
+            "status": "offer",
+            "at": "2026-09-20T12:00:00.000Z"
+          }
+        ]
+      },
+      {
+        "id": "demo-4",
+        "siteConfigId": "",
+        "domain": "boards.greenhouse.io",
+        "jobBoard": "Greenhouse",
+        "url": "https://boards.greenhouse.io/jobs/demo-4",
+        "jobTitle": "Full Stack Developer",
+        "company": "Umbrella",
+        "status": "rejected",
+        "dateAdded": "2026-08-25T12:00:00.000Z",
+        "description": "Umbrella is hiring a Full Stack Developer. Requirements: AWS. Our stack: Vue, Node.js, PostgreSQL, AWS, Docker. Nice to have: Vue, Node.js, PostgreSQL, Docker.",
+        "tailoredResume": {
+          "title": "Frontend Developer",
+          "summary": "Frontend developer with 4 years of experience, ready for Full Stack Developer work.",
+          "work": [
+            {
+              "id": "w1",
+              "title": "Frontend Developer",
+              "highlights": [
+                "Built a Vue 3 dashboard used by 2k users",
+                "Migrated the build from Webpack to Vite"
+              ]
+            }
+          ],
+          "skills": [
+            {
+              "id": "s1",
+              "items": [
+                "Vue",
+                "TypeScript",
+                "JavaScript",
+                "CSS",
+                "Pinia"
+              ],
+              "inferred": []
+            }
+          ],
+          "missingKeywords": [
+            "AWS",
+            "Docker"
+          ],
+          "requiredMissing": [
+            "AWS"
+          ],
+          "generatedAt": "2026-08-26T00:00:00.000Z",
+          "review": {
+            "summaryAccepted": true,
+            "work": [],
+            "skills": [
+              {
+                "id": "s1",
+                "acceptedAdds": [],
+                "acceptedRemoves": []
+              }
+            ]
+          }
+        },
+        "dateApplied": "2026-08-25T12:00:00.000Z",
+        "statusHistory": [
+          {
+            "status": "applied",
+            "at": "2026-08-25T12:00:00.000Z"
+          },
+          {
+            "status": "rejected",
+            "at": "2026-09-06T12:00:00.000Z"
+          }
+        ]
+      },
+      {
+        "id": "demo-13",
+        "siteConfigId": "",
+        "domain": "linkedin.com",
+        "jobBoard": "LinkedIn",
+        "url": "https://linkedin.com/jobs/demo-13",
+        "jobTitle": "Software Engineer",
+        "company": "Hooli",
+        "status": "screening",
+        "dateAdded": "2026-08-23T12:00:00.000Z",
+        "description": "Hooli is hiring a Software Engineer. Requirements: AWS, Kubernetes. Our stack: TypeScript, AWS, Docker, Kubernetes, Terraform. Nice to have: TypeScript, Docker, Terraform.",
+        "dateApplied": "2026-08-24T12:00:00.000Z"
+      },
+      {
+        "id": "demo-18",
+        "siteConfigId": "",
+        "domain": "boards.greenhouse.io",
+        "jobBoard": "Greenhouse",
+        "url": "https://boards.greenhouse.io/jobs/demo-18",
+        "jobTitle": "Frontend Engineer",
+        "company": "Soylent",
+        "status": "applied",
+        "dateAdded": "2026-08-23T12:00:00.000Z",
+        "description": "Soylent is hiring a Frontend Engineer. Requirements: Vue. Our stack: Vue, TypeScript, Pinia, Vitest. Nice to have: TypeScript, Pinia, Vitest.",
+        "tailoredResume": {
+          "title": "Frontend Developer",
+          "summary": "Frontend developer with 4 years of experience, ready for Frontend Engineer work.",
+          "work": [
+            {
+              "id": "w1",
+              "title": "Frontend Developer",
+              "highlights": [
+                "Built a Vue 3 dashboard used by 2k users",
+                "Migrated the build from Webpack to Vite"
+              ]
+            }
+          ],
+          "skills": [
+            {
+              "id": "s1",
+              "items": [
+                "Vue",
+                "TypeScript",
+                "JavaScript",
+                "CSS",
+                "Pinia",
+                "REST APIs"
+              ],
+              "inferred": []
+            }
+          ],
+          "missingKeywords": [
+            "Vitest"
+          ],
+          "generatedAt": "2026-08-24T00:00:00.000Z",
+          "review": {
+            "summaryAccepted": true,
+            "work": [],
+            "skills": [
+              {
+                "id": "s1",
+                "acceptedAdds": [
+                  "REST APIs"
+                ],
+                "acceptedRemoves": []
+              }
+            ]
+          }
+        },
+        "dateApplied": "2026-08-24T12:00:00.000Z"
+      },
+      {
+        "id": "demo-10",
+        "siteConfigId": "",
+        "domain": "careers.example.com",
+        "jobBoard": "",
+        "url": "https://careers.example.com/jobs/demo-10",
+        "jobTitle": "Junior Web Developer",
+        "company": "Wayne Digital",
+        "status": "screening",
+        "dateAdded": "2026-08-20T12:00:00.000Z",
+        "description": "Wayne Digital is hiring a Junior Web Developer. Requirements: JavaScript, CSS. Our stack: JavaScript, CSS, Vue. Nice to have: JavaScript, CSS, Vue.",
+        "tailoredResume": {
+          "title": "Frontend Developer",
+          "summary": "Frontend developer with 4 years of experience, ready for Junior Web Developer work.",
+          "work": [
+            {
+              "id": "w1",
+              "title": "Frontend Developer",
+              "highlights": [
+                "Built a Vue 3 dashboard used by 2k users",
+                "Migrated the build from Webpack to Vite"
+              ]
+            }
+          ],
+          "skills": [
+            {
+              "id": "s1",
+              "items": [
+                "Vue",
+                "TypeScript",
+                "JavaScript",
+                "CSS",
+                "Pinia",
+                "Vite",
+                "Vitest",
+                "REST APIs",
+                "Tailwind CSS"
+              ],
+              "inferred": []
+            }
+          ],
+          "missingKeywords": [],
+          "generatedAt": "2026-08-21T00:00:00.000Z",
+          "review": {
+            "summaryAccepted": true,
+            "work": [],
+            "skills": [
+              {
+                "id": "s1",
+                "acceptedAdds": [
+                  "Vite",
+                  "Vitest",
+                  "REST APIs",
+                  "Tailwind CSS"
+                ],
+                "acceptedRemoves": []
+              }
+            ]
+          }
+        },
+        "dateApplied": "2026-08-20T12:00:00.000Z"
+      },
+      {
+        "id": "demo-15",
+        "siteConfigId": "",
+        "domain": "jobs.lever.co",
+        "jobBoard": "Lever",
+        "url": "https://jobs.lever.co/jobs/demo-15",
+        "jobTitle": "Frontend Developer (React)",
+        "company": "Wayne Digital",
+        "status": "saved",
+        "dateAdded": "2026-08-20T12:00:00.000Z",
+        "description": "Wayne Digital is hiring a Frontend Developer (React). Requirements: React. Our stack: React.js, Redux, TypeScript, Jest. Nice to have: Redux, TypeScript, Jest.",
+        "tailoredResume": {
+          "title": "Frontend Developer",
+          "summary": "Frontend developer with 4 years of experience, ready for Frontend Developer (React) work.",
+          "work": [
+            {
+              "id": "w1",
+              "title": "Frontend Developer",
+              "highlights": [
+                "Built a Vue 3 dashboard used by 2k users",
+                "Migrated the build from Webpack to Vite"
+              ]
+            }
+          ],
+          "skills": [
+            {
+              "id": "s1",
+              "items": [
+                "Vue",
+                "TypeScript",
+                "JavaScript",
+                "CSS",
+                "Pinia"
+              ],
+              "inferred": []
+            }
+          ],
+          "missingKeywords": [
+            "ReactJS",
+            "Redux",
+            "Jest"
+          ],
+          "generatedAt": "2026-08-21T00:00:00.000Z",
+          "review": {
+            "summaryAccepted": true,
+            "work": [],
+            "skills": [
+              {
+                "id": "s1",
+                "acceptedAdds": [],
+                "acceptedRemoves": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "demo-33",
+        "siteConfigId": "",
+        "domain": "linkedin.com",
+        "jobBoard": "LinkedIn",
+        "url": "https://linkedin.com/jobs/demo-33",
+        "jobTitle": "Staff Frontend Engineer",
+        "company": "Initech",
+        "status": "rejected",
+        "dateAdded": "2026-08-19T12:00:00.000Z",
+        "description": "Initech is hiring a Staff Frontend Engineer. Requirements: React, GraphQL. Our stack: ReactJS, TypeScript, AWS, GraphQL. Nice to have: TypeScript, AWS.",
+        "tailoredResume": {
+          "title": "Frontend Developer",
+          "summary": "Frontend developer with 4 years of experience, ready for Staff Frontend Engineer work.",
+          "work": [
+            {
+              "id": "w1",
+              "title": "Frontend Developer",
+              "highlights": [
+                "Built a Vue 3 dashboard used by 2k users",
+                "Migrated the build from Webpack to Vite"
+              ]
+            }
+          ],
+          "skills": [
+            {
+              "id": "s1",
+              "items": [
+                "Vue",
+                "TypeScript",
+                "JavaScript",
+                "CSS",
+                "Pinia",
+                "Vite",
+                "REST APIs",
+                "Tailwind CSS"
+              ],
+              "inferred": []
+            }
+          ],
+          "missingKeywords": [
+            "React.js",
+            "AWS",
+            "GraphQL"
+          ],
+          "generatedAt": "2026-08-20T00:00:00.000Z",
+          "review": {
+            "summaryAccepted": true,
+            "work": [],
+            "skills": [
+              {
+                "id": "s1",
+                "acceptedAdds": [
+                  "REST APIs",
+                  "Tailwind CSS"
+                ],
+                "acceptedRemoves": []
+              }
+            ]
+          }
+        },
+        "dateApplied": "2026-08-21T12:00:00.000Z"
+      },
+      {
+        "id": "demo-0",
+        "siteConfigId": "",
+        "domain": "careers.example.com",
+        "jobBoard": "",
+        "url": "https://careers.example.com/jobs/demo-0",
+        "jobTitle": "Backend Engineer",
+        "company": "Stark Labs",
+        "status": "withdrawn",
+        "dateAdded": "2026-08-17T12:00:00.000Z",
+        "description": "Stark Labs is hiring a Backend Engineer. Requirements: Golang. Our stack: Golang, PostgreSQL, Kubernetes, gRPC. Nice to have: PostgreSQL, Kubernetes, gRPC.",
+        "tailoredResume": {
+          "title": "Frontend Developer",
+          "summary": "Frontend developer with 4 years of experience, ready for Backend Engineer work.",
+          "work": [
+            {
+              "id": "w1",
+              "title": "Frontend Developer",
+              "highlights": [
+                "Built a Vue 3 dashboard used by 2k users",
+                "Migrated the build from Webpack to Vite"
+              ]
+            }
+          ],
+          "skills": [
+            {
+              "id": "s1",
+              "items": [
+                "Vue",
+                "TypeScript",
+                "JavaScript",
+                "CSS",
+                "Pinia",
+                "Vite",
+                "Vitest"
+              ],
+              "inferred": []
+            }
+          ],
+          "missingKeywords": [
+            "Golang",
+            "Kubernetes",
+            "gRPC"
+          ],
+          "generatedAt": "2026-08-18T00:00:00.000Z",
+          "review": {
+            "summaryAccepted": true,
+            "work": [],
+            "skills": [
+              {
+                "id": "s1",
+                "acceptedAdds": [],
+                "acceptedRemoves": []
+              }
+            ]
+          }
+        },
+        "dateApplied": "2026-08-18T12:00:00.000Z"
+      },
+      {
+        "id": "demo-30",
+        "siteConfigId": "",
+        "domain": "jobs.ashbyhq.com",
+        "jobBoard": "Ashby",
+        "url": "https://jobs.ashbyhq.com/jobs/demo-30",
+        "jobTitle": "Frontend Engineer",
+        "company": "Globex",
+        "status": "rejected",
+        "dateAdded": "2026-08-11T12:00:00.000Z",
+        "description": "Globex is hiring a Frontend Engineer. Requirements: Vue. Our stack: Vue, TypeScript, Pinia, Vitest. Nice to have: TypeScript, Pinia, Vitest.",
+        "tailoredResume": {
+          "title": "Frontend Developer",
+          "summary": "Frontend developer with 4 years of experience, ready for Frontend Engineer work.",
+          "work": [
+            {
+              "id": "w1",
+              "title": "Frontend Developer",
+              "highlights": [
+                "Built a Vue 3 dashboard used by 2k users",
+                "Migrated the build from Webpack to Vite"
+              ]
+            }
+          ],
+          "skills": [
+            {
+              "id": "s1",
+              "items": [
+                "Vue",
+                "TypeScript",
+                "JavaScript",
+                "CSS",
+                "Pinia",
+                "Vitest"
+              ],
+              "inferred": []
+            }
+          ],
+          "missingKeywords": [
+            "Vitest"
+          ],
+          "generatedAt": "2026-08-12T00:00:00.000Z",
+          "review": {
+            "summaryAccepted": true,
+            "work": [],
+            "skills": [
+              {
+                "id": "s1",
+                "acceptedAdds": [
+                  "Vitest"
+                ],
+                "acceptedRemoves": []
+              }
+            ]
+          }
+        },
+        "dateApplied": "2026-08-12T12:00:00.000Z"
+      },
+      {
+        "id": "demo-7",
+        "siteConfigId": "",
+        "domain": "jobs.lever.co",
+        "jobBoard": "Lever",
+        "url": "https://jobs.lever.co/jobs/demo-7",
+        "jobTitle": "Frontend Developer (React)",
+        "company": "Northwind",
+        "status": "rejected",
+        "dateAdded": "2026-08-10T12:00:00.000Z",
+        "description": "Northwind is hiring a Frontend Developer (React). Requirements: React. Our stack: React.js, Redux, TypeScript, Jest. Nice to have: Redux, TypeScript, Jest.",
+        "tailoredResume": {
+          "title": "Frontend Developer",
+          "summary": "Frontend developer with 4 years of experience, ready for Frontend Developer (React) work.",
+          "work": [
+            {
+              "id": "w1",
+              "title": "Frontend Developer",
+              "highlights": [
+                "Built a Vue 3 dashboard used by 2k users",
+                "Migrated the build from Webpack to Vite"
+              ]
+            }
+          ],
+          "skills": [
+            {
+              "id": "s1",
+              "items": [
+                "Vue",
+                "TypeScript",
+                "JavaScript",
+                "CSS",
+                "Pinia",
+                "Vite",
+                "Vitest",
+                "REST APIs"
+              ],
+              "inferred": []
+            }
+          ],
+          "missingKeywords": [
+            "React",
+            "Redux",
+            "Jest"
+          ],
+          "generatedAt": "2026-08-11T00:00:00.000Z",
+          "review": {
+            "summaryAccepted": true,
+            "work": [],
+            "skills": [
+              {
+                "id": "s1",
+                "acceptedAdds": [
+                  "Vite",
+                  "Vitest",
+                  "REST APIs"
+                ],
+                "acceptedRemoves": []
+              }
+            ]
+          }
+        },
+        "dateApplied": "2026-08-10T12:00:00.000Z"
+      },
+      {
+        "id": "demo-38",
+        "siteConfigId": "",
+        "domain": "boards.greenhouse.io",
+        "jobBoard": "Greenhouse",
+        "url": "https://boards.greenhouse.io/jobs/demo-38",
+        "jobTitle": "Frontend Engineer",
+        "company": "Initech",
+        "status": "saved",
+        "dateAdded": "2026-08-09T12:00:00.000Z",
+        "description": "Initech is hiring a Frontend Engineer. Requirements: Vue. Our stack: Vue, TypeScript, Pinia, Vitest. Nice to have: TypeScript, Pinia, Vitest.",
+        "tailoredResume": {
+          "title": "Frontend Developer",
+          "summary": "Frontend developer with 4 years of experience, ready for Frontend Engineer work.",
+          "work": [
+            {
+              "id": "w1",
+              "title": "Frontend Developer",
+              "highlights": [
+                "Built a Vue 3 dashboard used by 2k users",
+                "Migrated the build from Webpack to Vite"
+              ]
+            }
+          ],
+          "skills": [
+            {
+              "id": "s1",
+              "items": [
+                "Vue",
+                "TypeScript",
+                "JavaScript",
+                "CSS",
+                "Pinia",
+                "Vite",
+                "REST APIs"
+              ],
+              "inferred": []
+            }
+          ],
+          "missingKeywords": [
+            "Vitest"
+          ],
+          "generatedAt": "2026-08-10T00:00:00.000Z",
+          "review": {
+            "summaryAccepted": true,
+            "work": [],
+            "skills": [
+              {
+                "id": "s1",
+                "acceptedAdds": [
+                  "Vite",
+                  "REST APIs"
+                ],
+                "acceptedRemoves": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "demo-23",
+        "siteConfigId": "",
+        "domain": "careers.example.com",
+        "jobBoard": "",
+        "url": "https://careers.example.com/jobs/demo-23",
+        "jobTitle": "Full Stack Developer",
+        "company": "Northwind",
+        "status": "saved",
+        "dateAdded": "2026-08-06T12:00:00.000Z",
+        "description": "Northwind is hiring a Full Stack Developer. Requirements: AWS. Our stack: Vue, Node.js, PostgreSQL, AWS, Docker. Nice to have: Vue, Node.js, PostgreSQL, Docker.",
+        "tailoredResume": {
+          "title": "Frontend Developer",
+          "summary": "Frontend developer with 4 years of experience, ready for Full Stack Developer work.",
+          "work": [
+            {
+              "id": "w1",
+              "title": "Frontend Developer",
+              "highlights": [
+                "Built a Vue 3 dashboard used by 2k users",
+                "Migrated the build from Webpack to Vite"
+              ]
+            }
+          ],
+          "skills": [
+            {
+              "id": "s1",
+              "items": [
+                "Vue",
+                "TypeScript",
+                "JavaScript",
+                "CSS",
+                "Pinia",
+                "Vite",
+                "Vitest",
+                "Tailwind CSS"
+              ],
+              "inferred": []
+            }
+          ],
+          "missingKeywords": [
+            "AWS",
+            "Docker"
+          ],
+          "generatedAt": "2026-08-07T00:00:00.000Z"
+        }
+      },
+      {
+        "id": "demo-17",
+        "siteConfigId": "",
+        "domain": "boards.greenhouse.io",
+        "jobBoard": "Greenhouse",
+        "url": "https://boards.greenhouse.io/jobs/demo-17",
+        "jobTitle": "Staff Frontend Engineer",
+        "company": "Initech",
+        "status": "saved",
+        "dateAdded": "2026-07-30T12:00:00.000Z",
+        "description": "Initech is hiring a Staff Frontend Engineer. Requirements: React, GraphQL. Our stack: React.js, TypeScript, AWS, GraphQL. Nice to have: TypeScript, AWS.",
+        "tailoredResume": {
+          "title": "Frontend Developer",
+          "summary": "Frontend developer with 4 years of experience, ready for Staff Frontend Engineer work.",
+          "work": [
+            {
+              "id": "w1",
+              "title": "Frontend Developer",
+              "highlights": [
+                "Built a Vue 3 dashboard used by 2k users",
+                "Migrated the build from Webpack to Vite"
+              ]
+            }
+          ],
+          "skills": [
+            {
+              "id": "s1",
+              "items": [
+                "Vue",
+                "TypeScript",
+                "JavaScript",
+                "CSS",
+                "Pinia",
+                "Vitest"
+              ],
+              "inferred": []
+            }
+          ],
+          "missingKeywords": [
+            "React",
+            "AWS",
+            "GraphQL"
+          ],
+          "generatedAt": "2026-07-31T00:00:00.000Z",
+          "review": {
+            "summaryAccepted": true,
+            "work": [],
+            "skills": [
+              {
+                "id": "s1",
+                "acceptedAdds": [],
+                "acceptedRemoves": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "demo-27",
+        "siteConfigId": "",
+        "domain": "careers.example.com",
+        "jobBoard": "",
+        "url": "https://careers.example.com/jobs/demo-27",
+        "jobTitle": "Junior Web Developer",
+        "company": "Umbrella",
+        "status": "applied",
+        "dateAdded": "2026-07-30T12:00:00.000Z",
+        "description": "Umbrella is hiring a Junior Web Developer. Requirements: JavaScript, CSS. Our stack: JavaScript, CSS, Vue. Nice to have: JavaScript, CSS, Vue.",
+        "tailoredResume": {
+          "title": "Frontend Developer",
+          "summary": "Frontend developer with 4 years of experience, ready for Junior Web Developer work.",
+          "work": [
+            {
+              "id": "w1",
+              "title": "Frontend Developer",
+              "highlights": [
+                "Built a Vue 3 dashboard used by 2k users",
+                "Migrated the build from Webpack to Vite"
+              ]
+            }
+          ],
+          "skills": [
+            {
+              "id": "s1",
+              "items": [
+                "Vue",
+                "TypeScript",
+                "JavaScript",
+                "CSS",
+                "Pinia"
+              ],
+              "inferred": []
+            }
+          ],
+          "missingKeywords": [],
+          "generatedAt": "2026-07-31T00:00:00.000Z",
+          "review": {
+            "summaryAccepted": true,
+            "work": [],
+            "skills": [
+              {
+                "id": "s1",
+                "acceptedAdds": [],
+                "acceptedRemoves": []
+              }
+            ]
+          }
+        },
+        "dateApplied": "2026-07-31T12:00:00.000Z"
+      },
+      {
+        "id": "demo-21",
+        "siteConfigId": "",
+        "domain": "jobs.lever.co",
+        "jobBoard": "Lever",
+        "url": "https://jobs.lever.co/jobs/demo-21",
+        "jobTitle": "Senior Frontend Engineer",
+        "company": "Hooli",
+        "status": "rejected",
+        "dateAdded": "2026-07-29T12:00:00.000Z",
+        "description": "Hooli is hiring a Senior Frontend Engineer. Requirements: React. Our stack: React, TypeScript, NextJS, GraphQL. Nice to have: TypeScript, Next.js, GraphQL.",
+        "dateApplied": "2026-07-29T12:00:00.000Z"
+      },
+      {
+        "id": "demo-19",
+        "siteConfigId": "",
+        "domain": "boards.greenhouse.io",
+        "jobBoard": "Greenhouse",
+        "url": "https://boards.greenhouse.io/jobs/demo-19",
+        "jobTitle": "Staff Frontend Engineer",
+        "company": "Soylent",
+        "status": "saved",
+        "dateAdded": "2026-07-28T12:00:00.000Z",
+        "description": "Soylent is hiring a Staff Frontend Engineer. Requirements: React, GraphQL. Our stack: React, TypeScript, AWS, GraphQL. Nice to have: TypeScript, AWS.",
+        "tailoredResume": {
+          "title": "Frontend Developer",
+          "summary": "Frontend developer with 4 years of experience, ready for Staff Frontend Engineer work.",
+          "work": [
+            {
+              "id": "w1",
+              "title": "Frontend Developer",
+              "highlights": [
+                "Built a Vue 3 dashboard used by 2k users",
+                "Migrated the build from Webpack to Vite"
+              ]
+            }
+          ],
+          "skills": [
+            {
+              "id": "s1",
+              "items": [
+                "Vue",
+                "TypeScript",
+                "JavaScript",
+                "CSS",
+                "Pinia",
+                "Vite"
+              ],
+              "inferred": []
+            }
+          ],
+          "missingKeywords": [
+            "ReactJS",
+            "AWS",
+            "GraphQL"
+          ],
+          "generatedAt": "2026-07-29T00:00:00.000Z",
+          "review": {
+            "summaryAccepted": true,
+            "work": [],
+            "skills": [
+              {
+                "id": "s1",
+                "acceptedAdds": [
+                  "Vite"
+                ],
+                "acceptedRemoves": []
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "demo-39",
+        "siteConfigId": "",
+        "domain": "linkedin.com",
+        "jobBoard": "LinkedIn",
+        "url": "https://linkedin.com/jobs/demo-39",
+        "jobTitle": "Frontend Engineer",
+        "company": "Northwind",
+        "status": "rejected",
+        "dateAdded": "2026-07-28T12:00:00.000Z",
+        "description": "Northwind is hiring a Frontend Engineer. Requirements: Vue. Our stack: Vue, TypeScript, Pinia, Vitest. Nice to have: TypeScript, Pinia, Vitest.",
+        "dateApplied": "2026-07-30T12:00:00.000Z"
+      },
+      {
+        "id": "demo-9",
+        "siteConfigId": "",
+        "domain": "linkedin.com",
+        "jobBoard": "LinkedIn",
+        "url": "https://linkedin.com/jobs/demo-9",
+        "jobTitle": "Full Stack Developer",
+        "company": "Northwind",
+        "status": "rejected",
+        "dateAdded": "2026-07-27T12:00:00.000Z",
+        "description": "Northwind is hiring a Full Stack Developer. Requirements: AWS. Our stack: Vue, Node.js, PostgreSQL, AWS, Docker. Nice to have: Vue, Node.js, PostgreSQL, Docker.",
+        "dateApplied": "2026-07-28T12:00:00.000Z"
+      },
+      {
+        "id": "demo-28",
+        "siteConfigId": "",
+        "domain": "jobs.ashbyhq.com",
+        "jobBoard": "Ashby",
+        "url": "https://jobs.ashbyhq.com/jobs/demo-28",
+        "jobTitle": "Staff Frontend Engineer",
+        "company": "Pied Piper",
+        "status": "rejected",
+        "dateAdded": "2026-07-26T12:00:00.000Z",
+        "description": "Pied Piper is hiring a Staff Frontend Engineer. Requirements: React, GraphQL. Our stack: ReactJS, TypeScript, AWS, GraphQL. Nice to have: TypeScript, AWS.",
+        "dateApplied": "2026-07-28T12:00:00.000Z"
+      },
+      {
+        "id": "demo-36",
+        "siteConfigId": "",
+        "domain": "linkedin.com",
+        "jobBoard": "LinkedIn",
+        "url": "https://linkedin.com/jobs/demo-36",
+        "jobTitle": "Frontend Engineer",
+        "company": "Umbrella",
+        "status": "rejected",
+        "dateAdded": "2026-07-25T12:00:00.000Z",
+        "description": "Umbrella is hiring a Frontend Engineer. Requirements: Vue. Our stack: Vue, TypeScript, Pinia, Vitest. Nice to have: TypeScript, Pinia, Vitest.",
+        "dateApplied": "2026-07-26T12:00:00.000Z"
+      },
+      {
+        "id": "demo-40",
+        "siteConfigId": "",
+        "domain": "jobs.ashbyhq.com",
+        "jobBoard": "Ashby",
+        "url": "https://jobs.ashbyhq.com/jobs/demo-40",
+        "jobTitle": "Frontend Engineer",
+        "company": "Wayne Digital",
+        "status": "saved",
+        "dateAdded": "2026-07-25T12:00:00.000Z",
+        "description": "Wayne Digital is hiring a Frontend Engineer. Requirements: Vue. Our stack: Vue, TypeScript, Pinia, Vitest. Nice to have: TypeScript, Pinia, Vitest."
+      },
+      {
+        "id": "demo-14",
+        "siteConfigId": "",
+        "domain": "boards.greenhouse.io",
+        "jobBoard": "Greenhouse",
+        "url": "https://boards.greenhouse.io/jobs/demo-14",
+        "jobTitle": "Frontend Developer (React)",
+        "company": "Wayne Digital",
+        "status": "rejected",
+        "dateAdded": "2026-07-22T12:00:00.000Z",
+        "description": "Wayne Digital is hiring a Frontend Developer (React). Requirements: React. Our stack: ReactJS, Redux, TypeScript, Jest. Nice to have: Redux, TypeScript, Jest.",
+        "dateApplied": "2026-07-22T12:00:00.000Z"
+      },
+      {
+        "id": "demo-5",
+        "siteConfigId": "",
+        "domain": "linkedin.com",
+        "jobBoard": "LinkedIn",
+        "url": "https://linkedin.com/jobs/demo-5",
+        "jobTitle": "React Native Developer",
+        "company": "Stark Labs",
+        "status": "rejected",
+        "dateAdded": "2026-07-21T12:00:00.000Z",
+        "description": "Stark Labs is hiring a React Native Developer. Requirements: React Native. Our stack: React Native, TypeScript, iOS. Nice to have: TypeScript, iOS.",
+        "tailoredResume": {
+          "title": "Frontend Developer",
+          "summary": "Frontend developer with 4 years of experience, ready for React Native Developer work.",
+          "work": [
+            {
+              "id": "w1",
+              "title": "Frontend Developer",
+              "highlights": [
+                "Built a Vue 3 dashboard used by 2k users",
+                "Migrated the build from Webpack to Vite"
+              ]
+            }
+          ],
+          "skills": [
+            {
+              "id": "s1",
+              "items": [
+                "Vue",
+                "TypeScript",
+                "JavaScript",
+                "CSS",
+                "Pinia"
+              ],
+              "inferred": []
+            }
+          ],
+          "missingKeywords": [
+            "React Native",
+            "iOS"
+          ],
+          "generatedAt": "2026-07-22T00:00:00.000Z",
+          "review": {
+            "summaryAccepted": true,
+            "work": [],
+            "skills": [
+              {
+                "id": "s1",
+                "acceptedAdds": [],
+                "acceptedRemoves": []
+              }
+            ]
+          }
+        },
+        "dateApplied": "2026-07-22T12:00:00.000Z"
+      },
+      {
+        "id": "demo-31",
+        "siteConfigId": "",
+        "domain": "boards.greenhouse.io",
+        "jobBoard": "Greenhouse",
+        "url": "https://boards.greenhouse.io/jobs/demo-31",
+        "jobTitle": "Junior Web Developer",
+        "company": "Soylent",
+        "status": "screening",
+        "dateAdded": "2026-07-21T12:00:00.000Z",
+        "description": "Soylent is hiring a Junior Web Developer. Requirements: JavaScript, CSS. Our stack: JavaScript, CSS, Vue. Nice to have: JavaScript, CSS, Vue.",
+        "tailoredResume": {
+          "title": "Frontend Developer",
+          "summary": "Frontend developer with 4 years of experience, ready for Junior Web Developer work.",
+          "work": [
+            {
+              "id": "w1",
+              "title": "Frontend Developer",
+              "highlights": [
+                "Built a Vue 3 dashboard used by 2k users",
+                "Migrated the build from Webpack to Vite"
+              ]
+            }
+          ],
+          "skills": [
+            {
+              "id": "s1",
+              "items": [
+                "Vue",
+                "TypeScript",
+                "JavaScript",
+                "CSS",
+                "Pinia",
+                "REST APIs"
+              ],
+              "inferred": []
+            }
+          ],
+          "missingKeywords": [],
+          "generatedAt": "2026-07-22T00:00:00.000Z"
+        },
+        "dateApplied": "2026-07-22T12:00:00.000Z"
+      },
+      {
+        "id": "demo-43",
+        "siteConfigId": "",
+        "domain": "linkedin.com",
+        "jobBoard": "LinkedIn",
+        "url": "https://linkedin.com/jobs/demo-43",
+        "jobTitle": "Senior Frontend Engineer",
+        "company": "Pied Piper",
+        "status": "interview",
+        "dateAdded": "2026-07-21T12:00:00.000Z",
+        "description": "Pied Piper is hiring a Senior Frontend Engineer. Requirements: React. Our stack: ReactJS, TypeScript, Next.js, GraphQL. Nice to have: TypeScript, Next.js, GraphQL.",
+        "dateApplied": "2026-07-23T12:00:00.000Z"
+      }
+    ],
+    "aa-resume": {
+      "basics": {
+        "name": "Demo Candidate",
+        "email": "demo@example.com",
+        "title": "Frontend Developer",
+        "phone": "",
+        "location": "Remote",
+        "summary": "Frontend developer with 4 years building Vue apps.",
+        "github": "",
+        "linkedin": "",
+        "website": ""
+      },
+      "work": [
+        {
+          "id": "w1",
+          "company": "Acme",
+          "position": "Frontend Developer",
+          "startDate": "2022-01",
+          "highlights": [
+            "Built a Vue 3 dashboard used by 2k users",
+            "Migrated the build from Webpack to Vite"
+          ]
+        }
+      ],
+      "education": [],
+      "skills": [
+        {
+          "id": "s1",
+          "category": "Frontend",
+          "items": [
+            "Vue",
+            "TypeScript",
+            "JavaScript",
+            "CSS",
+            "Pinia"
+          ]
+        },
+        {
+          "id": "s2",
+          "category": "Backend & tools",
+          "items": [
+            "Node.js",
+            "PostgreSQL",
+            "Git",
+            "Docker"
+          ]
+        }
+      ],
+      "languages": []
+    },
+    "aa-skill-added": [
+      {
+        "key": "docker",
+        "at": "2026-09-15T00:00:00.000Z"
+      }
+    ],
+    "aa-skill-learning": [
+      {
+        "key": "aws",
+        "label": "AWS",
+        "at": "2026-10-24T12:00:00.000Z"
+      }
+    ]
+  }
+}

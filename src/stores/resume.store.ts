@@ -8,6 +8,7 @@ import type {
   ResumeLanguage,
 } from "src/types/resume"
 import { EMPTY_RESUME } from "src/types/resume"
+import { useSkillsStore } from "src/stores/skills.store"
 
 export const useResumeStore = defineStore("resume", () => {
   const { data: resume } = useBrowserLocalStorage<Resume>(
@@ -68,6 +69,9 @@ export const useResumeStore = defineStore("resume", () => {
   function upsertSkillGroup(entry: ResumeSkillGroup) {
     const cur = snapshot()
     const plain = structuredClone(toRaw(entry))
+    // Dates new skills for analytics' before/after impact.
+    const existing = new Set(cur.skills.flatMap((s) => s.items))
+    useSkillsStore().markAdded(plain.items.filter((i) => !existing.has(i)))
     const idx = cur.skills.findIndex((s) => s.id === plain.id)
     if (idx >= 0) cur.skills[idx] = plain
     else cur.skills.push(plain)

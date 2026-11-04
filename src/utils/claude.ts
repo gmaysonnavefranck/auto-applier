@@ -1,6 +1,66 @@
 import type { Resume } from "src/types/resume"
 import type { TailoredResume } from "src/types/jobs"
 import { sanitizeForAts } from "src/utils/text"
+import { claudeCost, recordUsage } from "src/utils/usage"
+import type { UsageFeature } from "src/types/search"
+
+export const CLAUDE_MODEL = "claude-haiku-4-5-20251001"
+
+// Single Messages API call that expects a JSON object back. Records token
+// usage + cost for the usage page, then returns the extracted JSON string.
+export async function callClaudeForJson(
+  apiKey: string,
+  feature: UsageFeature,
+  opts: { max_tokens: number; system: string; prompt: string },
+): Promise<string> {
+  const response = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: {
+      "x-api-key": apiKey,
+      "anthropic-version": "2023-06-01",
+      "anthropic-dangerous-direct-browser-access": "true",
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({
+      model: CLAUDE_MODEL,
+      max_tokens: opts.max_tokens,
+      system: opts.system,
+      messages: [{ role: "user", content: opts.prompt }],
+    }),
+  })
+
+  if (!response.ok) {
+    const err = (await response.json().catch(() => ({}))) as {
+      error?: { message?: string }
+    }
+    throw new Error(err.error?.message ?? `Claude API error ${response.status}`)
+  }
+
+  const data = (await response.json()) as {
+    content?: { text?: string }[]
+    stop_reason?: string
+    usage?: { input_tokens?: number; output_tokens?: number }
+  }
+
+  const inputTokens = data.usage?.input_tokens ?? 0
+  const outputTokens = data.usage?.output_tokens ?? 0
+  void recordUsage({
+    provider: "anthropic",
+    feature,
+    model: CLAUDE_MODEL,
+    inputTokens,
+    outputTokens,
+    costUsd: claudeCost(CLAUDE_MODEL, inputTokens, outputTokens),
+  })
+
+  const raw = data.content?.[0]?.text ?? ""
+  const jsonStr = extractJsonObject(raw)
+  if (!jsonStr)
+    throw new Error(
+      `Claude returned no JSON. stop_reason=${data.stop_reason ?? "unknown"}, preview: "${raw.slice(0, 120)}"`,
+    )
+  return jsonStr
+}
 
 function extractJsonObject(text: string): string | null {
   const start = text.indexOf("{")
@@ -31,7 +91,7 @@ function extractJsonObject(text: string): string | null {
   return null
 }
 
-function buildResumeText(resume: Resume): string {
+export function buildResumeText(resume: Resume): string {
   const b = resume.basics
   const lines: string[] = []
 
@@ -159,6 +219,7 @@ Respond with ONLY valid JSON — no markdown fences, no explanation, nothing els
     }
   ],
   "missingKeywords": ["keyword from Step 1 that was NOT added to the resume, per Step 2 rules"],
+  "requiredMissing": ["subset of missingKeywords, copied exactly, that the JD presents as required / must-have - NOT ones under 'preferred', 'nice to have', 'bonus', 'plus'. If the JD doesn't distinguish, treat skills in the main requirements list as required"],
   "educationMatch": {
     "requirement": "the degree/field the JD asks for, per Step 5 — omit this whole educationMatch object if the JD states no education requirement",
     "met": true,
@@ -168,42 +229,12 @@ Respond with ONLY valid JSON — no markdown fences, no explanation, nothing els
 
 Return ALL work entries and ALL skill groups, including every highlight and skill item — unchanged ones returned verbatim, not omitted.`
 
-  const requestBody = {
-    model: "claude-haiku-4-5-20251001",
+  const jsonStr = await callClaudeForJson(apiKey, "tailor", {
     max_tokens: 4096,
     system:
       "You are a resume optimization assistant. You ALWAYS respond with a single valid JSON object and absolutely nothing else — no markdown, no code fences, no explanation before or after.",
-    messages: [{ role: "user", content: prompt }],
-  }
-  const response = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: {
-      "x-api-key": apiKey,
-      "anthropic-version": "2023-06-01",
-      "anthropic-dangerous-direct-browser-access": "true",
-      "content-type": "application/json",
-    },
-    body: JSON.stringify(requestBody),
+    prompt,
   })
-
-  if (!response.ok) {
-    const err = (await response.json().catch(() => ({}))) as {
-      error?: { message?: string }
-    }
-    throw new Error(err.error?.message ?? `Claude API error ${response.status}`)
-  }
-
-  const data = (await response.json()) as {
-    content?: { text?: string }[]
-    stop_reason?: string
-  }
-  const raw = data.content?.[0]?.text ?? ""
-
-  const jsonStr = extractJsonObject(raw)
-  if (!jsonStr)
-    throw new Error(
-      `Claude returned no JSON. stop_reason=${data.stop_reason ?? "unknown"}, preview: "${raw.slice(0, 120)}"`,
-    )
 
   let parsed: {
     title?: string
@@ -211,6 +242,7 @@ Return ALL work entries and ALL skill groups, including every highlight and skil
     work?: { id: string; title?: string; highlights: string[] }[]
     skills?: { id: string; items: string[]; inferred?: string[] }[]
     missingKeywords?: string[]
+    requiredMissing?: string[]
     educationMatch?: { requirement?: string; met?: boolean; note?: string }
   }
   try {
@@ -218,6 +250,11 @@ Return ALL work entries and ALL skill groups, including every highlight and skil
   } catch {
     throw new Error("Claude returned invalid JSON. Please try again.")
   }
+
+  const missingKeywords = Array.isArray(parsed.missingKeywords)
+    ? parsed.missingKeywords.map(sanitizeForAts)
+    : []
+  const missingSet = new Set(missingKeywords)
 
   return {
     title: sanitizeForAts(
@@ -249,8 +286,9 @@ Return ALL work entries and ALL skill groups, including every highlight and skil
           return { id: s.id, items, inferred }
         })
       : [],
-    missingKeywords: Array.isArray(parsed.missingKeywords)
-      ? parsed.missingKeywords.map(sanitizeForAts)
+    missingKeywords,
+    requiredMissing: Array.isArray(parsed.requiredMissing)
+      ? parsed.requiredMissing.map(sanitizeForAts).filter((k) => missingSet.has(k))
       : [],
     educationMatch:
       parsed.educationMatch && typeof parsed.educationMatch.requirement === "string" &&

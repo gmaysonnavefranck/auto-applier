@@ -16,8 +16,11 @@ export const storage = {
 }
 
 const local = {
-  get(key: string, cb: (result: Record<string, unknown>) => void) {
-    cb({ [key]: storage.data[key] })
+  // Callback and promise forms, like the real API.
+  get(key: string, cb?: (result: Record<string, unknown>) => void) {
+    const result = { [key]: storage.data[key] }
+    cb?.(result)
+    return Promise.resolve(result)
   },
   set(items: Record<string, unknown>) {
     const changes: Parameters<Listener>[0] = {}

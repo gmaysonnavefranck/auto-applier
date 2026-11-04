@@ -1,5 +1,6 @@
 import type { Application } from "src/types/jobs"
 import { tailorResumeForJob } from "src/utils/claude"
+import { planLearning, type SkillGap } from "src/utils/learningPlan"
 import type { Resume } from "src/types/resume"
 
 chrome.sidePanel
@@ -26,15 +27,27 @@ chrome.storage.local.onChanged.addListener((changes) => {
 })
 
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
-  if (message.type !== "TAILOR_RESUME") return false
-
-  const { apiKey, resume, jobDescription } = message as {
-    apiKey: string
-    resume: Resume
-    jobDescription: string
+  let work: Promise<unknown>
+  if (message.type === "TAILOR_RESUME") {
+    const { apiKey, resume, jobDescription } = message as {
+      apiKey: string
+      resume: Resume
+      jobDescription: string
+    }
+    work = tailorResumeForJob(apiKey, resume, jobDescription)
+  } else if (message.type === "LEARNING_PLAN") {
+    const { apiKey, resume, gaps, totalPostings } = message as {
+      apiKey: string
+      resume: Resume
+      gaps: SkillGap[]
+      totalPostings: number
+    }
+    work = planLearning(apiKey, resume, gaps, totalPostings)
+  } else {
+    return false
   }
 
-  tailorResumeForJob(apiKey, resume, jobDescription)
+  work
     .then((result) => sendResponse({ ok: true, result }))
     .catch((err) =>
       sendResponse({
